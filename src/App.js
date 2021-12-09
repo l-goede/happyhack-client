@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { API_URL } from "./config";
+import { UserContext } from "./context/app.context";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import Navbar from "./components/Navbar";
@@ -36,9 +37,9 @@ function App() {
   };
 
   // Wait for the '/api/user' request to finish so that we know if the user is loggedin or not
-  if (fetchingUser) {
-    return <p>Loading user info. . . </p>;
-  }
+  //  if (fetchingUser) {
+  //   return <p>Loading user info. . . </p>;
+  // }
 
   return (
     <div>
