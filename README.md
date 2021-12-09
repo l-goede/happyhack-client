@@ -14,7 +14,7 @@ SignUp for HappyHacking - a platform from web developers for web developers who 
 
 - **homepage** - As a user I want to be able to access the homepage so that I can see what the app is about and login and signup
 - **sign up** - As a user I want to sign up on the webpage so he/she is part of a web developers community who helps each other out with coding challenges
-- **profile set up** - As a user I want to set up a profile so he/she is able to use the features the platform offers, setting (user information) - adverts created - adverts accepted/done - saved events
+- **profile set up** - As a user I want to set up a profile so he/she is able to use the features the platform offers, setting (user information) - adverts created - adverts accepted/done - cahtbox - payments after job completed - (saved events-backlog) -
 - **login** - As a user I want to be able to log in on the webpage so that I can get back to my account and see my collection (my own requests (need help) or realised adverts )
 - **logout** - As a user I want to be able to log out from the webpage so that I can make sure no one will access my account
 
@@ -26,12 +26,6 @@ SignUp for HappyHacking - a platform from web developers for web developers who 
 
 - **Adverts done** - In developers profile all adverts are listes he solved so far
 
-- **Events** - The user has an overview of all upcoming events related to web dev
-- **Events saved** - The user can save the events he is interested in (saved in his profile)
-- **Event create** - The user ca also create an own event e.g. offering a coding class etc
-- **Event edit** - Theuser can edit his own created event
-- **Event delete** - The user can remove his favorites events from his watchlist
-
 ## Backlog
 
 - /profile/:Messages
@@ -39,7 +33,12 @@ SignUp for HappyHacking - a platform from web developers for web developers who 
 - add: github on user schema
 - add schema on what can you help with (check boxes)
 - event once confirmed, appers in your calendar
-- chatbox
+
+- **Events** - The user has an overview of all upcoming events related to web dev
+- **Events saved** - The user can save the events he is interested in (saved in his profile)
+- **Event create** - The user ca also create an own event e.g. offering a coding class etc
+- **Event edit** - Theuser can edit his own created event
+- **Event delete** - The user can remove his favorites events from his watchlist
 
 ## Models
 
@@ -75,7 +74,9 @@ sign up
 
 ## Links
 
-### Trello
+### Figma
+
+(https://www.figma.com/file/FS0pIchODI9i5n8EmnsZBq/HappyHacky?node-id=0%3A1)
 
 ### Git
 
