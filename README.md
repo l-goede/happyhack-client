@@ -28,23 +28,27 @@ SignUp for HappyHacking - a platform from web developers for web developers who 
 
 ## Backlog
 
-- List of other features outside of the MVPs scope
-- As a user I want to see the wine details (color, sweetness, region and extras) so i can decide if i want to save to my collection (backlog)
-- Recommend the user special wines or list a bunch of wines (from external API)
-- Taste quiz, based on the result the user gets recommendation
+- /profile/:Messages
+- search bar (on categories)
+- add: github on user schema
+- add schema on what can you help with (check boxes)
+- event once confirmed, appers in your calendar
+- chatbox
 
-MODELS:
-job
-event
-users
-messages
+## Models
+
+- job
+- event
+- users
+- messages
 
 job Shema: (job's name; details, skills_needed; username)
 user schema:(name, location, skills, about me, picture, email, password)
 events schema: (name, user, location, skills, about, confirmation)
 message schema: (title, message, username_user1, username_user2)
 
-ROUTERS:
+## Routes
+
 /
 sign in
 sign up
@@ -54,15 +58,11 @@ sign up
 /profile/:OffersCreated
 /helpadeveloper
 /gethelp
+/create
+/edit (patch)
+/delete
 /logout ->
 /homepage
-Backlog:
-/profile/:Messages
-search bar (on categories)
-add: github on user schema
-add schema on what can you help with (check boxes)
-event once confirmed, appers in your calendar
-chatbox
 
 ## Links
 
