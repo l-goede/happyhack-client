@@ -48,10 +48,11 @@ SignUp for HappyHacking - a platform from web developers for web developers who 
 - users
 - messages
 
-job Shema: (job's name; details, skills_needed; username)
-user schema:(name, location, skills, about me, picture, email, password)
-events schema: (name, user, location, skills, about, confirmation)
-message schema: (title, message, username_user1, username_user2)
+job Shema: (job's name; details about job; skills needed (JS, HTML, MongoDB, CSS, user-interface, SQL, Python, Tableau, user research, design thinking); username (clickable) )
+user schema:(name, location, skills, about me, picture, email, password, events, jobs, review)
+events schema: (name, user, location, date, skills, about, confirmation)
+message schema: pocket dial (title, message, user1, user2)
+conversaton: socketdial (title, message, user1, user2)
 
 ## Routes
 
