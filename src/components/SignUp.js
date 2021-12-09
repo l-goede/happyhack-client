@@ -66,9 +66,7 @@ function SignUp(props) {
             </Button>
             <Grid container>
               <Grid item>
-                <Link to="/signin">
-                  {"Already have an account? Sign In instead"}
-                </Link>
+                <Link to="/signin">{"Already have an account? Sign in!"}</Link>
               </Grid>
             </Grid>
           </Box>
