@@ -10,6 +10,7 @@ import AddAdvert from "./components/AddAdvert";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import JobsList from "./components/Advert";
+import Home from "./components/Home"
 import React from "react";
 
 function App() {
@@ -20,8 +21,8 @@ function App() {
 
   useEffect(() => {
     const getData = async () => {
-        let response  = await axios.get(`${API_URL}/jobs`)
-        setJobs(response.data)
+      let response = await axios.get(`${API_URL}/jobs`)
+      setJobs(response.data)
     }
 
     getData();
@@ -44,7 +45,7 @@ function App() {
       completed: false,
     }
     console.log("123", newJob)
-    await axios.post(`${API_URL}/create`, newJob, { withCredentials: false });
+    await axios.post(`${API_URL}/create`, newJob, { withCredentials: true });
     navigate("/");
   };
 
@@ -84,9 +85,9 @@ function App() {
     setJobs(updatedJobs);
   };
 
-const handleDelete = async (id) => {
-  // make a request to the server to delete it from the database
-  await axios.delete(`${API_URL}/api/jobs/${id}`)
+  const handleDelete = async (id) => {
+    // make a request to the server to delete it from the database
+    await axios.delete(`${API_URL}/api/jobs/${id}`)
 
     // Update your state 'jobs' and remove the todo that was deleted
     let filteredAdvert = jobs.filter((elem) => {
@@ -123,18 +124,12 @@ const handleDelete = async (id) => {
     <div>
       <Navbar onLogout={handleLogout} />
       <Routes>
-        <Route path="/" element={<JobsList jobs={jobs} />} />
+        <Route path="/" element={<Home user={user} />} />
+        <Route path="/jobs-offer" element={<JobsList jobs={jobs} />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route
-          path="/signin"
-          element={<SignIn myError={myError} onSignIn={handleSignIn} />}
-        />
-
+        <Route path="/signin" element={<SignIn myError={myError} onSignIn={handleSignIn} />}/>
         <Route path="/profile" element={<Profile user={user} />} />
-        <Route
-          path="/add-form"
-          element={<AddAdvert btnSubmit={handleSubmit} />}
-        />
+        <Route path="/add-form" element={<AddAdvert btnSubmit={handleSubmit} />}/>
       </Routes>
     </div>
   );

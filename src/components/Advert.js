@@ -11,8 +11,16 @@ function JobsList(props) {
     }
     return (
         <div>
-
             <Link to={`/add-form`}>create</Link>
+            {
+                jobs.map((elem) => {
+                    return (
+                        <div>
+                            <h1>{elem.name}</h1>
+                        </div>    
+                    )
+                })
+            }
         </div>
     )
 }
