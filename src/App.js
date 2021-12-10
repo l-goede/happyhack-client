@@ -20,7 +20,7 @@ function App() {
   useEffect(() => {
 
     const getData = async () => {
-        let response  = await axios.get('http://localhost:5005/jobs')
+        let response  = await axios.get(`${API_URL}/jobs`)
         setJobs(response.data)
     }
 
@@ -44,10 +44,11 @@ function App() {
       contact: event.target.contact.value,
       completed: false,
     }
-    console.log("123")
-    let response = await axios.post(`/create`, newJob, {withCredentials: true})
-    setJobs([response.data, ...jobs])
-}
+    console.log("123", newJob)
+    await axios.post(`${API_URL}/create`, newJob, { withCredentials: false });
+    navigate("/");
+  };
+
 
   const handleEdit = async (event, id) => {
     event.preventDefault()
@@ -62,7 +63,7 @@ function App() {
       completed: false, //pergunte ao manish
     }
     // Pass an object as a 2nd param in POST requests
-    let response = await axios.patch(`http://localhost:5005/jobs/${id}`, editedAdvert)
+    let response = await axios.patch(`${API_URL}/jobs/${id}`, editedAdvert)
     // Update our state 'jobs' with the edited todo so that the user see the upadted info without refrshing the page
 
     // We have the updated todo here
@@ -87,7 +88,7 @@ function App() {
 
 const handleDelete = async (id) => {
   // make a request to the server to delete it from the database
-  await axios.delete(`http://localhost:5005/api/jobs/${id}`)
+  await axios.delete(`${API_URL}/api/jobs/${id}`)
 
   // Update your state 'jobs' and remove the todo that was deleted
   let filteredAdvert = jobs.filter((elem) => {
@@ -131,6 +132,6 @@ const handleDelete = async (id) => {
         <Route path="/add-form" element={<AddAdvert btnSubmit={handleSubmit}/> } /> </Routes>
     </div>
   );
-}
 
+}
 export default App;
