@@ -8,6 +8,9 @@ export default function Navbar(props) {
   const { user } = useContext(UserContext);
   return (
     <div>
+      <Link style={{ marginLeft: "10px" }} to="/">
+        Home
+      </Link>
       {user ? (
         <button onClick={props.onLogout}>Logout</button>
       ) : (
@@ -15,6 +18,7 @@ export default function Navbar(props) {
           <Link style={{ marginLeft: "10px" }} to="/signin">
             SignIn
           </Link>
+
           <Link style={{ marginLeft: "10px" }} to="/signup">
             SignUp
           </Link>
