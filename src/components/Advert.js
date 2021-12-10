@@ -2,28 +2,29 @@ import React from 'react'
 import {Spinner} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 
-function AdvertList(props) {
-    
-    const {adverts} = props
+function JobsList(props) {
 
-    if(!adverts) {
+    const {jobs} = props
+
+    if(!jobs) {
         return <Spinner animation="grow" variant="dark" />
     }
-console.log(test)
     return (
         <div>
-            <h1>test</h1>
+            <h1>hey</h1>
             {
-                adverts.map((elem) => {
+                jobs.map((elem) => {
                     return (
                         <div>
-                            <Link to={`/adverts/${elem._id}`} >  {elem.name}  </Link>
-                        </div>
+                            <Link to={`/todo/${elem._id}`}>{elem.name}</Link>
+                            
+                        </div>    
                     )
                 })
             }
+            <Link to={`/add-form`}>create</Link>
         </div>
     )
 }
 
-export default AdvertList
+export default JobsList

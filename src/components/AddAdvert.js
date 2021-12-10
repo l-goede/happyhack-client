@@ -1,10 +1,16 @@
 import {Button} from  'react-bootstrap'
+import {useContext} from 'react';
+import {UserContext} from '../context/app.context'
 
 function AddForm(props){
 
+	const {name} = useContext(UserContext)
+
 	const {btnSubmit} = props
+
 	return (
 		<form onSubmit={btnSubmit}>
+			<p>Name</p>
 			<input  name="name"  type="text"  placeholder="Enter name"/>
 			<input  name="username"  type="text"  placeholder="Enter desc"/>
             <input  name="skills"  type="enum"  placeholder="Enter skills"/>
