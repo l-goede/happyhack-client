@@ -43,7 +43,7 @@ function App() {
       contact: event.target.contact.value,
       completed: false,
     };
-    console.log("123");
+
     let response = await axios.post(`/create`, newJob, {
       withCredentials: true,
     });
@@ -69,7 +69,6 @@ function App() {
     );
     // Update our state 'jobs' with the edited todo so that the user see the upadted info without refrshing the page
 
-    // We have the updated todo here
     console.log(response.data);
 
     let updatedJobs = jobs.map((elem) => {
@@ -113,6 +112,7 @@ function App() {
         withCredentials: true,
       });
       setUser(response.data);
+      navigate("/profile");
     } catch (err) {
       setError(err.response.data.error);
     }
