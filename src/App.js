@@ -130,7 +130,8 @@ const handleDelete = async (id) => {
           element={<SignIn myError={myError} onSignIn={handleSignIn} />}
         />
         <Route path="/signup" element={<SignUp />} />
-        {/* <Route path="/profile" element={<Profile user={user}/>} /> */}
+        <Route path="/profile" element={<Profile user={user}/>} />
+        
         <Route path="/" element={<AdventList /> } />
       </Routes>
     </div>

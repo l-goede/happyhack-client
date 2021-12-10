@@ -5,8 +5,8 @@ function AddForm(props){
 	const {btnSubmit} = props
 	return (
 		<form onSubmit={btnSubmit}>
-			<input  name="name"  type="text"  placeholder="Enter name"/>
-			<input  name="username"  type="text"  placeholder="Enter desc"/>
+		  <input  name="name"  type="text"  placeholder="Enter name"/>
+		  <input  name="username"  type="text"  placeholder="Enter desc"/>
             <input  name="skills"  type="enum"  placeholder="Enter skills"/>
             <input  name="details"  type="text"  placeholder="Enter details"/>
             <input  name="date"  type="Date"  placeholder="Enter desc"/>
