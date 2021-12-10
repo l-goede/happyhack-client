@@ -5,15 +5,15 @@ import * as React from 'react';
 
 
 
-function Profile(props) {
-  let {user} = props
+function Profile() {
+  // let {user} = props
   //dont need set bc it wont update, use in edit!
 
   return (
     <div>
         <h1> hi, welcome to the profile. Sign in is working.</h1>
         
-        <h1> name: {user.name} </h1>     
+        {/* <h1> name: {user.name} </h1>      */}
 
 
             {/* link to events */}
