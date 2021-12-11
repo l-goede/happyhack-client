@@ -10,6 +10,7 @@ import AddAdvert from "./components/AddAdvert";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import JobsList from "./components/Advert";
+import Home from "./components/Home";
 import React from "react";
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
 
   useEffect(() => {
     const getData = async () => {
-      let response = await axios.get("http://localhost:5005/jobs");
+      let response = await axios.get(`${API_URL}/jobs`);
       setJobs(response.data);
     };
 
@@ -43,12 +44,13 @@ function App() {
       contact: event.target.contact.value,
       completed: false,
     };
-
-    let response = await axios.post(`/create`, newJob, {
-      withCredentials: true,
-    });
-    setJobs([response.data, ...jobs]);
+    console.log("123", newJob);
+    await axios.post(`${API_URL}/create`, newJob, { withCredentials: true });
+    navigate("/");
   };
+
+  // Does this belong in newJob post?
+  //setJobs([response.data,...jobs])???
 
   const handleEdit = async (event, id) => {
     event.preventDefault();
@@ -63,10 +65,7 @@ function App() {
       completed: false, //pergunte ao manish
     };
     // Pass an object as a 2nd param in POST requests
-    let response = await axios.patch(
-      `http://localhost:5005/jobs/${id}`,
-      editedAdvert
-    );
+    let response = await axios.patch(`${API_URL}/jobs/${id}`, editedAdvert);
     // Update our state 'jobs' with the edited todo so that the user see the upadted info without refrshing the page
 
     console.log(response.data);
@@ -89,7 +88,7 @@ function App() {
 
   const handleDelete = async (id) => {
     // make a request to the server to delete it from the database
-    await axios.delete(`http://localhost:5005/api/jobs/${id}`);
+    await axios.delete(`${API_URL}/api/jobs/${id}`);
 
     // Update your state 'jobs' and remove the todo that was deleted
     let filteredAdvert = jobs.filter((elem) => {
@@ -127,13 +126,13 @@ function App() {
     <div>
       <Navbar onLogout={handleLogout} />
       <Routes>
-        <Route path="/" element={<JobsList jobs={jobs} />} />
+        <Route path="/" element={<Home user={user} />} />
+        <Route path="/jobs-offer" element={<JobsList jobs={jobs} />} />
         <Route path="/signup" element={<SignUp />} />
         <Route
           path="/signin"
           element={<SignIn myError={myError} onSignIn={handleSignIn} />}
         />
-
         <Route path="/profile" element={<Profile user={user} />} />
         <Route
           path="/add-form"
@@ -143,5 +142,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
