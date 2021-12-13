@@ -1,3 +1,4 @@
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import { API_URL } from "./config";
@@ -5,19 +6,18 @@ import { UserContext } from "./context/app.context";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Profile from "./components/Profile";
+import MyNav from "./components/MyNav";
 import Navbar from "./components/Navbar";
 import AddAdvert from "./components/AddAdvert";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import JobsList from "./components/Advert";
 import Home from "./components/Home";
-import EditAdvert from "./components/EditAdvert"
-import EditProfile from "./components/EditProfile";
-import React from "react";
+import ProfileForm from "./components/ProfileForm";
+import CreateJob from "./components/CreateJob";
 
 function App() {
   const { user, setUser } = useContext(UserContext);
-  const [fetchingUser, setFetchingUser] = useState(true);
   const [myError, setError] = useState(null);
   const [jobs, setJobs] = useState([]);
   const navigate = useNavigate();
@@ -28,25 +28,30 @@ function App() {
       setJobs(response.data);
     };
 
-    getData()
-    handleProfile();
+    getData();
   }, []);
 
-  // useEffect(() => {
-  //   navigate("/");
-  // }, [jobs]);
+  useEffect(() => {
+    navigate("/");
+  }, [jobs]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     let newJob = {
       jobTitle: event.target.jobTitle.value,
       jobDescription: event.target.jobDescription.value,
+      skills: event.target.skills.value,
       deadline: event.target.deadline.value,
-      date: event.target.date.value,
       price: event.target.price.value,
+      completed: false,
+      accepted: false,
     };
-    await axios.post(`${API_URL}/create`, newJob, { withCredentials: true });
-    navigate("/");
+    console.log(typeof newJob.price);
+
+    await axios.post(`${API_URL}/add-form`, newJob, { withCredentials: true });
+    setJobs([newJob, ...jobs]);
+    navigate("/profile");
   };
 
   const handleEdit = async (event, id) => {
@@ -59,16 +64,16 @@ function App() {
       price: event.target.price.value,
       completed: false,
     };
-
+    // Pass an object as a 2nd param in POST requests
     let response = await axios.patch(`${API_URL}/jobs/${id}`, editedAdvert);
 
     console.log(response.data);
 
     let updatedJobs = jobs.map((elem) => {
-      if (elem._id == id) {
-        elem.jobTitle = response.data.jobTitle;
-        elem.jobDescription = response.data.jobDescription;
-        elem.deadline = response.data.deadline;
+      if (elem._id === id) {
+        elem.name = response.data.name;
+        elem.username = response.data.username;
+        elem.skills = response.data.skills;
         elem.details = response.data.details;
         elem.date = response.data.date;
         elem.price = response.data.price;
@@ -90,7 +95,7 @@ function App() {
 
     setJobs(filteredAdvert);
   };
-  
+  const [fetchingUser, setFetchingUser] = useState(true);
 
   const handleSignIn = async (event) => {
     event.preventDefault();
@@ -103,64 +108,22 @@ function App() {
       let response = await axios.post(`${API_URL}/signin`, newUser, {
         withCredentials: true,
       });
-      console.log(response.data)
       setUser(response.data);
-      navigate(`/profile`);
+      navigate("/profile");
     } catch (err) {
       setError(err.response.data.error);
     }
   };
 
-  //updated my server route to be logged in.. 
-  // console.log gives me the user data 
-  const handleProfile = async () => {
-    let response = await axios.get(`${API_URL}/profile`, {
-      withCredentials: true,
-    });
-    setUser(response.data)
-    setFetchingUser(false)
-  }
-
   const handleLogout = async () => {
     await axios.post(`${API_URL}/logout`, {}, { withCredentials: true });
     setUser(null);
+    navigate("/");
   };
-
-
-// fern work:  { name, location, image} event job skills 
-  const handleEditProfile = async (event, id) => {
-    event.preventDefault();
-    console.log("im in the handleEdit")
-    let editedProfile= {
-      name: event.target.name.value,
-      location: event.target.location.value,
-     // image: event.target.image.value,
-     // event: event.target.event.value,
-     // skills: event.target.skills.value,
-     // jobs: event.target.jobs.value,
-            
-    };
-
-    // pass as PARAMS, url same as client 
-    let response = await axios.patch(`${API_URL}/profile/${id}`, editedProfile, { withCredentials: true });
-            console.log(response.data)
- 
-    setUser(response.data)
-
-
-          };
-
-
-
-  /*if(fetchingUser) {
-    return  <h1> Loading  </h1> 
-}*/
-
- //end of fern work.
 
   return (
     <div>
-      <Navbar onLogout={handleLogout} />
+      <MyNav user={user} onLogout={handleLogout} />
       <Routes>
         <Route path="/" element={<Home user={user} />} />
         <Route path="/jobs" element={<JobsList jobs={jobs} />} />
@@ -171,11 +134,8 @@ function App() {
         <Route path="/profile" handleProfile={handleProfile} element={<Profile user={user} />} />
         <Route path="/EditProfile/:id"  element={<EditProfile user={user} btnEditProfile={handleEditProfile} />} />
         <Route path="/add-form" element={<AddAdvert btnSubmit={handleSubmit} />}
-
-        />
       </Routes>
     </div>
   );
 }
-
 export default App;
