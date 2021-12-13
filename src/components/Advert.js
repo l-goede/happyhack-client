@@ -16,15 +16,8 @@ function JobsList(props) {
                 jobs.map((elem) => {
                     return (
                         <div>
-                            <h2>jobs Detail Component</h2>
-                            {/* <img src={{userImage}} alt="userImage"/> */}
-                            <h4>Username: {elem.username}</h4>
-                            <h4>JobTitle: {elem.jobTitle}</h4>
-                            <h4>Job Description: {elem.jobDescription}</h4>
-                            <h4>Deadline: {elem.deadline}</h4>
-                            <h4>Price: {elem.price}</h4>
-                            <Link to={`/jobs/${elem._id}/edit`} > Edit </Link>
-                        </div>
+                            <h1>{elem.name}</h1>
+                        </div>    
                     )
                 })
             }
