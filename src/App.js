@@ -15,7 +15,6 @@ import EditAdvert from "./components/EditAdvert"
 import React from "react";
 
 function App() {
-  const [fetchingUser, setFetchingUser] = useState(true);
   const { user, setUser } = useContext(UserContext);
   const [myError, setError] = useState(null);
   const [jobs, setJobs] = useState([]);
@@ -37,16 +36,12 @@ function App() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     let newJob = {
-      name: event.target.name.value,
-      username: event.target.username.value,
-      skills: event.target.skills.value,
-      details: event.target.details.value,
+      jobTitle: event.target.jobTitle.value,
+      jobDescription: event.target.jobDescription.value,
+      deadline: event.target.deadline.value,
       date: event.target.date.value,
       price: event.target.price.value,
-      contact: event.target.contact.value,
-      completed: false,
     };
-    console.log("123", newJob);
     await axios.post(`${API_URL}/create`, newJob, { withCredentials: true });
     navigate("/");
   };
@@ -54,29 +49,26 @@ function App() {
   const handleEdit = async (event, id) => {
     event.preventDefault();
     let editedAdvert = {
-      name: event.target.name.value,
-      username: event.target.username.value,
-      skills: event.target.skills.value,
-      details: event.target.details.value,
+      jobTitle: event.target.jobTitle.value,
+      jobDescription: event.target.jobDescription.value,
+      deadline: event.target.deadline.value,
       date: event.target.date.value,
       price: event.target.price.value,
-      contact: event.target.contact.value,
-      completed: false, //pergunte ao manish
+      completed: false,
     };
-    // Pass an object as a 2nd param in POST requests
+
     let response = await axios.patch(`${API_URL}/jobs/${id}`, editedAdvert);
 
     console.log(response.data);
 
     let updatedJobs = jobs.map((elem) => {
       if (elem._id == id) {
-        elem.name = response.data.name;
-        elem.username = response.data.username;
-        elem.skills = response.data.skills;
+        elem.jobTitle = response.data.jobTitle;
+        elem.jobDescription = response.data.jobDescription;
+        elem.deadline = response.data.deadline;
         elem.details = response.data.details;
         elem.date = response.data.date;
         elem.price = response.data.price;
-        elem.contact = response.data.contact;
       }
       return elem;
     });
@@ -86,15 +78,16 @@ function App() {
 
   const handleDelete = async (id) => {
     // make a request to the server to delete it from the database
-    await axios.delete(`${API_URL}/jobs/${id}`);
+    await axios.delete(`${API_URL}/api/jobs/${id}`);
 
+    // Update your state 'jobs' and remove the todo that was deleted
     let filteredAdvert = jobs.filter((elem) => {
       return elem._id !== id;
     });
 
     setJobs(filteredAdvert);
   };
-
+  const [fetchingUser, setFetchingUser] = useState(true);
 
   const handleSignIn = async (event) => {
     event.preventDefault();
@@ -125,13 +118,14 @@ function App() {
       <Routes>
         <Route path="/" element={<Home user={user} />} />
         <Route path="/jobs" element={<JobsList jobs={jobs} />} />
+        <Route path="/add-form" element={<AddAdvert btnSubmit={handleSubmit} />} />
+        <Route path="/jobs/:jobsId/edit" element={ <EditAdvert btnEdit={handleEdit} />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn myError={myError} onSignIn={handleSignIn} />} />
         <Route path="/profile" element={<Profile user={user} />} />
-        <Route path="/add-form" element={<AddAdvert btnSubmit={handleSubmit} />} />
-        <Route path="/jobs/:jobsId/edit" element={ <EditAdvert jobs={jobs} btnEdit={handleEdit} btnDelete={handleDelete}/>} />
       </Routes>
     </div>
   );
 }
+
 export default App;

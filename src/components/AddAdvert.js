@@ -20,13 +20,10 @@ function AddForm(props){
 	return (
 		<form onSubmit={btnSubmit}>
 			<p>Name</p>
-			<input  name="name"  type="text"  placeholder="Enter name"/>
-			<input  name="username"  type="text"  placeholder="Enter username"/>
-            <input  name="skills"  type="enum"  placeholder="Enter skills"/>
-            <input  name="details"  type="text"  placeholder="Enter details"/>
-            <input  name="date"  type="Date"  placeholder="Enter desc"/>
+			<input  name="jobTitle"  type="text"  placeholder="Enter a jobTitle"/>
+			<input  name="jobDescription"  type="text"  placeholder="Enter a Job Description"/>
+            <input  deadline="date"  type="Date"  placeholder="Enter deadline"/>
             <input  name="price"  type="Number"  placeholder="Enter price"/>
-            <input  name="contact"  type="text"  placeholder="Enter contact"/>
 			<Button  type="submit"  >Submit</Button>
 		</form>
 	)

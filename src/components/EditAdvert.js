@@ -17,11 +17,9 @@ function EditForm(props) {
         }
         getData()
     }, [])
-
     if(!jobsDetail) {
         return <Spinner animation="grow" variant="dark" />
     }
-
     const {btnEdit} = props
     const {btnDelete} = props
     return (
@@ -41,5 +39,4 @@ function EditForm(props) {
         </div>
     )
 }
-
 export default EditForm

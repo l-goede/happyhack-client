@@ -8,11 +8,7 @@ function JobsList(props) {
 
     if(!jobs) {
         return <Spinner animation="grow" variant="dark" />
-        
     }
-
-    const {btnDelete} = props
-   
     return (
         <div>
             <Link to={`/add-form`}>create</Link>
@@ -20,15 +16,15 @@ function JobsList(props) {
                 jobs.map((elem) => {
                     return (
                         <div>
-                        <h2>jobs Detail Component</h2>
-                        <h4>Name: {elem.name}</h4>
-                        <h4>details: {elem.details}</h4>
-                        <h4>Skills needed: €{elem.skills}</h4>
-                        <h4>Deadline: {elem.date}</h4>
-                        <h4>Offer: €{elem.price}</h4>
-                        <h4>Contact: €{elem.contact}</h4>
-                            <Link to={`/job-detail/${elem._id}`} > details </Link>
-                        </div>    
+                            <h2>jobs Detail Component</h2>
+                            {/* <img src={{userImage}} alt="userImage"/> */}
+                            <h4>Username: {elem.username}</h4>
+                            <h4>JobTitle: {elem.jobTitle}</h4>
+                            <h4>Job Description: {elem.jobDescription}</h4>
+                            <h4>Deadline: {elem.deadline}</h4>
+                            <h4>Price: {elem.price}</h4>
+                            <Link to={`/jobs/${elem._id}/edit`} > Edit </Link>
+                        </div>
                     )
                 })
             }
