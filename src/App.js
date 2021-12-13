@@ -158,7 +158,11 @@ function App() {
             console.log(response.data)
  
     setUser(response.data)
-
+          /*  let updatedProfile = user.map((elem) => {
+              if(elem._id == id) {
+                elem.JobsListname = response.data.name
+              }
+            })*/
 
           };
 
