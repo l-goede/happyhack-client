@@ -1,3 +1,4 @@
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import { API_URL } from "./config";
@@ -5,13 +6,14 @@ import { UserContext } from "./context/app.context";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Profile from "./components/Profile";
+import MyNav from "./components/MyNav";
 import Navbar from "./components/Navbar";
 import AddAdvert from "./components/AddAdvert";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import JobsList from "./components/Advert";
 import Home from "./components/Home";
-import React from "react";
+import ProfileForm from "./components/ProfileForm";
 
 function App() {
   const { user, setUser } = useContext(UserContext);
@@ -44,7 +46,7 @@ function App() {
       contact: event.target.contact.value,
       completed: false,
     };
-    console.log("123", newJob);
+
     await axios.post(`${API_URL}/create`, newJob, { withCredentials: true });
     navigate("/");
   };
@@ -120,11 +122,12 @@ function App() {
   const handleLogout = async () => {
     await axios.post(`${API_URL}/logout`, {}, { withCredentials: true });
     setUser(null);
+    navigate("/");
   };
 
   return (
     <div>
-      <Navbar onLogout={handleLogout} />
+      <MyNav user={user} onLogout={handleLogout} />
       <Routes>
         <Route path="/" element={<Home user={user} />} />
         <Route path="/jobs-offer" element={<JobsList jobs={jobs} />} />
@@ -134,6 +137,7 @@ function App() {
           element={<SignIn myError={myError} onSignIn={handleSignIn} />}
         />
         <Route path="/profile" element={<Profile user={user} />} />
+        <Route path="/yourprofile" element={<ProfileForm user={user} />} />
         <Route
           path="/add-form"
           element={<AddAdvert btnSubmit={handleSubmit} />}
