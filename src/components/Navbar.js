@@ -11,11 +11,16 @@ export default function Navbar(props) {
       <Link style={{ marginLeft: "10px" }} to="/">
         Home
       </Link>
+      <Link style={{ marginLeft: "10px" }} to="/profile">
+            profile
+          </Link>
       {user ? (
         <button onClick={props.onLogout}>Logout</button>
       ) : (
         <>
-          <Link style={{ marginLeft: "10px" }} to="/signin">
+
+
+                    <Link style={{ marginLeft: "10px" }} to="/signin">
             SignIn
           </Link>
 

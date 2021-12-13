@@ -10,26 +10,29 @@ import AddAdvert from "./components/AddAdvert";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import JobsList from "./components/Advert";
+import EditProfile from "./components/EditProfile";
 import React from "react";
 
 function App() {
   const { user, setUser } = useContext(UserContext);
+  const [fetchingUser, setFetchingUser] = useState(true);
   const [myError, setError] = useState(null);
   const [jobs, setJobs] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     const getData = async () => {
-      let response = await axios.get("http://localhost:5005/jobs");
+      let response = await axios.get(`${API_URL}/adverts`);
       setJobs(response.data);
     };
 
-    getData();
+    getData()
+    handleProfile();
   }, []);
 
-  useEffect(() => {
-    navigate("/");
-  }, [jobs]);
+  // useEffect(() => {
+  //   navigate("/");
+  // }, [jobs]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -62,6 +65,7 @@ function App() {
       contact: event.target.contact.value,
       completed: false, //pergunte ao manish
     };
+
     // Pass an object as a 2nd param in POST requests
     let response = await axios.patch(
       `http://localhost:5005/jobs/${id}`,
@@ -98,7 +102,7 @@ function App() {
 
     setJobs(filteredAdvert);
   };
-  const [fetchingUser, setFetchingUser] = useState(true);
+  
 
   const handleSignIn = async (event) => {
     event.preventDefault();
@@ -111,17 +115,64 @@ function App() {
       let response = await axios.post(`${API_URL}/signin`, newUser, {
         withCredentials: true,
       });
+      console.log(response.data)
       setUser(response.data);
-      navigate("/profile");
+      navigate(`/profile`);
     } catch (err) {
       setError(err.response.data.error);
     }
   };
 
+  //updated my server route to be logged in.. 
+  // console.log gives me the user data 
+  const handleProfile = async () => {
+    let response = await axios.get(`${API_URL}/profile`, {
+      withCredentials: true,
+    });
+    setUser(response.data)
+    setFetchingUser(false)
+  }
+
   const handleLogout = async () => {
     await axios.post(`${API_URL}/logout`, {}, { withCredentials: true });
     setUser(null);
   };
+
+
+// fern work:  { name, location, image} event job skills 
+  const handleEditProfile = async (event, id) => {
+    event.preventDefault();
+    console.log("im in the handleEdit")
+    let editedProfile= {
+      name: event.target.name.value,
+      location: event.target.location.value,
+     // image: event.target.image.value,
+     // event: event.target.event.value,
+     // skills: event.target.skills.value,
+     // jobs: event.target.jobs.value,
+            
+    };
+
+    // pass as PARAMS, url same as client 
+    let response = await axios.patch(`${API_URL}/profile/${id}`, editedProfile, { withCredentials: true });
+            console.log(response.data)
+ 
+    setUser(response.data)
+          /*  let updatedProfile = user.map((elem) => {
+              if(elem._id == id) {
+                elem.JobsListname = response.data.name
+              }
+            })*/
+
+          };
+
+
+
+  /*if(fetchingUser) {
+    return  <h1> Loading  </h1> 
+}*/
+
+ //end of fern work.
 
   return (
     <div>
@@ -129,19 +180,18 @@ function App() {
       <Routes>
         <Route path="/" element={<JobsList jobs={jobs} />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route
-          path="/signin"
-          element={<SignIn myError={myError} onSignIn={handleSignIn} />}
-        />
+        <Route path="/signin" element={<SignIn myError={myError} onSignIn={handleSignIn} />}/>
+        <Route path="/profile" handleProfile={handleProfile} element={<Profile user={user} />} />
+        <Route path="/EditProfile/:id"  element={<EditProfile user={user} btnEditProfile={handleEditProfile} />} />
+        <Route path="/add-form" element={<AddAdvert btnSubmit={handleSubmit} />}
 
-        <Route path="/profile" element={<Profile user={user} />} />
-        <Route
-          path="/add-form"
-          element={<AddAdvert btnSubmit={handleSubmit} />}
         />
       </Routes>
     </div>
   );
 }
+
+
+
 
 export default App;
