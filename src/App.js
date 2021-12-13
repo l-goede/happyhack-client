@@ -133,7 +133,7 @@ function App() {
         <Route path="/signin" element={<SignIn myError={myError} onSignIn={handleSignIn} />}/>
         <Route path="/profile" handleProfile={handleProfile} element={<Profile user={user} />} />
         <Route path="/EditProfile/:id"  element={<EditProfile user={user} btnEditProfile={handleEditProfile} />} />
-        <Route path="/add-form" element={<AddAdvert btnSubmit={handleSubmit} />}
+        <Route path="/add-form" element={<AddAdvert btnSubmit={handleSubmit} />}/>
       </Routes>
     </div>
   );
