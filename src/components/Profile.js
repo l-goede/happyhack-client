@@ -16,26 +16,21 @@ function Profile(props) {
    }
   return (
     <div>
-        <h1> hi {user.name}, welcome to the profile. </h1>
-         <h1> </h1>      
+    
+        <h1>{user.name}</h1>
+        <h2> {user.email} </h2>
+        <h2> {user.location} </h2>
+        <h2> {user.skills}</h2>
+
+      
+
+            
 
             {/* link to events */}
             <button>
                 <Link to={`/EditProfile/${user._id}`}> EDIT YOUR PROFILE </Link>
             </button>
 
-            {/* link to events */}
-            <button>
-                <Link to={`/`}> YOUR EVENTS </Link>
-            </button>
-            {/* link to jobs */}
-            <button>
-                <Link to={`/`}> JOBS YOU ACCEPTED </Link>
-            </button>
-            {/* link to jobs */}
-            <button>
-                <Link to={`/`}> JOBS YOU POSTED</Link>
-            </button>
     </div>
   )
 }
