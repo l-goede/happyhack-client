@@ -1,3 +1,4 @@
+
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import * as React from 'react';
@@ -5,32 +6,36 @@ import * as React from 'react';
 
 
 
-function Profile() {
-  // let {user} = props
-  //dont need set bc it wont update, use in edit!
+function Profile(props) {
 
+   let {user} = props
+
+
+   if (!user) {
+     return <h1>Loading</h1>
+   }
   return (
     <div>
-        <h1> hi, welcome to the profile. Sign in is working.</h1>
-        
-        {/* <h1> name: {user.name} </h1>      */}
+    
+        <h1>{user.name}</h1>
+        <h2> {user.email} </h2>
+        <h2> {user.location} </h2>
+        <h2> {user.skills}</h2>
 
+      
+
+            
 
             {/* link to events */}
             <button>
-                <Link to={`/`}> Go profile details, but now its redirecting to homepage </Link>
+                <Link to={`/EditProfile/${user._id}`}> EDIT YOUR PROFILE </Link>
             </button>
-            {/* link to jobs */}
-            <button>
-                <Link to={`/`}> Go your jobs accepts  </Link>
-            </button>
+
     </div>
   )
 }
 
 export default Profile
-
-
 
 
 
