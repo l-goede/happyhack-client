@@ -11,9 +11,11 @@ import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import JobsList from "./components/Advert";
 import Home from "./components/Home";
+import EditAdvert from "./components/EditAdvert"
 import React from "react";
 
 function App() {
+  const [fetchingUser, setFetchingUser] = useState(true);
   const { user, setUser } = useContext(UserContext);
   const [myError, setError] = useState(null);
   const [jobs, setJobs] = useState([]);
@@ -49,9 +51,6 @@ function App() {
     navigate("/");
   };
 
-  // Does this belong in newJob post?
-  //setJobs([response.data,...jobs])???
-
   const handleEdit = async (event, id) => {
     event.preventDefault();
     let editedAdvert = {
@@ -66,7 +65,6 @@ function App() {
     };
     // Pass an object as a 2nd param in POST requests
     let response = await axios.patch(`${API_URL}/jobs/${id}`, editedAdvert);
-    // Update our state 'jobs' with the edited todo so that the user see the upadted info without refrshing the page
 
     console.log(response.data);
 
@@ -88,16 +86,15 @@ function App() {
 
   const handleDelete = async (id) => {
     // make a request to the server to delete it from the database
-    await axios.delete(`${API_URL}/api/jobs/${id}`);
+    await axios.delete(`${API_URL}/jobs/${id}`);
 
-    // Update your state 'jobs' and remove the todo that was deleted
     let filteredAdvert = jobs.filter((elem) => {
       return elem._id !== id;
     });
 
     setJobs(filteredAdvert);
   };
-  const [fetchingUser, setFetchingUser] = useState(true);
+
 
   const handleSignIn = async (event) => {
     event.preventDefault();
@@ -127,17 +124,12 @@ function App() {
       <Navbar onLogout={handleLogout} />
       <Routes>
         <Route path="/" element={<Home user={user} />} />
-        <Route path="/jobs-offer" element={<JobsList jobs={jobs} />} />
+        <Route path="/jobs" element={<JobsList jobs={jobs} />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route
-          path="/signin"
-          element={<SignIn myError={myError} onSignIn={handleSignIn} />}
-        />
+        <Route path="/signin" element={<SignIn myError={myError} onSignIn={handleSignIn} />} />
         <Route path="/profile" element={<Profile user={user} />} />
-        <Route
-          path="/add-form"
-          element={<AddAdvert btnSubmit={handleSubmit} />}
-        />
+        <Route path="/add-form" element={<AddAdvert btnSubmit={handleSubmit} />} />
+        <Route path="/jobs/:jobsId/edit" element={ <EditAdvert jobs={jobs} btnEdit={handleEdit} btnDelete={handleDelete}/>} />
       </Routes>
     </div>
   );

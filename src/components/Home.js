@@ -6,7 +6,7 @@ function Home () {
     return (
         <div>
             <Link to={`/add-form`}>create</Link>
-            <Link to={`/jobs-offer`}>Jobs</Link>
+            <Link to={`/jobs`}>Jobs</Link>
         </div>
     )
 }
