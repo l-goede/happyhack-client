@@ -14,6 +14,7 @@ import SignUp from "./components/SignUp";
 import JobsList from "./components/Advert";
 import Home from "./components/Home";
 import ProfileForm from "./components/ProfileForm";
+import CreateJob from "./components/CreateJob";
 
 function App() {
   const { user, setUser } = useContext(UserContext);
@@ -36,19 +37,21 @@ function App() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    let newJob = {
-      name: event.target.name.value,
-      username: event.target.username.value,
-      skills: event.target.skills.value,
-      details: event.target.details.value,
-      date: event.target.date.value,
-      price: event.target.price.value,
-      contact: event.target.contact.value,
-      completed: false,
-    };
 
-    await axios.post(`${API_URL}/create`, newJob, { withCredentials: true });
-    navigate("/");
+    let newJob = {
+      jobTitle: event.target.jobTitle.value,
+      jobDescription: event.target.jobDescription.value,
+      skills: event.target.skills.value,
+      deadline: event.target.deadline.value,
+      price: event.target.price.value,
+      completed: false,
+      accepted: false,
+    };
+    console.log(typeof newJob.price);
+
+    await axios.post(`${API_URL}/add-form`, newJob, { withCredentials: true });
+    setJobs([newJob, ...jobs]);
+    navigate("/profile");
   };
 
   // Does this belong in newJob post?
@@ -73,7 +76,7 @@ function App() {
     console.log(response.data);
 
     let updatedJobs = jobs.map((elem) => {
-      if (elem._id == id) {
+      if (elem._id === id) {
         elem.name = response.data.name;
         elem.username = response.data.username;
         elem.skills = response.data.skills;
@@ -136,11 +139,11 @@ function App() {
           path="/signin"
           element={<SignIn myError={myError} onSignIn={handleSignIn} />}
         />
-        <Route path="/profile" element={<Profile user={user} />} />
+        <Route path="/profile" element={<Profile user={user} jobs={jobs} />} />
         <Route path="/yourprofile" element={<ProfileForm user={user} />} />
         <Route
           path="/add-form"
-          element={<AddAdvert btnSubmit={handleSubmit} />}
+          element={<CreateJob btnSubmit={handleSubmit} />}
         />
       </Routes>
     </div>

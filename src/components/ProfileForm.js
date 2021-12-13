@@ -64,7 +64,7 @@ function ProfileForm() {
               <option>Madrid</option>
               <option>Paris</option>
               <option>Porto</option>
-              <option>Wien</option>
+              <option>Vienna</option>
             </select>
           </div>
         </div>
@@ -91,6 +91,9 @@ function ProfileForm() {
               <option>Mongoose</option>
               <option>MySQL</option>
               <option>RESTful API</option>
+              <option>UX/UI</option>
+              <option>Figma</option>
+              <option>Adobe XD</option>
             </select>
           </div>
         </div>
