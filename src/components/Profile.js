@@ -13,12 +13,10 @@ function Profile(props) {
   }
   return (
     <div>
-      <MyNav />
-
       <h1>{user.name}</h1>
       <h2> {user.email} </h2>
-      <h2> {user.location} </h2>
-      <h2> {user.skills}</h2>
+      {/* <h2> {user.location} </h2> */}
+      {/* <h2> {user.skills}</h2> */}
 
       {/* link to events */}
       <button>
