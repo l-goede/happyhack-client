@@ -95,7 +95,6 @@ function EditProfile(props) {
       </div>
 
      
-<<<<<<< HEAD
 
       <div className="field">
         <label className="label">Name</label>
@@ -167,24 +166,6 @@ function EditProfile(props) {
     </div>
     </form>
 
-=======
-  console.log(userId)
-//useEffect
-     /*useEffect(() => {
-          const getData = async () => {
-             // Fetching info from USERid!  
-             let response = await axios.get(`${API_URL}/profile/${userId}`, {withCredentials: true})
-             setProfileDetail(response.data)
-          }
-
-          getData()
-      }, [])*/
-
-//spiner..
-      /*if(!profileDetail) {
-          return <Spinner animation="grow" variant="dark" />
-      }*/
->>>>>>> 58cbe33784c5a6f8e917c0dfe39b6ce53262eb76
 
 
 

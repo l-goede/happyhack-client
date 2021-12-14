@@ -18,14 +18,35 @@ import EditProfile from "./components/EditProfile";
 import YourJobs from "./components/YourJobs";
 import EditJob from "./components/EditAdvert";
 import JobCard from "./components/JobCard";
-import Chat from "./components/Chat";
+import ChatPage from './components/ChatPage'
+import UserList from './components/UserList'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 function App() {
   const { user, setUser } = useContext(UserContext);
+  const [users, setUsers] = useState([])
   const [fetchingUser, setFetchingUser] = useState(true);
   const [myError, setError] = useState(null);
+  const [loading, setLoading] = useState(true)
   const [jobs, setJobs] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const getUsers = async () => {
+      let response = await axios.get(`${API_URL}/api/users`, {withCredentials: true})
+      setUsers(response.data)
+
+      try{
+        let userResponse = await axios.get(`${API_URL}/api/user`, {withCredentials: true})
+        setUser(userResponse.data)
+        setLoading(false)
+      }
+      catch(err){
+        setLoading(false)
+      }
+    }
+    getUsers()
+}, [])
 
   useEffect(() => {
     const getData = async () => {
@@ -119,6 +140,7 @@ function App() {
     let response = await axios.post(`${API_URL}/signin`, newUser, {
       withCredentials: true,
     });
+     setUsers([response.data, ...users])
     try {
       console.log(response.data);
       setUser(response.data);
@@ -176,14 +198,14 @@ function App() {
     setUser(response.data);
     navigate("/profile");
   };
-
+  console.log(users)
   //end of fern work.
-  console.log("all my jobs", jobs);
   return (
     <div>
       <MyNav user={user} onLogout={handleLogout} />
       <Routes>
         <Route path="/" element={<Home user={user} />} />
+        
         {/*<Route path="/jobs-offer" element={<JobsList jobs={jobs} />} />*/}
         {/* <Route
           path="/jobs"
@@ -235,7 +257,9 @@ function App() {
 
         <Route path="/yourprofile" element={<ProfileForm user={user} />} />
 
-        <Route path="/chat" element={<Chat />} />
+        <Route path="/chat/:chatId"  element={ <ChatPage user={user} />}/>
+        <Route path="/users"  element={ <UserList user={user} users={users} />}/>
+
       </Routes>
     </div>
   );
