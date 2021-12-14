@@ -32,8 +32,8 @@ const MyNav = (props) => {
   };
   const settings = [
     <Link to={"/yourprofile"}>Profile</Link>,
-    <Link to={"/jobs"}>Your Jobs</Link>,
-    <Link to={"/events"}>Your Events</Link>,
+    <Link to={"/yourjobs"}>Your Jobs</Link>,
+    <Link to={"/yourevents"}>Your Events</Link>,
     <Link
       onClick={() => {
         props.onLogout();

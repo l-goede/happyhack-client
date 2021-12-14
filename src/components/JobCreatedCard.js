@@ -28,59 +28,72 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function JobCreatedCard({ user, jobs }) {
+export default function JobCard(props) {
+  const { user, jobs } = props;
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+  let filteredJobs = jobs.filter((elem) => {
+    return elem.username === user.id;
+  });
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardHeader
-        avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            {user.image}
-          </Avatar>
-        }
-        action={<IconButton aria-label="settings"></IconButton>}
-        title={jobs.jobTitle}
-        subheader={user.name}
-      />
+    <div>
+      {filteredJobs.map((elem) => {
+        return (
+          <div>
+            <Card sx={{ maxWidth: 345 }}>
+              <CardHeader
+                avatar={
+                  <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                    {elem.image}
+                  </Avatar>
+                }
+                action={<IconButton aria-label="settings"></IconButton>}
+                title={elem.jobTitle}
+                subheader={user.name}
+              />
 
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          Skills needed:
-          {jobs.skills}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Finishing by: {jobs.deadline}
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <Button variant="contained" size="small">
-          Edit
-        </Button>
-        <Button variant="contained" size="small">
-          Delete
-        </Button>
-
-        <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore>
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>Job Description:</Typography>
-          <Typography paragraph>{jobs.jobDescription}</Typography>
-          <Typography paragraph>I am offering {jobs.price} €.</Typography>
-        </CardContent>
-      </Collapse>
-    </Card>
+              <CardContent>
+                <Typography variant="body2" color="text.secondary">
+                  Skills needed:
+                  {elem.skills}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Finishing by: {elem.deadline}
+                </Typography>
+              </CardContent>
+              <CardActions disableSpacing>
+                <Button variant="contained" size="small">
+                  Edit
+                </Button>
+                <Button variant="contained" size="small">
+                  Delete
+                </Button>
+                <ExpandMore
+                  expand={expanded}
+                  onClick={handleExpandClick}
+                  aria-expanded={expanded}
+                  aria-label="show more"
+                >
+                  <ExpandMoreIcon />
+                </ExpandMore>
+              </CardActions>
+              <Collapse in={expanded} timeout="auto" unmountOnExit>
+                <CardContent>
+                  <Typography paragraph>Job Description:</Typography>
+                  <Typography paragraph>{elem.jobDescription}</Typography>
+                  <Typography paragraph>
+                    I am offering {elem.price} €.
+                  </Typography>
+                </CardContent>
+              </Collapse>
+            </Card>
+          </div>
+        );
+      })}
+    </div>
   );
 }

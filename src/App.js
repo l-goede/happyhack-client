@@ -16,6 +16,7 @@ import Home from "./components/Home";
 import ProfileForm from "./components/ProfileForm";
 import CreateJob from "./components/CreateJob";
 import EditProfile from "./components/EditProfile";
+import YourJobs from "./components/YourJobs";
 
 function App() {
   const { user, setUser } = useContext(UserContext);
@@ -108,17 +109,19 @@ function App() {
 
   const handleSignIn = async (event) => {
     event.preventDefault();
-    try {
-      let newUser = {
-        email: event.target.email.value,
-        password: event.target.password.value,
-      };
+    //try {
+    let newUser = {
+      email: event.target.email.value,
+      password: event.target.password.value,
+    };
 
-      let response = await axios.post(`${API_URL}/signin`, newUser, {
-        withCredentials: true,
-      });
+    let response = await axios.post(`${API_URL}/signin`, newUser, {
+      withCredentials: true,
+    });
+    try {
+      console.log(response.data);
       setUser(response.data);
-      navigate(`/profile`);
+      navigate("/profile");
     } catch (err) {
       setError(err.response.data.error);
     }
@@ -193,6 +196,10 @@ function App() {
         <Route
           path="/add-form"
           element={<CreateJob btnSubmit={handleSubmit} />}
+        />
+        <Route
+          path="/yourjobs"
+          element={<YourJobs user={user} jobs={jobs} />}
         />
       </Routes>
     </div>
