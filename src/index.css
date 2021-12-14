@@ -49,6 +49,14 @@ p {
 	width: 350px;
 	max-width: 100%;
 	text-align: center;
+
+}
+
+.centered {
+	display: flex;
+	justify-content: center;
+	padding-top: 10px;
+
 }
 
 .card-container-profile .pro {
@@ -89,6 +97,7 @@ button.primary-profile.ghost {
 	text-align: left;
 	padding: 15px;
 	margin-top: 30px;
+	border-radius: 5px;
 }
 
 .skills-profile ul {

@@ -17,7 +17,8 @@ function Profile(props) {
   }
   
   return (
-    <div>
+  <div> 
+  <div class="centered">
 
   <div class="card-container-profile">
 	<span class="pro"> 
@@ -33,11 +34,11 @@ function Profile(props) {
 	<h1>{user.location} <br/> </h1>
 	<h1>{user.aboutMe} <br/> <br/> </h1>
 
-	<div class="buttons-profile">
-		<button class="primary-profile">
+
+		<button class="primary-profile" id="buttons-profile">
 			See my jobs! 
 		</button>
-	</div>
+
       <div class="skills-profile">
       <h6>Skills</h6>
       <ul>
@@ -58,7 +59,7 @@ function Profile(props) {
 </ul>
 </div>
 
-
+</div> 
 </div>
     <Footer />
     </div>
