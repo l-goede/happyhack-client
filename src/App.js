@@ -17,6 +17,7 @@ import CreateJob from "./components/CreateJob";
 import EditProfile from "./components/EditProfile"
 import EditJob from "./components/EditAdvert"
 import JobCard from "./components/JobCard"
+import Chat from "./components/Chat";
 
 function App() {
   const { user, setUser } = useContext(UserContext);
@@ -178,6 +179,8 @@ function App() {
         <Route path="/EditProfile/:id" element={ <EditProfile user={user} btnEditProfile={handleEditProfile} /> } />
         <Route path="/yourprofile" element={<ProfileForm user={user} />} />
         <Route path="/add-form" element={<CreateJob btnSubmit={handleSubmit} />} />
+        <Route path="/chat" element={<Chat />} />
+
       </Routes>
     </div>
   );
