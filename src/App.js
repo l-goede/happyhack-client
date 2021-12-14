@@ -195,10 +195,7 @@ function App() {
             />
           }
         /> */}
-        <Route
-          path="/editJob/:id"
-          element={<EditJob btnEditJob={handleEdit} btnDelete={handleDelete} />}
-        />
+
         <Route path="/signup" element={<SignUp />} />
         <Route
           path="/signin"
@@ -229,6 +226,11 @@ function App() {
               jobs={jobs}
             />
           }
+        />
+
+        <Route
+          path="/editJob/:id"
+          element={<EditJob btnEditJob={handleEdit} btnDelete={handleDelete} />}
         />
 
         <Route path="/yourprofile" element={<ProfileForm user={user} />} />
