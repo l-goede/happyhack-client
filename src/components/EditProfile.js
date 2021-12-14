@@ -20,10 +20,10 @@ function EditProfile(props) {
              let response = await axios.get(`${API_URL}/profile/${userId}`, {withCredentials: true})
              setProfileDetail(response.data)
           }
-     
+
           getData()
       }, [])*/
-    
+
 //spiner..
       /*if(!profileDetail) {
           return <Spinner animation="grow" variant="dark" />

@@ -8,14 +8,15 @@ import axios from "axios";
 import Profile from "./components/Profile";
 import MyNav from "./components/MyNav";
 import Navbar from "./components/Navbar";
-import AddAdvert from "./components/AddAdvert";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import JobsList from "./components/Advert";
 import Home from "./components/Home";
 import ProfileForm from "./components/ProfileForm";
 import CreateJob from "./components/CreateJob";
-import EditProfile from "./components/EditProfile";
+import EditProfile from "./components/EditProfile"
+import EditJob from "./components/EditAdvert"
+import JobCard from "./components/JobCard"
 
 function App() {
   const { user, setUser } = useContext(UserContext);
@@ -50,15 +51,12 @@ function App() {
       completed: false,
       accepted: false,
     };
-    console.log(typeof newJob.price);
+    console.log(newJob.skills);
 
     await axios.post(`${API_URL}/add-form`, newJob, { withCredentials: true });
     setJobs([newJob, ...jobs]);
     navigate(`/profile`);
   };
-
-  // Does this belong in newJob post?
-  //setJobs([response.data,...jobs])???
 
   const handleEdit = async (event, id) => {
     event.preventDefault();
@@ -171,29 +169,15 @@ function App() {
       <MyNav user={user} onLogout={handleLogout} />
       <Routes>
         <Route path="/" element={<Home user={user} />} />
-        <Route path="/jobs-offer" element={<JobsList jobs={jobs} />} />
+        <Route path="/jobs" element={<JobCard btnDelete={handleDelete} btnEditJob={handleEdit}  jobs={jobs} />} />
+        <Route path="/editJob/:id" element={<EditJob btnEditJob={handleEdit} btnDelete={handleDelete} />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route
-          path="/signin"
-          element={<SignIn myError={myError} onSignIn={handleSignIn} />}
-        />
+        <Route path="/signin" element={<SignIn myError={myError} onSignIn={handleSignIn} />} />
         <Route path="/profile" element={<Profile user={user} jobs={jobs} />} />
-        <Route
-          path="/profile"
-          handleProfile={handleProfile}
-          element={<Profile user={user} />}
-        />
-        <Route
-          path="/EditProfile/:id"
-          element={
-            <EditProfile user={user} btnEditProfile={handleEditProfile} />
-          }
-        />
+        <Route path="/profile"  handleProfile={handleProfile} element={<Profile user={user} />} />
+        <Route path="/EditProfile/:id" element={ <EditProfile user={user} btnEditProfile={handleEditProfile} /> } />
         <Route path="/yourprofile" element={<ProfileForm user={user} />} />
-        <Route
-          path="/add-form"
-          element={<CreateJob btnSubmit={handleSubmit} />}
-        />
+        <Route path="/add-form" element={<CreateJob btnSubmit={handleSubmit} />} />
       </Routes>
     </div>
   );
