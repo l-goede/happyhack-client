@@ -8,7 +8,6 @@ import axios from "axios";
 import Profile from "./components/Profile";
 import MyNav from "./components/MyNav";
 import Navbar from "./components/Navbar";
-import AddAdvert from "./components/AddAdvert";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import JobsList from "./components/Advert";
@@ -17,6 +16,9 @@ import ProfileForm from "./components/ProfileForm";
 import CreateJob from "./components/CreateJob";
 import EditProfile from "./components/EditProfile";
 import YourJobs from "./components/YourJobs";
+import EditJob from "./components/EditAdvert";
+import JobCard from "./components/JobCard";
+import Chat from "./components/Chat";
 
 function App() {
   const { user, setUser } = useContext(UserContext);
@@ -51,7 +53,7 @@ function App() {
       completed: false,
       accepted: false,
     };
-    console.log(typeof newJob.price);
+    console.log(newJob.skills);
 
     let response = await axios.post(`${API_URL}/add-form`, newJob, {
       withCredentials: true,
@@ -183,16 +185,29 @@ function App() {
       <Routes>
         <Route path="/" element={<Home user={user} />} />
         {/*<Route path="/jobs-offer" element={<JobsList jobs={jobs} />} />*/}
+        {/* <Route
+          path="/jobs"
+          element={
+            <JobCard
+              btnDelete={handleDelete}
+              btnEditJob={handleEdit}
+              jobs={jobs}
+            />
+          }
+        /> */}
+        <Route
+          path="/editJob/:id"
+          element={<EditJob btnEditJob={handleEdit} btnDelete={handleDelete} />}
+        />
         <Route path="/signup" element={<SignUp />} />
         <Route
           path="/signin"
           element={<SignIn myError={myError} onSignIn={handleSignIn} />}
         />
-        <Route path="/profile" element={<Profile user={user} jobs={jobs} />} />
         <Route
           path="/profile"
           handleProfile={handleProfile}
-          element={<Profile user={user} />}
+          element={<Profile user={user} jobs={jobs} />}
         />
         <Route
           path="/EditProfile/:id"
@@ -200,15 +215,25 @@ function App() {
             <EditProfile user={user} btnEditProfile={handleEditProfile} />
           }
         />
-        <Route path="/userprofile" element={<ProfileForm user={user} />} />
         <Route
           path="/add-form"
           element={<CreateJob btnSubmit={handleSubmit} />}
         />
         <Route
           path="/yourjobs"
-          element={<YourJobs user={user} jobs={jobs} />}
+          element={
+            <YourJobs
+              btnDelete={handleDelete}
+              btnEditJob={handleEdit}
+              user={user}
+              jobs={jobs}
+            />
+          }
         />
+
+        <Route path="/yourprofile" element={<ProfileForm user={user} />} />
+
+        <Route path="/chat" element={<Chat />} />
       </Routes>
     </div>
   );

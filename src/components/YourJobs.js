@@ -4,7 +4,7 @@ import JobCreatedCard from "./JobCreatedCard";
 import JobAcceptedCard from "./JobAcceptedCard";
 
 function YourJobs(props) {
-  const { user, jobs } = props;
+  const { user, jobs, btnDelete, btnEditJob } = props;
   return (
     <div>
       <h1>Jobs you created</h1>

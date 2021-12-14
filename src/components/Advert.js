@@ -16,7 +16,12 @@ function JobsList(props) {
                 jobs.map((elem) => {
                     return (
                         <div>
-                            <h1>{elem.name}</h1>
+                            <h1>{elem.jobTitle}</h1>
+                            <h4>{elem.developer}</h4>
+                            <h4>{elem.jobDescription}</h4>
+                            <h4>{elem.deadline}</h4>
+                            <h4>{elem.price}</h4>
+                            <Link to={`./editJob/${elem._id}`}> Edit Job </Link>
                         </div>    
                     )
                 })
