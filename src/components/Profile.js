@@ -4,9 +4,11 @@ import * as React from "react";
 import MyNav from "./MyNav";
 import Footer from "./Footer";
 import ProfileForm from "./ProfileForm";
+import JobCard from "./JobCard";
+import JobCreatedCard from "./JobCreatedCard";
 
 function Profile(props) {
-  let { user } = props;
+  let { user, jobs } = props;
 
   if (!user) {
     return <h1>Loading</h1>;
@@ -22,6 +24,9 @@ function Profile(props) {
       <button>
         <Link to={`/EditProfile/${user._id}`}> EDIT YOUR PROFILE </Link>
       </button>
+      <JobCard jobs={jobs} user={user} />
+      <JobCreatedCard jobs={jobs} user={user} />
+
       <Footer />
     </div>
   );
