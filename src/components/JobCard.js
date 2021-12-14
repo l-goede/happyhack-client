@@ -36,7 +36,7 @@ export default function JobCard(props) {
     setExpanded(!expanded);
   };
   let filteredJobs = jobs.filter((elem) => {
-    return elem.username !== user.id;
+    return elem.username !== user._id;
   });
 
   return (
@@ -68,7 +68,7 @@ export default function JobCard(props) {
               <CardActions disableSpacing>
                 <IconButton
                   onClick={() => {
-                    btnAdd(user, jobs);
+                    btnAdd(user, elem.id);
                   }}
                   aria-label="add to favorites"
                 >

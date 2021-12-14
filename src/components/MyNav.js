@@ -31,7 +31,7 @@ const MyNav = (props) => {
     setAnchorElUser(null);
   };
   const settings = [
-    <Link to={"/yourprofile"}>Profile</Link>,
+    <Link to={"/profile"}>Profile</Link>,
     <Link to={"/yourjobs"}>Your Jobs</Link>,
     <Link to={"/yourevents"}>Your Events</Link>,
     <Link

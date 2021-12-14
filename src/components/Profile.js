@@ -29,19 +29,47 @@ function Profile(props) {
     };
     setAccepted([acceptedJob, ...accepted]);
   }
+  console.log("profile:jobs", jobs);
   return (
     <div>
-      <h1>{user.name}</h1>
-      <h2> {user.email} </h2>
-      {/* <h2> {user.location} </h2> */}
-      {/* <h2> {user.skills}</h2> */}
+      <div class="centered">
+        <div class="card-container-profile">
+          <span class="pro">
+            <Link to={`/EditProfile/${user._id}`}> EDIT</Link>
+          </span>
 
-      {/* link to events */}
-      <button>
-        <Link to={`/EditProfile/${user._id}`}> EDIT YOUR PROFILE </Link>
-      </button>
+          <img class="dimProfile" src={user.image} alt="user" />
+
+          <h6>
+            {user.name} {user.lastName}{" "}
+          </h6>
+          <h3 class="smallEmail">{user.email} </h3>
+          <h1>
+            {user.location} <br />{" "}
+          </h1>
+          <h1>
+            {user.aboutMe} <br /> <br />{" "}
+          </h1>
+
+          <button class="primary-profile" id="buttons-profile">
+            See my jobs!
+          </button>
+
+          <div class="skills-profile">
+            <h6>Skills</h6>
+            <ul>
+              {user.skills.map((elem) => {
+                return (
+                  <>
+                    <li>{elem}</li>
+                  </>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
+      </div>
       <JobCard jobs={jobs} user={user} btnAdd={handleAdd} />
-
       <Footer />
     </div>
   );

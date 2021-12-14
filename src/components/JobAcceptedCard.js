@@ -36,7 +36,7 @@ export default function JobAcceptedCard(props) {
     setExpanded(!expanded);
   };
   let filteredJobs = jobs.filter((elem) => {
-    return elem.developer === user.id;
+    return elem.developer === user._id;
   });
 
   console.log(user, jobs);

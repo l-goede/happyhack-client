@@ -53,13 +53,12 @@ function App() {
     };
     console.log(typeof newJob.price);
 
-    await axios.post(`${API_URL}/add-form`, newJob, { withCredentials: true });
-    setJobs([newJob, ...jobs]);
+    let response = await axios.post(`${API_URL}/add-form`, newJob, {
+      withCredentials: true,
+    });
+    setJobs([response.data, ...jobs]);
     navigate(`/profile`);
   };
-
-  // Does this belong in newJob post?
-  //setJobs([response.data,...jobs])???
 
   const handleEdit = async (event, id) => {
     event.preventDefault();
@@ -127,8 +126,6 @@ function App() {
     }
   };
 
-  //updated my server route to be logged in..
-  // console.log gives me the user data
   const handleProfile = async () => {
     let response = await axios.get(`${API_URL}/profile`, {
       withCredentials: true,
@@ -143,19 +140,31 @@ function App() {
     navigate("/");
   };
 
-  // fern work:  { name, location, image} event job skills
+  // fern work:
   const handleEditProfile = async (event, id) => {
     event.preventDefault();
-    console.log("im in the handleEdit");
+    console.log("im in the handleEdit... start");
+    // console.log(event.target)
+
+    //upload to cloudy
+    console.log(event.target.myImage.files[0]);
+    //creating the form
+    let formData = new FormData();
+    formData.append("imageUrl", event.target.myImage.files[0]);
+    //creating the form
+    let imgResponse = await axios.post(`${API_URL}/upload`, formData);
+
     let editedProfile = {
       name: event.target.name.value,
+      lastName: event.target.lastName.value,
       location: event.target.location.value,
-      // image: event.target.image.value,
+      aboutMe: event.target.aboutMe.value,
+      skills: event.target.skills.value,
+      image: imgResponse.data.image,
       // event: event.target.event.value,
       // skills: event.target.skills.value,
       // jobs: event.target.jobs.value,
     };
-    // pass as PARAMS, url same as client
     let response = await axios.patch(
       `${API_URL}/profile/${id}`,
       editedProfile,
@@ -163,18 +172,17 @@ function App() {
     );
     console.log(response.data);
     setUser(response.data);
+    navigate("/profile");
   };
-  /*if(fetchingUser) {
-    return  <h1> Loading  </h1>
-}*/
-  //end of fern work.
 
+  //end of fern work.
+  console.log("all my jobs", jobs);
   return (
     <div>
       <MyNav user={user} onLogout={handleLogout} />
       <Routes>
         <Route path="/" element={<Home user={user} />} />
-        <Route path="/jobs-offer" element={<JobsList jobs={jobs} />} />
+        {/*<Route path="/jobs-offer" element={<JobsList jobs={jobs} />} />*/}
         <Route path="/signup" element={<SignUp />} />
         <Route
           path="/signin"
@@ -192,7 +200,7 @@ function App() {
             <EditProfile user={user} btnEditProfile={handleEditProfile} />
           }
         />
-        <Route path="/yourprofile" element={<ProfileForm user={user} />} />
+        <Route path="/userprofile" element={<ProfileForm user={user} />} />
         <Route
           path="/add-form"
           element={<CreateJob btnSubmit={handleSubmit} />}
