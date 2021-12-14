@@ -34,10 +34,13 @@ export default function JobCard({ user, jobs }) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-
+  // let filteredJobs = jobs.filter((elem) => {
+  //   return elem.username !== username;
+  // });
   return (
     <div>
       {jobs.map((elem) => {
+        // if (elem.username !== username)
         return (
           <div>
             <Card sx={{ maxWidth: 345 }}>
