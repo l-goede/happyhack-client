@@ -17,7 +17,7 @@ function ProfileForm() {
       <div className="field">
         <label className="label">Username</label>
         <div className="control">
-          <input className="input" type="text" placeholder="Text input" />
+          <input className="input" type="text" placeholder="Create username" />
         </div>
       </div>
 
@@ -44,7 +44,7 @@ function ProfileForm() {
 
       <div className="field">
         <label className="label">First Name</label>
-        <div className="control">
+        <div className="input">
           <input className="input" type="text" placeholder="Text input" />
         </div>
       </div>
@@ -116,3 +116,5 @@ function ProfileForm() {
 }
 
 export default ProfileForm;
+
+
