@@ -29,14 +29,14 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function JobCard(props) {
-  const { user, jobs, btnAdd } = props;
+  const { user, jobs } = props;
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
   let filteredJobs = jobs.filter((elem) => {
-    return elem.username !== user._id;
+    return elem.username === user._id;
   });
 
   return (
@@ -53,7 +53,7 @@ export default function JobCard(props) {
                 }
                 action={<IconButton aria-label="settings"></IconButton>}
                 title={elem.jobTitle}
-                subheader={elem.name}
+                subheader={user.name}
               />
 
               <CardContent>
@@ -66,16 +66,11 @@ export default function JobCard(props) {
                 </Typography>
               </CardContent>
               <CardActions disableSpacing>
-                <IconButton
-                  onClick={() => {
-                    btnAdd(user, elem.id);
-                  }}
-                  aria-label="add to favorites"
-                >
-                  <FavoriteIcon />
-                </IconButton>
                 <Button variant="contained" size="small">
-                  Chat
+                  Edit
+                </Button>
+                <Button variant="contained" size="small">
+                  Delete
                 </Button>
                 <ExpandMore
                   expand={expanded}

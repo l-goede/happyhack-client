@@ -33,8 +33,8 @@ const MyNav = (props) => {
   };
   const settings = [
     <Link to={"/profile"}>Profile</Link>,
-    <Link to={"/jobs"}>Your Jobs</Link>,
-    <Link to={"/events"}>Your Events</Link>,
+    <Link to={"/yourjobs"}>Your Jobs</Link>,
+    <Link to={"/yourevents"}>Your Events</Link>,
     <Link
       onClick={() => {
         props.onLogout();
@@ -70,7 +70,7 @@ const MyNav = (props) => {
             component="div"
             sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
           >
-            LOGO
+           <Link className="link-navbar" to={"/"}> HappyHack </Link>   
           </Typography>
 
           <Box
@@ -122,7 +122,7 @@ const MyNav = (props) => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
           >
-            LOGO
+            <Link to={`/`} > HappyHack </Link>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {!props.user ? (

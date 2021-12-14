@@ -8,7 +8,6 @@ import axios from "axios";
 import Profile from "./components/Profile";
 import MyNav from "./components/MyNav";
 import Navbar from "./components/Navbar";
-import AddAdvert from "./components/AddAdvert";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import JobsList from "./components/Advert";
@@ -17,6 +16,10 @@ import ProfileForm from "./components/ProfileForm";
 import CreateJob from "./components/CreateJob";
 import EditProfile from "./components/EditProfile";
 import ChatBot from "./components/ChatBot";
+import YourJobs from "./components/YourJobs";
+import EditJob from "./components/EditAdvert";
+import JobCard from "./components/JobCard";
+import Chat from "./components/Chat";
 
 function App() {
   const { user, setUser } = useContext(UserContext);
@@ -51,10 +54,12 @@ function App() {
       completed: false,
       accepted: false,
     };
-    console.log(typeof newJob.price);
+    console.log(newJob.skills);
 
-    await axios.post(`${API_URL}/add-form`, newJob, { withCredentials: true });
-    setJobs([newJob, ...jobs]);
+    let response = await axios.post(`${API_URL}/add-form`, newJob, {
+      withCredentials: true,
+    });
+    setJobs([response.data, ...jobs]);
     navigate(`/profile`);
   };
 
@@ -106,17 +111,19 @@ function App() {
 
   const handleSignIn = async (event) => {
     event.preventDefault();
-    try {
-      let newUser = {
-        email: event.target.email.value,
-        password: event.target.password.value,
-      };
+    //try {
+    let newUser = {
+      email: event.target.email.value,
+      password: event.target.password.value,
+    };
 
-      let response = await axios.post(`${API_URL}/signin`, newUser, {
-        withCredentials: true,
-      });
+    let response = await axios.post(`${API_URL}/signin`, newUser, {
+      withCredentials: true,
+    });
+    try {
+      console.log(response.data);
       setUser(response.data);
-      navigate(`/profile`);
+      navigate("/profile");
     } catch (err) {
       setError(err.response.data.error);
     }
@@ -136,21 +143,19 @@ function App() {
     navigate("/");
   };
 
-  // fern work:  
+  // fern work:
   const handleEditProfile = async (event, id) => {
     event.preventDefault();
-    console.log("im in the handleEdit... start")
+    console.log("im in the handleEdit... start");
     // console.log(event.target)
 
-
     //upload to cloudy
-    console.log(event.target.myImage.files[0])
+    console.log(event.target.myImage.files[0]);
     //creating the form
-    let formData = new FormData()
-    formData.append('imageUrl', event.target.myImage.files[0])
+    let formData = new FormData();
+    formData.append("imageUrl", event.target.myImage.files[0]);
     //creating the form
-    let imgResponse = await axios.post(`${API_URL}/upload`, formData)
-
+    let imgResponse = await axios.post(`${API_URL}/upload`, formData);
 
     let editedProfile = {
       name: event.target.name.value,
@@ -174,24 +179,34 @@ function App() {
   };
 
   //end of fern work.
-
+  console.log("all my jobs", jobs);
   return (
     <div>
     <ChatBot/>
       <MyNav user={user} onLogout={handleLogout} />
       <Routes>
         <Route path="/" element={<Home user={user} />} />
-        <Route path="/jobs-offer" element={<JobsList jobs={jobs} />} />
+        {/*<Route path="/jobs-offer" element={<JobsList jobs={jobs} />} />*/}
+        {/* <Route
+          path="/jobs"
+          element={
+            <JobCard
+              btnDelete={handleDelete}
+              btnEditJob={handleEdit}
+              jobs={jobs}
+            />
+          }
+        /> */}
+
         <Route path="/signup" element={<SignUp />} />
         <Route
           path="/signin"
           element={<SignIn myError={myError} onSignIn={handleSignIn} />}
         />
-        <Route path="/profile" element={<Profile user={user} jobs={jobs} />} />
         <Route
           path="/profile"
           handleProfile={handleProfile}
-          element={<Profile user={user} />}
+          element={<Profile user={user} jobs={jobs} />}
         />
         <Route
           path="/EditProfile/:id"
@@ -199,11 +214,30 @@ function App() {
             <EditProfile user={user} btnEditProfile={handleEditProfile} />
           }
         />
-         <Route path="/userprofile" element={<ProfileForm user={user} />} /> 
         <Route
           path="/add-form"
           element={<CreateJob btnSubmit={handleSubmit} />}
         />
+        <Route
+          path="/yourjobs"
+          element={
+            <YourJobs
+              btnDelete={handleDelete}
+              btnEditJob={handleEdit}
+              user={user}
+              jobs={jobs}
+            />
+          }
+        />
+
+        <Route
+          path="/editJob/:id"
+          element={<EditJob btnEditJob={handleEdit} btnDelete={handleDelete} />}
+        />
+
+        <Route path="/yourprofile" element={<ProfileForm user={user} />} />
+
+        <Route path="/chat" element={<Chat />} />
       </Routes>
     </div>
   );
