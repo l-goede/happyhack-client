@@ -140,9 +140,16 @@ function App() {
     event.preventDefault();
     console.log("im in the handleEdit... start")
     // console.log(event.target)
-     console.log(event.target.skills)
-    // console.log(event.target.name.value)
-    console.log("im in the handleEdit... end")
+
+
+    //upload to cloudy
+    console.log(event.target.myImage.files[0])
+    //creating the form
+    let formData = new FormData()
+    formData.append('imageUrl', event.target.myImage.files[0])
+    //creating the form
+    let imgResponse = await axios.post(`${API_URL}/upload`, formData)
+
 
     let editedProfile = {
       name: event.target.name.value,
@@ -150,7 +157,7 @@ function App() {
       location: event.target.location.value,
       aboutMe: event.target.aboutMe.value,
       skills: event.target.skills.value,
-      // image: event.target.image.value,
+      image: imgResponse.data.image,
       // event: event.target.event.value,
       // skills: event.target.skills.value,
       // jobs: event.target.jobs.value,

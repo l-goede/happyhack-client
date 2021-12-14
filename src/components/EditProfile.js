@@ -83,7 +83,8 @@ function EditProfile(props) {
       <div>
       <div className="file is-primary">
           <label className="file-label">
-          <input className="file-input" type="file" name="resume" />
+          {/* cloudy below */}
+          <input className="file-input" type="file" name="myImage" accept="image/png, image/jpg" /> 
           <span className="file-cta">
             <span className="file-icon">
               <i className="fas fa-upload"></i>
@@ -92,6 +93,8 @@ function EditProfile(props) {
           </span>
         </label>
       </div>
+
+     
 
       <div className="field">
         <label className="label">Name</label>
