@@ -29,7 +29,7 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function JobCard(props) {
-  const { user, jobs, btnAdd } = props;
+  const { user, jobs, btnAdd, username } = props;
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -48,12 +48,12 @@ export default function JobCard(props) {
               <CardHeader
                 avatar={
                   <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                    {elem.image}
+                    {elem.username.image}
                   </Avatar>
                 }
                 action={<IconButton aria-label="settings"></IconButton>}
                 title={elem.jobTitle}
-                subheader={elem.name}
+                subheader={elem.username.name}
               />
 
               <CardContent>
@@ -68,7 +68,7 @@ export default function JobCard(props) {
               <CardActions disableSpacing>
                 <IconButton
                   onClick={() => {
-                    btnAdd(user, elem.id);
+                    btnAdd(elem._id);
                   }}
                   aria-label="add to favorites"
                 >

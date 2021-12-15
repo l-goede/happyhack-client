@@ -24,7 +24,7 @@ const MyNav = (props) => {
     <Link className="link-navbar" to={"/add-form"}>
       Create a job
     </Link>,
-    <Link to={"/add-form"}>Events</Link>,
+    <Link to={"/events"}>Events</Link>,
   ];
 
   const handleCloseUserMenu = () => {
@@ -69,7 +69,10 @@ const MyNav = (props) => {
             component="div"
             sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
           >
-           <Link className="link-navbar" to={"/"}> HappyHack </Link>   
+            <Link className="link-navbar" to={"/"}>
+              {" "}
+              HappyHack{" "}
+            </Link>
           </Typography>
 
           <Box
@@ -121,7 +124,7 @@ const MyNav = (props) => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
           >
-            <Link to={`/`} > HappyHack </Link>
+            <Link to={`/`}> HappyHack </Link>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {!props.user ? (

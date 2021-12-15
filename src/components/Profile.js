@@ -8,27 +8,13 @@ import ProfileForm from "./ProfileForm";
 import JobCard from "./JobCard";
 
 function Profile(props) {
-  let { user, jobs } = props;
-  const [accepted, setAccepted] = useState([]);
+  let { user, jobs, btnAdd, username } = props;
+  console.log("user in profilejs", user);
 
   if (!user) {
     return <h1>Loading</h1>;
   }
 
-  function handleAdd(user, jobs) {
-    let acceptedJob = {
-      image: user.image,
-      jobTitle: jobs.jobTitle,
-      name: user.name,
-      skills: jobs.skills,
-      deadline: jobs.deadline,
-      jobDescription: jobs.jobDescription,
-      price: jobs.price,
-      completed: false,
-      accpted: true,
-    };
-    setAccepted([acceptedJob, ...accepted]);
-  }
   console.log("profile:jobs", jobs);
   return (
     <div>
@@ -69,7 +55,7 @@ function Profile(props) {
           </div>
         </div>
       </div>
-      <JobCard jobs={jobs} user={user} btnAdd={handleAdd} />
+      <JobCard jobs={jobs} user={user} btnAdd={btnAdd} username={username} />
       <Footer />
     </div>
   );

@@ -19,9 +19,11 @@ import YourJobs from "./components/YourJobs";
 import EditJob from "./components/EditAdvert";
 import JobCard from "./components/JobCard";
 import Chat from "./components/Chat";
+import YourEvents from "./components/YourEvents";
 
 function App() {
   const { user, setUser } = useContext(UserContext);
+  const [events, setEvents] = useState([]);
   const [fetchingUser, setFetchingUser] = useState(true);
   const [myError, setError] = useState(null);
   const [jobs, setJobs] = useState([]);
@@ -35,6 +37,15 @@ function App() {
 
     getData();
     handleProfile();
+  }, []);
+
+  useEffect(() => {
+    const getData = async () => {
+      let response = await axios.get(`${API_URL}/events`);
+      setEvents(response.data);
+    };
+
+    getData();
   }, []);
 
   // useEffect(() => {
@@ -100,7 +111,7 @@ function App() {
     // make a request to the server to delete it from the database
     await axios.delete(`${API_URL}/api/jobs/${id}`);
 
-    // Update your state 'jobs' and remove the todo that was deleted
+    // Update your state 'jobs' and remove the jobcard that was deleted
     let filteredAdvert = jobs.filter((elem) => {
       return elem._id !== id;
     });
@@ -108,9 +119,21 @@ function App() {
     setJobs(filteredAdvert);
   };
 
+  const handleDeleteEvent = async (id) => {
+    // make a request to the server to delete it from the database
+    await axios.delete(`${API_URL}/api/events/${id}`);
+
+    // Update your state 'jobs' and remove the jobcard that was deleted
+    let filteredEvent = events.filter((elem) => {
+      return elem._id !== id;
+    });
+
+    setEvents(filteredEvent);
+  };
+
   const handleSignIn = async (event) => {
     event.preventDefault();
-    //try {
+
     let newUser = {
       email: event.target.email.value,
       password: event.target.password.value,
@@ -133,6 +156,7 @@ function App() {
       withCredentials: true,
     });
     setUser(response.data);
+
     setFetchingUser(false);
   };
 
@@ -176,8 +200,21 @@ function App() {
     setUser(response.data);
     navigate("/profile");
   };
-
   //end of fern work.
+
+  const handleWatchlist = async (jobId) => {
+    let acceptedJob = {
+      developer: user,
+      accepted: true,
+      jobId,
+    };
+
+    let response = await axios.patch(`${API_URL}/yourjobs`, acceptedJob, {
+      withCredentials: true,
+    });
+    setJobs([response.data]);
+  };
+
   console.log("all my jobs", jobs);
   return (
     <div>
@@ -204,7 +241,14 @@ function App() {
         <Route
           path="/profile"
           handleProfile={handleProfile}
-          element={<Profile user={user} jobs={jobs} />}
+          element={
+            <Profile
+              user={user}
+              jobs={jobs}
+              btnAdd={handleWatchlist}
+              username={fetchingUser}
+            />
+          }
         />
         <Route
           path="/EditProfile/:id"
@@ -214,7 +258,9 @@ function App() {
         />
         <Route
           path="/add-form"
-          element={<CreateJob btnSubmit={handleSubmit} />}
+          element={
+            <CreateJob btnSubmit={handleSubmit} btnAdd={handleWatchlist} />
+          }
         />
         <Route
           path="/yourjobs"
@@ -231,6 +277,17 @@ function App() {
         <Route
           path="/editJob/:id"
           element={<EditJob btnEditJob={handleEdit} btnDelete={handleDelete} />}
+        />
+
+        <Route
+          path="/yourevents"
+          element={
+            <YourEvents
+              btnDeleteEvent={handleDeleteEvent}
+              user={user}
+              events={events}
+            />
+          }
         />
 
         <Route path="/yourprofile" element={<ProfileForm user={user} />} />
