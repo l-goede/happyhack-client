@@ -119,7 +119,7 @@ function App() {
 
     let response = await axios.post(`${API_URL}/signin`, newUser, {
       withCredentials: true,
-    });
+    })
     try {
       console.log(response.data);
       setUser(response.data);

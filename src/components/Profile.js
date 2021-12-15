@@ -52,7 +52,7 @@ function Profile(props) {
           </h1>
 
           <button class="primary-profile" id="buttons-profile">
-            See my jobs!
+          <Link to={`/calendar`}> My calendar</Link>
           </button>
 
           <div class="skills-profile">
