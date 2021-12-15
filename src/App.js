@@ -15,6 +15,7 @@ import Home from "./components/Home";
 import ProfileForm from "./components/ProfileForm";
 import CreateJob from "./components/CreateJob";
 import EditProfile from "./components/EditProfile";
+import ChatBot from "./components/ChatBot";
 import YourJobs from "./components/YourJobs";
 import EditJob from "./components/EditAdvert";
 import JobCard from "./components/JobCard";
@@ -202,6 +203,7 @@ function App() {
   //end of fern work.
   return (
     <div>
+    <ChatBot/>
       <MyNav user={user} onLogout={handleLogout} />
       <Routes>
         <Route path="/" element={<Home user={user} />} />
