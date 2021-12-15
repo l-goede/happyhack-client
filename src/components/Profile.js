@@ -10,7 +10,6 @@ import JobCard from "./JobCard";
 function Profile(props) {
   let { user, jobs } = props;
   const [accepted, setAccepted] = useState([]);
-
   if (!user) {
     return <h1>Loading</h1>;
   }
@@ -27,9 +26,11 @@ function Profile(props) {
       completed: false,
       accpted: true,
     };
+
     setAccepted([acceptedJob, ...accepted]);
   }
   console.log("profile:jobs", jobs);
+ 
   return (
     <div>
       <div class="centered">
@@ -58,7 +59,8 @@ function Profile(props) {
           <div class="skills-profile">
             <h6>Skills</h6>
             <ul>
-              {user.skills.map((elem) => {
+              {
+              user.skills.map((elem) => {
                 return (
                   <>
                     <li>{elem}</li>
