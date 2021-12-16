@@ -76,6 +76,7 @@ export default function JobCard(props) {
               <CardActions disableSpacing>
                 <IconButton
                   onClick={() => {
+                    console.log("asdasd");
                     btnAdd(elem._id);
                   }}
                   aria-label="add to favorites"

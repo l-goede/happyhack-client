@@ -16,9 +16,9 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import {UserContext} from "../context/app.context"
-import { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { UserContext } from "../context/app.context";
+import { useContext } from "react";
+import { Link } from "react-router-dom";
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -41,8 +41,10 @@ export default function JobAcceptedCard(props) {
   if (!jobs.length) {
     return <hi>loading</hi>;
   }
+  // TODO: MERGE? const { user } = useContext(UserContext)
   let filteredJobs = jobs.filter((elem) => {
-    return elem.username === user._id;
+    return user.jobsAccepted.includes(elem._id);
+    // return elem.username._id === user._id;
   });
 
   console.log(user, jobs, "the developer side", filteredJobs);
@@ -78,9 +80,13 @@ export default function JobAcceptedCard(props) {
                     <IconButton aria-label="add to favorites">
                       <FavoriteIcon />
                     </IconButton>
-                    <Button variant="contained" size="small">
+                    <Link
+                      to={`/chat/${elem._id}`}
+                      variant="contained"
+                      size="small"
+                    >
                       Chat
-                    </Button>
+                    </Link>
                     <Button
                       onClick={() => {
                         btnDelete(elem._id);

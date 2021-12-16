@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -20,20 +20,19 @@ import Button from "@mui/material/Button";
 //----------------------------------------------------------------------------------------
 //                Marcos changes for drop down
 //----------------------------------------------------------------------------------------
-import Modal from '@mui/material/Modal';
-import { useTheme } from '@mui/material/styles';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import Backdrop from '@mui/material/Backdrop';
-import Fade from '@mui/material/Fade';
-import {UserContext} from "../context/app.context"
-import { useParams, Link } from 'react-router-dom'
-import { useState, useEffect, useContext } from 'react'
-import "./JobCreatedCard.css"
-
+import Modal from "@mui/material/Modal";
+import { useTheme } from "@mui/material/styles";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import Backdrop from "@mui/material/Backdrop";
+import Fade from "@mui/material/Fade";
+import { UserContext } from "../context/app.context";
+import { useParams, Link } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
+import "./JobCreatedCard.css";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -48,23 +47,23 @@ const MenuProps = {
 };
 
 const skills = [
-  'Javascript',
-  'React',
-  'Typescript',
-  'Python',
-  'C#',
-  'Java',
-  'PHP',
-  'Angular',
-  'VueJS',
-  'NodeJS',
-  'ExpressJS',
-  'MondogoDB',
-  'Mongoose',
-  'MySQL',
-  'UX/UI',
-  'Figma',
-  'Adobe XD',
+  "Javascript",
+  "React",
+  "Typescript",
+  "Python",
+  "C#",
+  "Java",
+  "PHP",
+  "Angular",
+  "VueJS",
+  "NodeJS",
+  "ExpressJS",
+  "MondogoDB",
+  "Mongoose",
+  "MySQL",
+  "UX/UI",
+  "Figma",
+  "Adobe XD",
 ];
 
 function getStyles(skills, personName, theme) {
@@ -77,13 +76,13 @@ function getStyles(skills, personName, theme) {
 }
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
+  bgcolor: "background.paper",
+  border: "2px solid #000",
   boxShadow: 24,
   p: 4,
 };
@@ -91,11 +90,8 @@ const style = {
 //                    chat box
 //-----------------------------------------------------------------------------------------
 
-
-
 //-----------------------------------------------------------------------------------------
 const ExpandMore = styled((props) => {
-
   const { expand, ...other } = props;
   return <IconButton {...other} />;
 })(({ theme, expand }) => ({
@@ -111,27 +107,26 @@ export default function JobCard(props) {
   const [expanded, setExpanded] = React.useState(false);
 
   //-----------------------------------------------------------
-  //                      Marcos changes 
+  //                      Marcos changes
   //-----------------------------------------------------------
   //                        MUI edit
   //-------------------------------------------------------
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
-  const { jobsId } = useParams()
-  const [jobsDetail, setJobDetail] = useState(null)
+  const { jobsId } = useParams();
+  const [jobsDetail, setJobDetail] = useState(null);
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
     setPersonName(
       // On autofill we get a the stringified value.
-      typeof value === 'string' ? value.split(',') : value,
+      typeof value === "string" ? value.split(",") : value
     );
   };
 
-  const { btnEdit } = props
-  const { btnDel } = props
-   const handleExpandClick = () => {
+  const { btnEdit } = props;
+  const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
@@ -139,18 +134,17 @@ export default function JobCard(props) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-
   //-------------------------------------------------------------
-  const { jobs, user } = props;
-  const [expanded, setExpanded] = React.useState(false);
+  console.log(jobs, user);
   let filteredJobs = jobs.filter((elem) => {
-    return elem.username._id === user._id;
+    return user.jobsCreated.includes(elem._id);
+    // return elem.username._id === user._id;
   });
-  console.log("filteredJobs", filteredJobs);
+
   return (
     <div>
       {!filteredJobs
-        ? ""
+        ? " "
         : filteredJobs.map((elem) => {
             return (
               <div>
@@ -176,9 +170,128 @@ export default function JobCard(props) {
                     </Typography>
                   </CardContent>
                   <CardActions disableSpacing>
-                    <Button variant="contained" size="small">
-                      Edit
-                    </Button>
+                    {/* ------------------------------------------------------------------------------
+                               MUI Modal
+ ------------------------------------------------------------------------------ */}
+                    <div>
+                      <Button onClick={handleOpen}>Edit</Button>
+                      <Modal
+                        aria-labelledby="transition-modal-title"
+                        aria-describedby="transition-modal-description"
+                        open={open}
+                        onClose={handleClose}
+                        closeAfterTransition
+                        BackdropComponent={Backdrop}
+                        BackdropProps={{
+                          timeout: 400,
+                        }}
+                      >
+                        <Fade in={open}>
+                          <Box sx={style} className="popUpEditProfile">
+                            {/* -------------------------------------------------------------------------------
+                             Marcos      Function to edit it
+------------------------------------------------------------------------------- */}
+
+                            {
+                              <div>
+                                <form
+                                  onSubmit={(event) => {
+                                    btnEdit(event, elem._id);
+                                  }}
+                                >
+                                  <div className="contanierFromJobs">
+                                    <Typography
+                                      id="transition-modal-title"
+                                      variant="h6"
+                                      component="h2"
+                                    >
+                                      Edit this job offer{" "}
+                                    </Typography>
+                                    <input
+                                      className="toHaveSpace"
+                                      name="jobTitle"
+                                      type="text"
+                                      defaultValue={elem.jobTitle}
+                                    />
+                                    <input
+                                      className="toHaveSpace"
+                                      name="jobDescription"
+                                      type="text"
+                                      defaultValue={elem.jobDescription}
+                                    />
+                                  </div>
+                                  <FormControl sx={{ m: 1.5, width: 300 }}>
+                                    {" "}
+                                    <InputLabel id="demo-multiple-name-label">
+                                      {" "}
+                                      Skills
+                                    </InputLabel>{" "}
+                                    <Select
+                                      class="form-select"
+                                      labelId="demo-multiple-name-label"
+                                      id="demo-multiple-name"
+                                      multiple
+                                      defaultValue={elem.skills}
+                                      name="skills"
+                                      onChange={handleChange}
+                                      input={<OutlinedInput label="Name" />}
+                                      MenuProps={MenuProps}
+                                    >
+                                      {skills.map((skill) => (
+                                        <MenuItem
+                                          key={skill}
+                                          value={skill}
+                                          style={getStyles(
+                                            skill,
+                                            personName,
+                                            theme
+                                          )}
+                                        >
+                                          {skill}
+                                        </MenuItem>
+                                      ))}
+                                    </Select>
+                                  </FormControl>
+                                  {
+                                    <div className="contanierFromJobs">
+                                      <div className="toHaveSpace"></div>
+                                      <input
+                                        className="toHaveSpace"
+                                        name="deadline"
+                                        type="date"
+                                        defaultValue={elem.deadline}
+                                      />
+                                      <input
+                                        className="toHaveSpace"
+                                        name="jobDescription"
+                                        type="text"
+                                        defaultValue={elem.jobDescription}
+                                      />
+                                      <input
+                                        className="toHaveSpace"
+                                        name="price"
+                                        type="Number"
+                                        defaultValue={elem.price}
+                                      />
+                                      <Button
+                                        variant="contained"
+                                        size="small"
+                                        style={{ marginTop: 8 }}
+                                        type="submit"
+                                      >
+                                        Edit
+                                      </Button>
+                                    </div>
+                                  }
+                                </form>
+                              </div>
+                            }
+                          </Box>
+                        </Fade>
+                      </Modal>
+                    </div>
+                    {/* ------------------------------------------------------------------------------ */}
+
                     <Button
                       onClick={() => {
                         btnDelete(elem._id);
@@ -188,6 +301,7 @@ export default function JobCard(props) {
                     >
                       Delete
                     </Button>
+
                     <ExpandMore
                       expand={expanded}
                       onClick={handleExpandClick}

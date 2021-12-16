@@ -18,21 +18,22 @@ import EditProfile from "./components/EditProfile";
 import ChatBot from "./components/ChatBot";
 import YourJobs from "./components/YourJobs";
 import EditJob from "./components/EditAdvert";
-import Chat from "./components/Chat";
 import YourEvents from "./components/YourEvents";
 import Events from "./components/Events";
 import Footer from "./components/Footer";
 import MyCalendar from "./components/MyCalendar";
 import NotFound from "./components/NotFound";
+import ChatPage from "./components/ChatPage";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
-
   const { user, setUser } = useContext(UserContext);
+  const [users, setUsers] = useState([]);
   const [events, setEvents] = useState([]);
   const [fetchingUser, setFetchingUser] = useState(true);
   const [fetchingJobs, setFetchingJobs] = useState(true);
   const [myError, setError] = useState(null);
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
   const [jobs, setJobs] = useState([]);
   const navigate = useNavigate();
 
@@ -52,11 +53,16 @@ function App() {
     handleProfile();
   }, []);
 
-  console.log("the events", events);
-
-  // useEffect(() => {
-  //   navigate("/profile");
-  // }, [jobs]);
+  const fetchUsers = () => {
+    axios
+      .get(`${API_URL}/users`, { withCredentials: true })
+      .then((response) => {
+        setUsers(response.data);
+      })
+      .catch((err) => {
+        console.log("user not logged in");
+      });
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -75,13 +81,16 @@ function App() {
     let response = await axios.post(`${API_URL}/add-form`, newJob, {
       withCredentials: true,
     });
+    let cloneUser = JSON.parse(JSON.stringify(user));
+    cloneUser.jobsCreated = [response.data._id, ...user.jobsCreated];
+    setUser(cloneUser);
     setJobs([response.data, ...jobs]);
     navigate(`/profile`);
   };
 
   const handleEdit = async (event, id) => {
     event.preventDefault();
-    console.log('hey yo')
+    console.log("hey yo");
     let editedAdvert = {
       jobTitle: event.target.jobTitle.value,
       jobDescription: event.target.jobDescription.value,
@@ -92,17 +101,19 @@ function App() {
       accepted: false,
     };
     // Pass an object as a 2nd param in POST requests
-    let response = await axios.patch(`${API_URL}/jobs/${id}`, editedAdvert, {withCredentials: true});
-    let cloneJobs = JSON.parse(JSON.stringify(jobs))
-   let updatedJobs = cloneJobs.map((elem) => {
-      if (elem._id ===  response.data._id) {
-        elem = response.data
+    let response = await axios.patch(`${API_URL}/jobs/${id}`, editedAdvert, {
+      withCredentials: true,
+    });
+    let cloneJobs = JSON.parse(JSON.stringify(jobs));
+    let updatedJobs = cloneJobs.map((elem) => {
+      if (elem._id === response.data._id) {
+        elem = response.data;
       }
-     return elem;
-  });
-   setJobs(updatedJobs);
+      return elem;
+    });
+    setJobs(updatedJobs);
 
-   // console.log("updated jobs ", updatedJobs)
+    // console.log("updated jobs ", updatedJobs)
   };
 
   const handleDelete = async (id) => {
@@ -113,7 +124,7 @@ function App() {
     let filteredAdvert = jobs.filter((elem) => {
       return elem._id !== id;
     });
- 
+
     setJobs(filteredAdvert);
   };
 
@@ -142,6 +153,7 @@ function App() {
     let response = await axios.post(`${API_URL}/signin`, newUser, {
       withCredentials: true,
     });
+
     try {
       console.log(response.data);
       setUser(response.data);
@@ -211,7 +223,9 @@ function App() {
     let response = await axios.patch(`${API_URL}/yourjobs`, acceptedJob, {
       withCredentials: true,
     });
-    console.log(response.data);
+    let cloneUser = JSON.parse(JSON.stringify(user));
+    cloneUser.jobsAccepted = [response.data._id, ...user.jobsCreated];
+    setUser(cloneUser);
     let filteredJobs = jobs.map((job) => {
       if (job._id == response.data._id) {
         return response.data;
@@ -314,11 +328,11 @@ function App() {
 
         {/* <Route path="/yourprofile" element={<ProfileForm user={user} />} /> */}
 
-        <Route path="/chat" element={<Chat />} />
+        <Route path="/chat/:chatId" element={<ChatPage user={user} />} />
         <Route path="/calendar" element={<MyCalendar />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

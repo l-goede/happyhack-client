@@ -6,24 +6,45 @@ import MyNav from "./MyNav";
 import Footer from "./Footer";
 import ProfileForm from "./ProfileForm";
 import JobCard from "./JobCard";
-import {API_URL, SOCKET_URL} from '../config'
+import { API_URL, SOCKET_URL } from "../config";
 import io from "socket.io-client";
 function Profile(props) {
+  // let socket = io(`${SOCKET_URL}`);
   let { user, jobs, btnAdd, username } = props;
-  console.log("user in profilejs", user);
 
+  const [accepted, setAccepted] = useState([]);
   if (!user) {
-    return <p>⌛</p>;
+    return <h1>Loading</h1>;
   }
-  socket.on("hello", (arg) => {
-    console.log(arg); // world
-  });
+  // TODO: Merge??
+  // function handleAdd(user, jobs) {
+  //   let acceptedJob = {
+  //     image: user.image,
+  //     jobTitle: jobs.jobTitle,
+  //     name: user.name,
+  //     skills: jobs.skills,
+  //     deadline: jobs.deadline,
+  //     jobDescription: jobs.jobDescription,
+  //     price: jobs.price,
+  //     completed: false,
+  //     accpted: true,
+  //   };
+
+  //   setAccepted([acceptedJob, ...accepted]);
+  // }
+
   return (
     <div>
       <div class="centered">
         <div class="card-container-profile">
-          <span  class="pro" id="profile-btn">
-            <Link style={{textDecoration: "none", color: "#2e2c2c"}}  to={`/EditProfile/${user._id}`}> EDIT</Link>
+          <span class="pro" id="profile-btn">
+            <Link
+              style={{ textDecoration: "none", color: "#2e2c2c" }}
+              to={`/EditProfile/${user._id}`}
+            >
+              {" "}
+              EDIT
+            </Link>
           </span>
 
           <img class="dimProfile" src={user.image} alt="user" />
@@ -39,19 +60,14 @@ function Profile(props) {
             {user.aboutMe} <br /> <br />{" "}
           </h6>
 
-          <button class="primary-profile" id="profile-btn">
-          <Link style={{textDecoration: "none", color: "#2e2c2c"}} to={`/calendar`}> My calendar</Link>
-          </button>
 
           <div class="skills-profile">
             <h6>Skills</h6>
             <ul>
-            
-              {
-              user.skills.map((elem) => {
+              {user.skills.map((elem) => {
                 return (
                   <>
-                  {console.log("inside my map", user.skills)}
+                    {console.log("inside my map", user.skills)}
                     <li>{elem}</li>
                   </>
                 );
@@ -59,7 +75,6 @@ function Profile(props) {
             </ul>
           </div>
         </div>
-
       </div>
       <JobCard jobs={jobs} user={user} btnAdd={btnAdd} username={username} />
     </div>
