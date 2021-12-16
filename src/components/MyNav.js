@@ -16,6 +16,7 @@ import "../myNav.css";
 import { useNavigate } from "react-router-dom";
 
 const MyNav = (props) => {
+  let { user } = props;
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const navigate = useNavigate();
@@ -169,7 +170,7 @@ const MyNav = (props) => {
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar
                       alt="Remy Sharp"
-                      src="https://letsenhance.io/static/b8eda2f8914d307d52f725199fb0c5e6/62e7b/MainBefore.jpg"
+                      src={user.image}
                     />
                   </IconButton>
                 </Tooltip>

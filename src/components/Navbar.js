@@ -20,9 +20,9 @@ export default function Navbar(props) {
         <>
 
 
-                    <Link style={{ marginLeft: "10px" }} to="/signin">
+        <Link style={{ marginLeft: "10px" }} to="/signin">
             SignIn
-          </Link>
+        </Link>
 
           <Link style={{ marginLeft: "10px" }} to="/signup">
             SignUp

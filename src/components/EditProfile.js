@@ -97,7 +97,21 @@ function EditProfile(props) {
               </span>
               <span className="file-label">Upload profile image</span>
             </span>
+<<<<<<< HEAD
           </label>
+=======
+            <span className="file-label">Upload profile image</span>
+          </span>
+        </label>
+      </div>
+
+     
+
+      <div className="field">
+        <label className="label">Name</label>
+        <div className="control">
+        <input className="input" defaultValue={user.name} name="name"  type="text"  placeholder="Enter your name"/>
+>>>>>>> 2bf5556d8d6c51bca8c928aa6cfb0ec31354390c
         </div>
         <div className="field">
           <label className="label">Name</label>
@@ -187,7 +201,16 @@ function EditProfile(props) {
         </div>
       </div>
     </form>
+<<<<<<< HEAD
   );
+=======
+
+
+
+
+
+  )
+>>>>>>> 2bf5556d8d6c51bca8c928aa6cfb0ec31354390c
 }
 
 export default EditProfile;

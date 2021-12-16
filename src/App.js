@@ -15,13 +15,15 @@ import Home from "./components/Home";
 import ProfileForm from "./components/ProfileForm";
 import CreateJob from "./components/CreateJob";
 import EditProfile from "./components/EditProfile";
+import ChatBot from "./components/ChatBot";
 import YourJobs from "./components/YourJobs";
 import EditJob from "./components/EditAdvert";
-import JobCard from "./components/JobCard";
 import Chat from "./components/Chat";
 import YourEvents from "./components/YourEvents";
 import Events from "./components/Events";
 import Footer from "./components/Footer";
+import MyCalendar from "./components/MyCalendar";
+import NotFound from "./components/NotFound";
 
 function App() {
   const { user, setUser } = useContext(UserContext);
@@ -257,6 +259,8 @@ function App() {
   console.log("app", user);
   return (
     <div>
+      <ChatBot />
+
       <MyNav user={user} onLogout={handleLogout} />
       <Routes>
         <Route path="/" element={<Home user={user} />} />
@@ -316,9 +320,11 @@ function App() {
           }
         />
 
-        <Route path="/yourprofile" element={<ProfileForm user={user} />} />
+        {/* <Route path="/yourprofile" element={<ProfileForm user={user} />} /> */}
 
         <Route path="/chat" element={<Chat />} />
+        <Route path="/calendar" element={<MyCalendar />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
     </div>
