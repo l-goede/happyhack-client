@@ -12,7 +12,7 @@ function Profile(props) {
   const [accepted, setAccepted] = useState([]);
 
   if (!user) {
-    return <h1>Loading</h1>;
+    return <p>⌛</p>;
   }
 
   function handleAdd(user, jobs) {
@@ -34,25 +34,25 @@ function Profile(props) {
     <div>
       <div class="centered">
         <div class="card-container-profile">
-          <span class="pro">
-            <Link to={`/EditProfile/${user._id}`}> EDIT</Link>
+          <span  class="pro" id="profile-btn">
+            <Link style={{textDecoration: "none", color: "#2e2c2c"}}  to={`/EditProfile/${user._id}`}> EDIT</Link>
           </span>
 
           <img class="dimProfile" src={user.image} alt="user" />
 
-          <h6>
+          <h4>
             {user.name} {user.lastName}{" "}
-          </h6>
+          </h4>
           <h3 class="smallEmail">{user.email} </h3>
-          <h1>
+          <h6>
             {user.location} <br />{" "}
-          </h1>
-          <h1>
+          </h6>
+          <h6>
             {user.aboutMe} <br /> <br />{" "}
-          </h1>
+          </h6>
 
-          <button class="primary-profile" id="buttons-profile">
-          <Link to={`/calendar`}> My calendar</Link>
+          <button class="primary-profile" id="profile-btn">
+          <Link style={{textDecoration: "none", color: "#2e2c2c"}} to={`/calendar`}> My calendar</Link>
           </button>
 
           <div class="skills-profile">

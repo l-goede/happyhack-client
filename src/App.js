@@ -20,7 +20,8 @@ import YourJobs from "./components/YourJobs";
 import EditJob from "./components/EditAdvert";
 import JobCard from "./components/JobCard";
 import Chat from "./components/Chat";
-import MyCalendar from "./components/MyCalendar"
+import MyCalendar from "./components/MyCalendar";
+import NotFound from "./components/NotFound";
 
 
 
@@ -243,6 +244,7 @@ function App() {
 
         <Route path="/chat" element={<Chat />} />
         <Route path="/calendar" element={<MyCalendar/>} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );

@@ -24,7 +24,7 @@ function MyCalendar() {
                          themeSystem={'bootstrap'}
                          events={[
     { title: 'Fern Bday', date: '2021-12-26' },
-    { title: 'Presentation!', date: '2021-12-17' },
+    { title: 'Presentation!', date: '2021-12-17'},
     { title: 'Christmas Break', 
       start: '2021-12-22', 
       end: '2021-12-26'},
