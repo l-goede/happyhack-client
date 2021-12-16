@@ -5,7 +5,11 @@ import './ChatPage.css'
 import io from "socket.io-client";
 import { useNavigate, useParams } from 'react-router-dom';
 import { Link, Navigate } from 'react-router-dom'
-
+import SendIcon from '@mui/icons-material/Send';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 let socket = ''
 
 function ChatPage(props) {
@@ -17,7 +21,6 @@ function ChatPage(props) {
     const [messageList, setMessageList] = useState([])
     const [currentMessage, setCurrentMessage] = useState('')
     const {chatId} = useParams()
-    console.log(chatId, "the chatId")
 
     const scrollToBottom = () => {
         messagesEnd.scrollIntoView({ behavior: "smooth" });
@@ -26,10 +29,8 @@ function ChatPage(props) {
     useEffect(() => {
         //setup your socket connection with the server
         socket = io(`${SOCKET_URL}`);
-        console.log(socket, API_URL, "its the socket")
         const getMessages = async () => {
             let response  = await axios.get(`${API_URL}/messages/${chatId}`)
-            console.log("thi is the answer for message", response.data)
             setLoading(false)
             setMessageList(response.data)
 
@@ -38,7 +39,6 @@ function ChatPage(props) {
 
             //Handle incoming messages from webSocket
             socket.on("receive_message", (data) => {
-                console.log('Got data', data)
                 setMessageList(data)
             });   
 
@@ -47,7 +47,6 @@ function ChatPage(props) {
         getMessages()
 
     }, [])
-    console.log("outisde the useeffect", messageList)
     useEffect(() => {
         // makes the chat scroll to the bottom everytime a new message is sent or received
         scrollToBottom();
@@ -80,35 +79,47 @@ function ChatPage(props) {
    /* if(!user){
         navigate("/signin")
     }*/
+
     return (
-        <div>
-            <h3>You're in the Chat Page </h3>
-            <Link to={"/yourjobs"} >Back to your jobs </Link>
+        <div className='container'>
+
             <div className="chatContainer">
+
+
+
                 <div className="messages">
                     {
+                        
                         messageList.map((val) => {
-                            console.log("my users i dont know what is inside", user)
                             return (
+                                
+
+                                <div id='name'>
+                                    
                                 <div key={val._id} className="messageContainer" id={val.sender.name == user.name ?"You" : "Other"}>
-                                    <div className="messageIndividual">
+                                    
+                                   <div className="messageIndividual">
+                                        
                                         {val.sender.name}: {val.message}
                                     </div>
+                                </div>
                                 </div>
                             );
                         })
                     }
-                    <div style={{ float:"left", clear: "both" }}
-                        ref={(el) => { messagesEnd = el; }}>
-                    </div>
+                    <div style={{ float:"left", clear: "both" }} ref={(el) => { messagesEnd = el; }}>  </div>
                 </div>
                 <div className="messageInputs">
-                    <input value={currentMessage} type="text" placeholder="Message..."
-                        onChange={handleMessageInput}
-                    />
-                    <button onClick={sendMessage}>Send</button>
+                
+                <Box component="form" sx={{ '& > :not(style)': { m: 1, width: '25ch' }, }}   noValidate  autoComplete="off" />
+                <TextField value={currentMessage} type="text" placeholder="Message..." onChange={handleMessageInput} id="outlined-basic" label="Message" variant="outlined" />
+                    <SendIcon id='sendIcon' onClick={sendMessage}></SendIcon>
                 </div>
+                <Stack spacing={2} direction="row">
+      <Button  variant="outlined" style={{marginBottom: "10px", color: "black"}} ><Link to={"/yourjobs"} style={{ textDecoration: "none", color: "#2e2c2c"}} > Back to Job list</Link></Button>      
+    </Stack>
             </div>
+            
         </div>
     )
 }

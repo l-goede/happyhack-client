@@ -32,6 +32,8 @@ import Fade from '@mui/material/Fade';
 import {UserContext} from "../context/app.context"
 import { useParams, Link } from 'react-router-dom'
 import { useState, useEffect, useContext } from 'react'
+import "./JobCreatedCard.css"
+
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -126,7 +128,7 @@ export default function JobCard(props) {
   };
 
   const { btnEdit } = props
-  const { btnDelete } = props
+  const { btnDel } = props
    const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -144,6 +146,7 @@ export default function JobCard(props) {
     return elem.username === user._id;
 
   });
+
 
   return (
     <div>
@@ -190,19 +193,28 @@ export default function JobCard(props) {
             }}
           >
             <Fade in={open}>
-              <Box sx={style}>
-                <Typography id="transition-modal-title" variant="h6" component="h2">
-                  Edit this job offer
-                </Typography>
+              
+              <Box sx={ style} 
+              
+              
+              
+              className="popUpEditProfile">
+
 {/* -------------------------------------------------------------------------------
                              Marcos      Function to edit it
 ------------------------------------------------------------------------------- */}
+
                 {
                   <div>
                     <form onSubmit={(event) => { btnEdit(event, elem._id) }} >
-                      <input name="jobTitle" type="text" defaultValue={elem.jobTitle} />
-                      <input name="jobDescription" type="text" defaultValue={elem.jobDescription} />
-                      <FormControl sx={{ m: 1, width: 300 }}> <InputLabel id="demo-multiple-name-label"> Skills needed </InputLabel>   <Select class="form-select"
+                    <div className="contanierFromJobs" >
+
+                    <Typography id="transition-modal-title" variant="h6" component="h2">Edit this job offer </Typography>
+                      <input className="toHaveSpace" name="jobTitle" type="text" defaultValue={elem.jobTitle} />
+                      <input className="toHaveSpace" name="jobDescription" type="text" defaultValue={elem.jobDescription} />
+
+                      </div>
+                      <FormControl sx={{ m: 1.5, width: 300,  }} > <InputLabel id="demo-multiple-name-label"> Skills</InputLabel>   <Select class="form-select"
                           labelId="demo-multiple-name-label"
                           id="demo-multiple-name"
                           multiple
@@ -224,13 +236,17 @@ export default function JobCard(props) {
                           ))}
                         </Select>
                       </FormControl>
-                      <input name="deadline" type="date" defaultValue={elem.deadline} />
-                      <input name="jobDescription" type="text" defaultValue={elem.jobDescription} />
-                      <input name="price" type="Number" defaultValue={elem.price} />
-                      <button type="submit"  >Edit</button>
-                      <button onClick={() => { btnDelete(jobs._id) }} >Delete</button>
-                    </form>
-                  </div>
+                      {
+                        <div className="contanierFromJobs" >
+                      <div className="toHaveSpace"></div>
+                      <input className="toHaveSpace" name="deadline" type="date" defaultValue={elem.deadline} />
+                      <input className="toHaveSpace" name="jobDescription" type="text" defaultValue={elem.jobDescription} />
+                      <input className="toHaveSpace" name="price" type="Number" defaultValue={elem.price} />
+                      <Button variant="contained" size="small" style={{ marginTop: 8 }}  type="submit" >Edit</Button>
+                      </div>
+                  }
+                   </form>
+                </div>
                 }
               </Box>
             </Fade>
@@ -238,7 +254,7 @@ export default function JobCard(props) {
         </div>
         {/* ------------------------------------------------------------------------------ */}
 
-                <Button onClick={() => { btnDelete(jobs._id) }} variant="contained" size="small">
+                <Button onClick={() => { btnDel(filteredJobs._id) }} variant="contained" size="small">
                   
                   Delete
                 </Button>

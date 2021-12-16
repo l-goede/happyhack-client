@@ -6,14 +6,19 @@ import MyNav from "./MyNav";
 import Footer from "./Footer";
 import ProfileForm from "./ProfileForm";
 import JobCard from "./JobCard";
-
+import {API_URL, SOCKET_URL} from '../config'
+import io from "socket.io-client";
 function Profile(props) {
+
+  let socket = io(`${SOCKET_URL}`);
+
   let { user, jobs } = props;
   const [accepted, setAccepted] = useState([]);
   if (!user) {
     return <h1>Loading</h1>;
   }
-console.log("my profile", props)
+
+
   function handleAdd(user, jobs) {
     let acceptedJob = {
       image: user.image,
@@ -29,7 +34,9 @@ console.log("my profile", props)
 
     setAccepted([acceptedJob, ...accepted]);
   }
-  console.log(user)
+  socket.on("hello", (arg) => {
+    console.log(arg); // world
+  });
   return (
     <div>
       <div class="centered">
@@ -71,6 +78,7 @@ console.log("my profile", props)
             </ul>
           </div>
         </div>
+
       </div>
       <JobCard jobs={jobs} user={user} btnAdd={handleAdd} />
       <Footer />

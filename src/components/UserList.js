@@ -19,7 +19,6 @@ function UserList(props) {
             }
             axios.post(`${API_URL}/conversation`, data, { withCredentials: true })
                 .then((response) => {
-                    console.log("response of the converstaion",response)
                     navigate(`/chat/${response.data._id}`)
                 })
         }
@@ -28,9 +27,9 @@ function UserList(props) {
         if (!user) {
             return <h1>Loading</h1>
         }
-        if (user) {
-            users.filter(u => u._id !== user._id)
-        }
+       
+        let filteredUsers = users.filter(u => u._id !== user._id)
+        
         return (
             <>
         <h1 className="title-pages">All users</h1>
@@ -38,7 +37,7 @@ function UserList(props) {
                 
                 <div className="chatlist-body">
                     {
-                        users.map((user) => {
+                        filteredUsers.map((user) => {
                             return (
                                 <div className="msg-box-container">
                                     

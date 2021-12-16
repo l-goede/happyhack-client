@@ -77,6 +77,7 @@ function App() {
 
   const handleEdit = async (event, id) => {
     event.preventDefault();
+    console.log('hey yo')
     let editedAdvert = {
       jobTitle: event.target.jobTitle.value,
       jobDescription: event.target.jobDescription.value,
@@ -88,19 +89,14 @@ function App() {
     };
     // Pass an object as a 2nd param in POST requests
     let response = await axios.patch(`${API_URL}/jobs/${id}`, editedAdvert, {withCredentials: true});
-    setJobs(response.data)
-
-   // let updatedJobs = jobs.map((elem) => {
-      // if (elem._id === id) {
-      //   elem.skills = response.data.skills;
-      //   elem.details = response.data.details;
-      //   elem.date = response.data.date;
-      //   elem.price = response.data.price;
-      //   elem.contact = response.data.contact;
-      // }
-    //  return elem;
-  // });
-  //  setJobs(updatedJobs);
+    let cloneJobs = JSON.parse(JSON.stringify(jobs))
+   let updatedJobs = cloneJobs.map((elem) => {
+      if (elem._id ===  response.data._id) {
+        elem = response.data
+      }
+     return elem;
+  });
+   setJobs(updatedJobs);
 
    // console.log("updated jobs ", updatedJobs)
   };
