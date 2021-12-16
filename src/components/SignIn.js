@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
+import "../signIn.css";
 
 const theme = createTheme();
 
@@ -53,6 +54,7 @@ function SignIn(props) {
               error={props.myError ? true : false}
             />
             <Button
+              className="signInButton"
               type="submit"
               fullWidth
               variant="contained"
@@ -62,7 +64,9 @@ function SignIn(props) {
             </Button>
             <Grid container>
               <Grid item>
-                <Link to="/signup">{"Don't have an account? Sign Up"}</Link>
+                <Link className="linkToSignUp" to="/signup">
+                  {"Don't have an account? Sign Up"}
+                </Link>
               </Grid>
             </Grid>
           </Box>

@@ -6,22 +6,22 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
 export default function EventSavedCard(props) {
-  const { user, events } = props;
+  const { user, events, btnDeleteEvent } = props;
 
-  let filteredEvents = events.filter((elem) => {
-    return elem.username === user._id;
-  });
-
+  // let filteredEvents = events.filter((elem) => {
+  //   return elem.saved === user._id;
+  // });
+  console.log("event saved", events);
   return (
     <div>
-      {filteredEvents.map((elem) => {
+      {user.events.map((elem) => {
         return (
           <div>
             <Card sx={{ maxWidth: 345 }}>
               <CardMedia
                 component="img"
                 height="140"
-                image="/static/images/cards/contemplative-reptile.jpg"
+                image={elem.image}
                 alt="green iguana"
               />
               <CardContent>
@@ -33,7 +33,14 @@ export default function EventSavedCard(props) {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small">delete</Button>
+                <Button
+                  onClick={() => {
+                    btnDeleteEvent(elem._id);
+                  }}
+                  size="small"
+                >
+                  delete
+                </Button>
               </CardActions>
             </Card>
           </div>

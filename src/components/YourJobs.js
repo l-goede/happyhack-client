@@ -8,9 +8,9 @@ function YourJobs(props) {
   return (
     <div>
       <h1>Jobs you created</h1>
-      <JobCreatedCard user={user} jobs={jobs} />
+      <JobCreatedCard user={user} jobs={jobs} btnDelete={btnDelete} />
       <h1>Jobs you accepted</h1>
-      <JobAcceptedCard user={user} jobs={jobs} />
+      <JobAcceptedCard user={user} jobs={jobs} btnDelete={btnDelete} />
     </div>
   );
 }

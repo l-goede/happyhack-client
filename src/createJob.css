@@ -1,0 +1,24 @@
+.submitButton {
+  background: #2e2c2c;
+  color: whitesmoke;
+  border-radius: 0.2rem;
+  height: 4vh;
+  width: 10vh;
+}
+
+.MenuItem {
+  background: black;
+  margin-left: 2rem;
+}
+
+.MenuItem.Mui-slected {
+  background: black;
+}
+
+.form-select {
+  margin-left: 50%;
+}
+
+.skills {
+  font-weight: bold;
+}

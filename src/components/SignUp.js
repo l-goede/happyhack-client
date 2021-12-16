@@ -6,9 +6,10 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-
+import "../signUp.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link, useNavigate } from "react-router-dom";
+import { alpha, styled } from "@mui/material/styles";
 import axios from "axios";
 import { API_URL } from "../config";
 
@@ -29,8 +30,22 @@ function SignUp(props) {
     navigate("/signin");
   };
 
+  const CssTextField = styled(TextField)({
+    "& label.Mui-focused": {
+      color: "green",
+    },
+    "& .MuiInput-underline:after": {
+      borderBottomColor: "green",
+    },
+    "& .MuiOutlinedInput-root": {
+      "&.Mui-focused fieldset": {
+        borderColor: "green",
+      },
+    },
+  });
+
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider clasName="themeProvider" theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -50,7 +65,8 @@ function SignUp(props) {
             noValidate
             sx={{ mt: 1 }}
           >
-            <TextField
+            <CssTextField
+              className="textfield"
               margin="normal"
               required
               fullWidth
@@ -60,6 +76,7 @@ function SignUp(props) {
               autoFocus
             />
             <TextField
+              className="textfield"
               margin="normal"
               required
               fullWidth
@@ -69,6 +86,7 @@ function SignUp(props) {
               autoComplete="email"
             />
             <TextField
+              className="textfield"
               margin="normal"
               required
               fullWidth
@@ -79,16 +97,17 @@ function SignUp(props) {
               autoComplete="current-password"
             />
             <Button
+              className="signUpButton"
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 2, background: "#2e2c2c" }}
             >
               Sign Up
             </Button>
             <Grid container>
               <Grid item>
-                <Link to="/signin">
+                <Link className="linkToSignIn" to="/signin">
                   {"Already have an account? Sign In instead"}
                 </Link>
               </Grid>

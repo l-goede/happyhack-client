@@ -14,7 +14,6 @@ function Profile(props) {
   if (!user) {
     return <h1>Loading</h1>;
   }
-
   console.log("profile:jobs", jobs);
   return (
     <div>
@@ -56,7 +55,6 @@ function Profile(props) {
         </div>
       </div>
       <JobCard jobs={jobs} user={user} btnAdd={btnAdd} username={username} />
-      <Footer />
     </div>
   );
 }

@@ -1,0 +1,32 @@
+.signUpButton {
+  background: #2e2c2c;
+}
+
+.textfield {
+  background: white;
+  outline: none;
+}
+
+.textfield.Mui-checked {
+  color: black;
+}
+
+.linkToSignIn {
+  color: #2e2c2c;
+}
+
+.MuiOutlinedInput.Mui-selected {
+  color: black;
+}
+
+.MuiButton-root.Mui-selected {
+  background: black;
+}
+
+button.MuiButton-containedPrimary:hover {
+  background-color: #d69b7b;
+}
+input.MuiOutlinedInput-input:focus {
+  color: black;
+  outline: none;
+}

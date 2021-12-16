@@ -29,19 +29,27 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function JobCard(props) {
-  const { user, jobs, btnAdd, username } = props;
+  const { user, jobs, btnAdd } = props;
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+  console.log(user);
+  console.log(jobs);
+
   let filteredJobs = jobs.filter((elem) => {
-    return elem.username !== user._id;
+    return elem.username._id !== user._id;
   });
 
+  console.log(filteredJobs);
+  let finalJobs = filteredJobs.filter((elem) => {
+    return elem.accepted == false;
+  });
+  console.log("finalJobs", finalJobs);
   return (
     <div>
-      {filteredJobs.map((elem) => {
+      {finalJobs.map((elem) => {
         return (
           <div>
             <Card sx={{ maxWidth: 345 }}>

@@ -20,11 +20,14 @@ import EditJob from "./components/EditAdvert";
 import JobCard from "./components/JobCard";
 import Chat from "./components/Chat";
 import YourEvents from "./components/YourEvents";
+import Events from "./components/Events";
+import Footer from "./components/Footer";
 
 function App() {
   const { user, setUser } = useContext(UserContext);
   const [events, setEvents] = useState([]);
   const [fetchingUser, setFetchingUser] = useState(true);
+  const [fetchingJobs, setFetchingJobs] = useState(true);
   const [myError, setError] = useState(null);
   const [jobs, setJobs] = useState([]);
   const navigate = useNavigate();
@@ -33,20 +36,18 @@ function App() {
     const getData = async () => {
       let response = await axios.get(`${API_URL}/jobs`);
       setJobs(response.data);
+      setFetchingJobs(false);
     };
-
+    const getDataEvent = async () => {
+      let response = await axios.get(`${API_URL}/events`);
+      setEvents(response.data);
+    };
+    getDataEvent();
     getData();
     handleProfile();
   }, []);
 
-  useEffect(() => {
-    const getData = async () => {
-      let response = await axios.get(`${API_URL}/events`);
-      setEvents(response.data);
-    };
-
-    getData();
-  }, []);
+  console.log("the events", events);
 
   // useEffect(() => {
   //   navigate("/profile");
@@ -121,14 +122,16 @@ function App() {
 
   const handleDeleteEvent = async (id) => {
     // make a request to the server to delete it from the database
-    await axios.delete(`${API_URL}/api/events/${id}`);
+    await axios.patch(`${API_URL}/events/${id}`, {}, { withCredentials: true });
 
     // Update your state 'jobs' and remove the jobcard that was deleted
-    let filteredEvent = events.filter((elem) => {
+    let filteredEvent = user.events.filter((elem) => {
       return elem._id !== id;
     });
-
-    setEvents(filteredEvent);
+    console.log("delete event", filteredEvent, "before delete", events);
+    let cloneUser = JSON.parse(JSON.stringify(user));
+    cloneUser.events = filteredEvent;
+    setUser(cloneUser);
   };
 
   const handleSignIn = async (event) => {
@@ -152,12 +155,15 @@ function App() {
   };
 
   const handleProfile = async () => {
-    let response = await axios.get(`${API_URL}/profile`, {
-      withCredentials: true,
-    });
-    setUser(response.data);
-
-    setFetchingUser(false);
+    try {
+      let response = await axios.get(`${API_URL}/profile`, {
+        withCredentials: true,
+      });
+      setUser(response.data);
+      setFetchingUser(false);
+    } catch (err) {
+      setFetchingUser(false);
+    }
   };
 
   const handleLogout = async () => {
@@ -204,7 +210,6 @@ function App() {
 
   const handleWatchlist = async (jobId) => {
     let acceptedJob = {
-      developer: user,
       accepted: true,
       jobId,
     };
@@ -212,26 +217,49 @@ function App() {
     let response = await axios.patch(`${API_URL}/yourjobs`, acceptedJob, {
       withCredentials: true,
     });
-    setJobs([response.data]);
+    console.log(response.data);
+    let filteredJobs = jobs.map((job) => {
+      if (job._id == response.data._id) {
+        return response.data;
+      } else {
+        return job;
+      }
+    });
+    setJobs(filteredJobs);
   };
 
-  console.log("all my jobs", jobs);
+  const handleSaveEvent = async (eventId) => {
+    let saveEvent = {
+      eventId,
+    };
+
+    let response = await axios.patch(`${API_URL}/yourevents`, saveEvent, {
+      withCredentials: true,
+    });
+    console.log(response.data);
+    //add the response.data inside user.events
+    let cloneUser = JSON.parse(JSON.stringify(user));
+    cloneUser.events = [response.data, ...cloneUser.events];
+    setUser(cloneUser);
+    let filteredEvents = events.map((event) => {
+      if (event._id == response.data._id) {
+        return response.data;
+      } else {
+        return event;
+      }
+    });
+    setJobs(filteredEvents);
+  };
+
+  if (!events.length || fetchingUser || fetchingJobs) {
+    return <h1>LOADING...</h1>;
+  }
+  console.log("app", user);
   return (
     <div>
       <MyNav user={user} onLogout={handleLogout} />
       <Routes>
         <Route path="/" element={<Home user={user} />} />
-        {/*<Route path="/jobs-offer" element={<JobsList jobs={jobs} />} />*/}
-        {/* <Route
-          path="/jobs"
-          element={
-            <JobCard
-              btnDelete={handleDelete}
-              btnEditJob={handleEdit}
-              jobs={jobs}
-            />
-          }
-        /> */}
 
         <Route path="/signup" element={<SignUp />} />
         <Route
@@ -241,14 +269,7 @@ function App() {
         <Route
           path="/profile"
           handleProfile={handleProfile}
-          element={
-            <Profile
-              user={user}
-              jobs={jobs}
-              btnAdd={handleWatchlist}
-              username={fetchingUser}
-            />
-          }
+          element={<Profile user={user} jobs={jobs} btnAdd={handleWatchlist} />}
         />
         <Route
           path="/EditProfile/:id"
@@ -278,14 +299,19 @@ function App() {
           path="/editJob/:id"
           element={<EditJob btnEditJob={handleEdit} btnDelete={handleDelete} />}
         />
-
+        <Route
+          path="/events"
+          element={
+            <Events btnSave={handleSaveEvent} user={user} events={events} />
+          }
+        />
         <Route
           path="/yourevents"
           element={
             <YourEvents
               btnDeleteEvent={handleDeleteEvent}
               user={user}
-              events={events}
+              events={user ? user.events : []}
             />
           }
         />
@@ -294,6 +320,7 @@ function App() {
 
         <Route path="/chat" element={<Chat />} />
       </Routes>
+      <Footer />
     </div>
   );
 }

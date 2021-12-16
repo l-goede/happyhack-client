@@ -21,20 +21,29 @@ const MyNav = (props) => {
   const navigate = useNavigate();
 
   const pages = [
-    <Link className="link-navbar" to={"/add-form"}>
+    <Link className="toggle-link" to={"/add-form"}>
       Create a job
     </Link>,
-    <Link to={"/events"}>Events</Link>,
+    <Link className="toggle-link" to={"/events"}>
+      Events
+    </Link>,
   ];
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
   const settings = [
-    <Link to={"/profile"}>Profile</Link>,
-    <Link to={"/yourjobs"}>Your Jobs</Link>,
-    <Link to={"/yourevents"}>Your Events</Link>,
+    <Link className="toggle-link" to={"/profile"}>
+      Profile
+    </Link>,
+    <Link className="toggle-link" to={"/yourjobs"}>
+      Your Jobs
+    </Link>,
+    <Link className="toggle-link" to={"/yourevents"}>
+      Your Events
+    </Link>,
     <Link
+      className="toggle-link"
       onClick={() => {
         props.onLogout();
         handleCloseUserMenu();
@@ -47,7 +56,7 @@ const MyNav = (props) => {
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
-    navigate("/add-form");
+    navigate("/profile");
   };
   const handleOpenUserMenu = (event) => {
     console.log(event.currentTarget);
@@ -69,7 +78,7 @@ const MyNav = (props) => {
             component="div"
             sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
           >
-            <Link className="link-navbar" to={"/"}>
+            <Link className="toggle-link" to={"/"}>
               {" "}
               HappyHack{" "}
             </Link>
@@ -145,8 +154,14 @@ const MyNav = (props) => {
           <Box sx={{ flexGrow: 0 }}>
             {!props.user ? (
               <div>
-                <Link to="/signin"> SignIn </Link>
-                <Link to="/signup"> SignUp </Link>
+                <Link className="toggle-link" to="/signin">
+                  {" "}
+                  Sign In{" "}
+                </Link>
+                <Link className="toggle-link" to="/signup">
+                  {" "}
+                  Sign Up{" "}
+                </Link>
               </div>
             ) : (
               <>
