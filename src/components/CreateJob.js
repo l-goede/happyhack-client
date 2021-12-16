@@ -76,7 +76,7 @@ function CreateJob(props) {
   const { btnSubmit } = props;
   return (
     <>
-      <form classNameName="form" onSubmit={btnSubmit}>
+      <form className="form" onSubmit={btnSubmit}>
         <div className="field is-horizontal">
           <div className="field-label is-normal">
             <label className="label">Job title</label>
@@ -190,11 +190,7 @@ function CreateJob(props) {
           <div className="field-body">
             <div className="field">
               <div className="control">
-                <button
-                  classNameName="submitButton"
-                  type="submit"
-                  className="button is-primary"
-                >
+                <button type="submit" className="button is-primary">
                   Create
                 </button>
               </div>
@@ -207,152 +203,3 @@ function CreateJob(props) {
 }
 
 export default CreateJob;
-
-// import React from "react";
-// import { useContext } from "react";
-// import { UserContext } from "../context/app.context";
-// function CreateJob(props) {
-//   const { name } = useContext(UserContext);
-//   return (
-//     <>
-//       <form onSubmit={props.btnSubmit}>
-//         <div className="field is-horizontal">
-//           <div className="field-label is-normal">
-//             <label className="label">From</label>
-//           </div>
-//           <div className="field-body">
-//             <div className="field">
-//               <p className="control is-expanded has-icons-left">
-//                 <input
-//                   name="username"
-//                   className="input"
-//                   type="text"
-//                   placeholder="Username"
-//                   value={props.name}
-//                 />
-//                 <span className="icon is-small is-left">
-//                   <i className="fas fa-user"></i>
-//                 </span>
-//               </p>
-//             </div>
-//             <div className="field">
-//               <p className="control is-expanded has-icons-right">
-//                 <input
-//                   name="jobTitle"
-//                   className="input "
-//                   type="text"
-//                   placeholder="Job title"
-//                 />
-//                 <span className="icon is-small is-left">
-//                   <i className="fas fa-envelope"></i>
-//                 </span>
-//                 <span className="icon is-small is-right">
-//                   <i className="fas fa-user"></i>
-//                 </span>
-//               </p>
-//             </div>
-//           </div>
-//         </div>
-//         <div className="field is-horizontal">
-//           <div className="field-label is-normal">
-//             <label className="label">Job Description</label>
-//           </div>
-//           <div className="field-body">
-//             <div className="field">
-//               <div className="control">
-//                 <textarea
-//                   name="jobDescription"
-//                   className="textarea"
-//                   placeholder="Explain what your advert is about"
-//                 ></textarea>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//         <div className="field is-horizontal">
-//           <div className="field-label is-normal">
-//             <label className="label">Skills needed</label>
-//           </div>
-//           <div className="field-body">
-//             <div className="field is-narrow">
-//               <div className="control">
-//                 <div className="select is-fullwidth">
-//                   <select name="skills" multiple size="6">
-//                     <option>Select skills</option>
-//                     <option>Javascript</option>
-//                     <option>React</option>
-//                     <option>Typescript</option>
-//                     <option>Python</option>
-//                     <option>C#</option>
-//                     <option>Java</option>
-//                     <option>PHP</option>
-//                     <option>Angular</option>
-//                     <option>VueJS</option>
-//                     <option>NodeJS</option>
-//                     <option>ExpressJS</option>
-//                     <option>MondogoDB</option>
-//                     <option>Mongoose</option>
-//                     <option>MySQL</option>
-//                     <option>RESTful API</option>
-//                     <option>UX/UI</option>
-//                     <option>Figma</option>
-//                     <option>Adobe XD</option>
-//                   </select>
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//         <div className="field is-horizontal">
-//           <div className="field-label is-normal">
-//             <label className="label">Finished by</label>
-//           </div>
-//           <div className="field-body">
-//             <div className="field">
-//               <p className="control is-expanded has-icons-left">
-//                 <input
-//                   name="deadline"
-//                   className="input"
-//                   type="date"
-//                   placeholder="When should your project being finished"
-//                 />
-//                 <span className="icon is-small is-left">
-//                   <i className="fas fa-user"></i>
-//                 </span>
-//               </p>
-//             </div>
-//             <div className="field">
-//               <p className="control is-expanded has-icons-right">
-//                 <input
-//                   name="price"
-//                   className="input "
-//                   type="number"
-//                   placeholder="How much do you offer? "
-//                 />
-//                 <span className="icon is-small is-left">
-//                   <i className="fas fa-envelope"></i>
-//                 </span>
-//                 <span className="icon is-small is-right">
-//                   <i className="fas fa-user"></i>
-//                 </span>
-//               </p>
-//             </div>
-//           </div>
-//         </div>
-//         <div className="field is-horizontal">
-//           <div className="field-label"></div>
-//           <div className="field-body">
-//             <div className="field">
-//               <div className="control">
-//                 <button type="submit" className="button is-primary">
-//                   Create
-//                 </button>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//       </form>
-//     </>
-//   );
-// }
-// export default CreateJob;
