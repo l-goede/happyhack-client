@@ -32,14 +32,14 @@ function SignUp(props) {
 
   const CssTextField = styled(TextField)({
     "& label.Mui-focused": {
-      color: "green",
+      color: "#2e2c2c",
     },
     "& .MuiInput-underline:after": {
-      borderBottomColor: "green",
+      borderBottomColor: "#2e2c2c",
     },
     "& .MuiOutlinedInput-root": {
       "&.Mui-focused fieldset": {
-        borderColor: "green",
+        borderColor: "#2e2c2c",
       },
     },
   });
@@ -75,7 +75,7 @@ function SignUp(props) {
               name="username"
               autoFocus
             />
-            <TextField
+            <CssTextField
               className="textfield"
               margin="normal"
               required
@@ -85,7 +85,7 @@ function SignUp(props) {
               name="email"
               autoComplete="email"
             />
-            <TextField
+            <CssTextField
               className="textfield"
               margin="normal"
               required
