@@ -208,7 +208,7 @@ button.primary-profile.ghost {
     justify-content: center;
     align-content: space-around;
     min-width: auto;
-    max-width: auto;
+    max-width: 500px;
 }
 
 
@@ -303,9 +303,11 @@ justify-content: center;
 
 }
 
-/* .lottieGreen {
-
-} */
+.lottieGreen {
+	width:400;
+	height:400;
+	width: calc(100% - 80px);
+} 
 .lottieGreenWrapper {
 	display: flex;
 	justify-content: flex-end;
@@ -320,5 +322,20 @@ justify-content: center;
 	flex-direction: row;
  }
 
+ .centeredDiv404 {
+	display: flex;
+	align-content: center;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-around;
+	align-items: center;
+	 
+ }
+
+ .btn-primary {
+	color: #fff;
+	background-color: #9b69ff4d;
+	border-color: #fd0d6a;
+ }
 /* end of fern's work */
 

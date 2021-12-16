@@ -23,14 +23,15 @@ function NotFound() {
 
 
   return (
-    <div class="centered404">
+    <div className="centeredDiv404">
 
-     <LottieControl class="lottie404" animation={someJsonThree}/> 
-
+      <div className="centered404">
+     <LottieControl className="lottie404" animation={someJsonThree}/> 
       <button class="page404Styling" id="profile-btn">
           <Link style={{textDecoration: "none", color: "#2e2c2c"}} to="/"> Back to home</Link>
-      </button>
-  
+      </button> 
+      </div>
+
     </div>
   )
 }

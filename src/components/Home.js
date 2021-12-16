@@ -51,7 +51,7 @@ return (
 <h5> Need an extra pair of hands to get you javaScript skills a bit more polished? <br/> Or maybe you are a front end who needs to develop your back end side of your website? <br/> We've got you covered. </h5>
 </div>
 <div className="lottieGreenWrapper"> 
-<span classname="lottieGreen"><LottieControl animation={someJson} width={400} height={400}/> </span>
+<span classname="lottieGreen"><LottieControl animation={someJson}/> </span>
 </div>
 </div>
 </div>
