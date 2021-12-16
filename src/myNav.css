@@ -1,12 +1,16 @@
 .bar {
-  background: #31393c;
-  height: 8rem;
+  background: #e7e7e7;
+  height: 6rem;
 }
 
 .text {
-  color: #efece5;
+  color: #2e2c2c;
 }
 
 .link-navbar {
   color: white;
+}
+
+.toggle-link {
+  color: #2e2c2c;
 }

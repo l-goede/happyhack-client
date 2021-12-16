@@ -8,11 +8,27 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
+import { alpha, styled } from "@mui/material/styles";
+import "../signIn.css";
 
 const theme = createTheme();
 
 function SignIn(props) {
   const { onSignIn } = props;
+
+  const CssTextField = styled(TextField)({
+    "& label.Mui-focused": {
+      color: "#2e2c2c",
+    },
+    "& .MuiInput-underline:after": {
+      borderBottomColor: "#2e2c2c",
+    },
+    "& .MuiOutlinedInput-root": {
+      "&.Mui-focused fieldset": {
+        borderColor: "#2e2c2c",
+      },
+    },
+  });
 
   return (
     <ThemeProvider theme={theme}>
@@ -30,7 +46,7 @@ function SignIn(props) {
             Sign in
           </Typography>
           <Box component="form" onSubmit={onSignIn} noValidate sx={{ mt: 1 }}>
-            <TextField
+            <CssTextField
               margin="normal"
               required
               fullWidth
@@ -40,7 +56,7 @@ function SignIn(props) {
               autoComplete="email"
               autoFocus
             />
-            <TextField
+            <CssTextField
               margin="normal"
               required
               fullWidth
@@ -53,6 +69,7 @@ function SignIn(props) {
               error={props.myError ? true : false}
             />
             <Button
+              className="signInButton"
               type="submit"
               fullWidth
               variant="contained"
@@ -62,7 +79,9 @@ function SignIn(props) {
             </Button>
             <Grid container>
               <Grid item>
-                <Link to="/signup">{"Don't have an account? Sign Up"}</Link>
+                <Link className="linkToSignUp" to="/signup">
+                  {"Don't have an account? Sign Up"}
+                </Link>
               </Grid>
             </Grid>
           </Box>

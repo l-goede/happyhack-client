@@ -107,6 +107,8 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function JobCard(props) {
+  const { user, jobs, btnDelete } = props;
+  const [expanded, setExpanded] = React.useState(false);
 
   //-----------------------------------------------------------
   //                      Marcos changes 
@@ -142,144 +144,72 @@ export default function JobCard(props) {
   const { jobs, user } = props;
   const [expanded, setExpanded] = React.useState(false);
   let filteredJobs = jobs.filter((elem) => {
-    console.log(elem.username)
-    return elem.username === user._id;
-
+    return elem.username._id === user._id;
   });
-
-
+  console.log("filteredJobs", filteredJobs);
   return (
     <div>
-      { ! filteredJobs ? " " : filteredJobs.map((elem) => {
+      {!filteredJobs
+        ? ""
+        : filteredJobs.map((elem) => {
+            return (
+              <div>
+                <Card sx={{ maxWidth: 345 }}>
+                  <CardHeader
+                    avatar={
+                      <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                        {elem.image}
+                      </Avatar>
+                    }
+                    action={<IconButton aria-label="settings"></IconButton>}
+                    title={elem.jobTitle}
+                    subheader={user.name}
+                  />
 
-        return (
-          <div>
-            <Card sx={{ maxWidth: 345 }}>
-              <CardHeader
-                avatar={
-                  <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                    {elem.image}
-                  </Avatar>
-                }
-                action={<IconButton aria-label="settings"></IconButton>}
-                title={elem.jobTitle}
-                subheader={user.name}
-              />
-
-              <CardContent>
-                <Typography variant="body2" color="text.secondary">
-                  Skills needed:
-                  {elem.skills}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Finishing by: {elem.deadline}
-                </Typography>
-              </CardContent>
-              <CardActions disableSpacing>
-{/* ------------------------------------------------------------------------------
-                               MUI Modal
- ------------------------------------------------------------------------------ */}
-        <div>
-          <Button onClick={handleOpen}>Edit</Button>
-          <Modal
-            aria-labelledby="transition-modal-title"
-            aria-describedby="transition-modal-description"
-            open={open}
-            onClose={handleClose}
-            closeAfterTransition
-            BackdropComponent={Backdrop}
-            BackdropProps={{
-              timeout: 400,
-            }}
-          >
-            <Fade in={open}>
-              
-              <Box sx={ style} 
-              
-              
-              
-              className="popUpEditProfile">
-
-{/* -------------------------------------------------------------------------------
-                             Marcos      Function to edit it
-------------------------------------------------------------------------------- */}
-
-                {
-                  <div>
-                    <form onSubmit={(event) => { btnEdit(event, elem._id) }} >
-                    <div className="contanierFromJobs" >
-
-                    <Typography id="transition-modal-title" variant="h6" component="h2">Edit this job offer </Typography>
-                      <input className="toHaveSpace" name="jobTitle" type="text" defaultValue={elem.jobTitle} />
-                      <input className="toHaveSpace" name="jobDescription" type="text" defaultValue={elem.jobDescription} />
-
-                      </div>
-                      <FormControl sx={{ m: 1.5, width: 300,  }} > <InputLabel id="demo-multiple-name-label"> Skills</InputLabel>   <Select class="form-select"
-                          labelId="demo-multiple-name-label"
-                          id="demo-multiple-name"
-                          multiple
-                          defaultValue={elem.skills}
-                          name="skills"
-                          onChange={handleChange}
-                          input={<OutlinedInput label="Name" />}
-                          MenuProps={MenuProps}
-                        >
-                          {skills.map((skill) => (
-                            <MenuItem
-                              key={skill}
-                              value={skill}
-                              style={getStyles(skill, personName, theme)}
-
-                            >
-                              {skill}
-                            </MenuItem>
-                          ))}
-                        </Select>
-                      </FormControl>
-                      {
-                        <div className="contanierFromJobs" >
-                      <div className="toHaveSpace"></div>
-                      <input className="toHaveSpace" name="deadline" type="date" defaultValue={elem.deadline} />
-                      <input className="toHaveSpace" name="jobDescription" type="text" defaultValue={elem.jobDescription} />
-                      <input className="toHaveSpace" name="price" type="Number" defaultValue={elem.price} />
-                      <Button variant="contained" size="small" style={{ marginTop: 8 }}  type="submit" >Edit</Button>
-                      </div>
-                  }
-                   </form>
-                </div>
-                }
-              </Box>
-            </Fade>
-          </Modal>
-        </div>
-        {/* ------------------------------------------------------------------------------ */}
-
-                <Button onClick={() => { btnDel(filteredJobs._id) }} variant="contained" size="small">
-                  
-                  Delete
-                </Button>
-                <ExpandMore
-                  expand={expanded}
-                  onClick={handleExpandClick}
-                  aria-expanded={expanded}
-                  aria-label="show more"
-                >
-                  <ExpandMoreIcon />
-                </ExpandMore>
-              </CardActions>
-              <Collapse in={expanded} timeout="auto" unmountOnExit>
-                <CardContent>
-                  <Typography paragraph>Job Description:</Typography>
-                  <Typography paragraph>{elem.jobDescription}</Typography>
-                  <Typography paragraph>
-                    I am offering {elem.price} €.
-                  </Typography>
-                </CardContent>
-              </Collapse>
-            </Card>
-          </div>
-        );
-      })}
+                  <CardContent>
+                    <Typography variant="body2" color="text.secondary">
+                      Skills needed:
+                      {elem.skills}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      Finishing by: {elem.deadline}
+                    </Typography>
+                  </CardContent>
+                  <CardActions disableSpacing>
+                    <Button variant="contained" size="small">
+                      Edit
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        btnDelete(elem._id);
+                      }}
+                      variant="contained"
+                      size="small"
+                    >
+                      Delete
+                    </Button>
+                    <ExpandMore
+                      expand={expanded}
+                      onClick={handleExpandClick}
+                      aria-expanded={expanded}
+                      aria-label="show more"
+                    >
+                      <ExpandMoreIcon />
+                    </ExpandMore>
+                  </CardActions>
+                  <Collapse in={expanded} timeout="auto" unmountOnExit>
+                    <CardContent>
+                      <Typography paragraph>Job Description:</Typography>
+                      <Typography paragraph>{elem.jobDescription}</Typography>
+                      <Typography paragraph>
+                        I am offering {elem.price} €.
+                      </Typography>
+                    </CardContent>
+                  </Collapse>
+                </Card>
+              </div>
+            );
+          })}
     </div>
   );
 }

@@ -3,13 +3,14 @@ import { UserContext } from "../context/app.context";
 //-------------------------------------------------------
 //                        MUI
 //-------------------------------------------------------
-import * as React from 'react';
-import { useTheme } from '@mui/material/styles';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import * as React from "react";
+import { useTheme } from "@mui/material/styles";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import "../createJob.css";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -19,28 +20,29 @@ const MenuProps = {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP + 0 + ITEM_PADDING_RIGHt,
       width: 250,
-        },
+      display: "flex",
+    },
   },
 };
 
 const skills = [
-  'Javascript',
-  'React',
-  'Typescript',
-  'Python',
-  'C#',
-  'Java',
-  'PHP',
-  'Angular',
-  'VueJS',
-  'NodeJS',
-  'ExpressJS',
-  'MondogoDB',
-  'Mongoose',
-  'MySQL',
-  'UX/UI',
-  'Figma',
-  'Adobe XD',
+  "Javascript",
+  "React",
+  "Typescript",
+  "Python",
+  "C#",
+  "Java",
+  "PHP",
+  "Angular",
+  "VueJS",
+  "NodeJS",
+  "ExpressJS",
+  "MondogoDB",
+  "Mongoose",
+  "MySQL",
+  "UX/UI",
+  "Figma",
+  "Adobe XD",
 ];
 
 function getStyles(skills, personName, theme) {
@@ -52,80 +54,63 @@ function getStyles(skills, personName, theme) {
   };
 }
 
-
 function CreateJob(props) {
   const { name } = useContext(UserContext);
 
   //-------------------------------------------------------
-//                        MUI
-//-------------------------------------------------------
-const theme = useTheme();
-const [personName, setPersonName] = React.useState([]);
+  //                        MUI
+  //-------------------------------------------------------
+  const theme = useTheme();
+  const [personName, setPersonName] = React.useState([]);
 
-const handleChange = (event) => {
-  const {
-    target: { value },
-  } = event;
-  setPersonName(
-    // On autofill we get a the stringified value.
-    typeof value === 'string' ? value.split(',') : value,
-  );
-};
+  const handleChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setPersonName(
+      // On autofill we get a the stringified value.
+      typeof value === "string" ? value.split(",") : value
+    );
+  };
 
-
-const { btnSubmit } = props;
+  const { btnSubmit } = props;
   return (
     <>
-      <form onSubmit={btnSubmit}>
-        <div class="field is-horizontal">
-          <div class="field-label is-normal">
-            <label class="label">From</label>
+      <form className="form" onSubmit={btnSubmit}>
+        <div className="field is-horizontal">
+          <div className="field-label is-normal">
+            <label className="label">Job title</label>
           </div>
-          <div class="field-body">
-            <div class="field">
-              <p class="control is-expanded has-icons-left">
-                <input
-                  name="username"
-                  class="input"
-                  type="text"
-                  placeholder="Username"
-                  value={props.name}
-                />
-                <span class="icon is-small is-left">
-                  <i class="fas fa-user"></i>
-                </span>
-              </p>
-            </div>
-
-            <div class="field">
-              <p class="control is-expanded has-icons-right">
+          <div className="field-body">
+            <div className="field">
+              <p className="control is-expanded has-icons-left">
                 <input
                   name="jobTitle"
-                  class="input "
+                  className="input "
                   type="text"
                   placeholder="Job title"
                 />
-                <span class="icon is-small is-left">
-                  <i class="fas fa-envelope"></i>
+                <span className="icon is-small is-left">
+                  <i className="fas fa-envelope"></i>
                 </span>
-                <span class="icon is-small is-right">
-                  <i class="fas fa-user"></i>
+                <span className="icon is-small is-right">
+                  <i className="fas fa-user"></i>
                 </span>
               </p>
             </div>
           </div>
         </div>
 
-        <div class="field is-horizontal">
-          <div class="field-label is-normal">
-            <label class="label">Job Description</label>
+        <div className="field is-horizontal">
+          <div className="field-label is-normal">
+            <label className="label">Job Description</label>
           </div>
-          <div class="field-body">
-            <div class="field">
-              <div class="control">
+          <div className="field-body">
+            <div className="field">
+              <div className="control">
                 <textarea
                   name="jobDescription"
-                  class="textarea"
+                  className="textarea"
                   placeholder="Explain what your advert is about"
                 ></textarea>
               </div>
@@ -133,77 +118,79 @@ const { btnSubmit } = props;
           </div>
         </div>
 
-
-
         <div>
-     
-        <InputLabel id="demo-multiple-name-label">Name</InputLabel>
-        <Select class="form-select"
-          labelId="demo-multiple-name-label"
-          id="demo-multiple-name"
-          multiple
-          value={personName}
-          name="skills"
-          onChange={handleChange}
-          input={<OutlinedInput label="Name" />}
-          MenuProps={MenuProps}
-        >
-          {skills.map((name) => (
-            <MenuItem
-              key={name}
-              value={name}
-              style={getStyles(name, personName, theme)}
-              
-            >
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-    </div>
-        <div class="field is-horizontal">
-          <div class="field-label is-normal">
-            <label class="label">Finished by</label>
+          <InputLabel className="skills" id="demo-multiple-name-label">
+            Skills needed
+          </InputLabel>
+          <Select
+            className="form-select"
+            labelId="demo-multiple-name-label"
+            id="demo-multiple-name"
+            multiple
+            value={personName}
+            name="skills"
+            onChange={handleChange}
+            input={<OutlinedInput label="Name" />}
+            MenuProps={MenuProps}
+          >
+            {skills.map((name) => (
+              <MenuItem
+                selected
+                className="MenuItem"
+                key={name}
+                value={name}
+                style={getStyles(name, personName, theme)}
+              >
+                {name}
+              </MenuItem>
+            ))}
+          </Select>
+        </div>
+
+        <div className="field is-horizontal">
+          <div className="field-label is-normal">
+            <label className="label">Finished by</label>
           </div>
-          <div class="field-body">
-            <div class="field">
-              <p class="control is-expanded has-icons-left">
+          <div className="field-body">
+            <div className="field">
+              <p className="control is-expanded has-icons-left">
                 <input
                   name="deadline"
-                  class="input"
+                  className="input"
                   type="date"
                   placeholder="When should your project being finished"
                 />
-                <span class="icon is-small is-left">
-                  <i class="fas fa-user"></i>
+                <span className="icon is-small is-left">
+                  <i className="fas fa-user"></i>
                 </span>
               </p>
             </div>
 
-            <div class="field">
-              <p class="control is-expanded has-icons-right">
+            <div className="field">
+              <p className="control is-expanded has-icons-right">
                 <input
                   name="price"
-                  class="input "
+                  className="input "
                   type="number"
                   placeholder="How much do you offer? "
                 />
-                <span class="icon is-small is-left">
-                  <i class="fas fa-envelope"></i>
+                <span className="icon is-small is-left">
+                  <i className="fas fa-envelope"></i>
                 </span>
-                <span class="icon is-small is-right">
-                  <i class="fas fa-user"></i>
+                <span className="icon is-small is-right">
+                  <i className="fas fa-user"></i>
                 </span>
               </p>
             </div>
           </div>
         </div>
 
-        <div class="field is-horizontal">
-          <div class="field-label"></div>
-          <div class="field-body">
-            <div class="field">
-              <div class="control">
-                <button type="submit" class="button is-primary">
+        <div className="field is-horizontal">
+          <div className="field-label"></div>
+          <div className="field-body">
+            <div className="field">
+              <div className="control">
+                <button type="submit" className="button is-primary">
                   Create
                 </button>
               </div>

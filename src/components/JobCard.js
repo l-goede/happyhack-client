@@ -35,25 +35,33 @@ export default function JobCard(props) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+  console.log(user);
+  console.log(jobs);
+
   let filteredJobs = jobs.filter((elem) => {
-    return elem.username !== user._id;
+    return elem.username._id !== user._id;
   });
 
+  console.log(filteredJobs);
+  let finalJobs = filteredJobs.filter((elem) => {
+    return elem.accepted == false;
+  });
+  console.log("finalJobs", finalJobs);
   return (
     <div>
-      {filteredJobs.map((elem) => {
+      {finalJobs.map((elem) => {
         return (
           <div>
             <Card sx={{ maxWidth: 345 }}>
               <CardHeader
                 avatar={
                   <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                    {elem.image}
+                    {elem.username.image}
                   </Avatar>
                 }
                 action={<IconButton aria-label="settings"></IconButton>}
                 title={elem.jobTitle}
-                subheader={elem.name}
+                subheader={elem.username.name}
               />
 
               <CardContent>
@@ -68,7 +76,7 @@ export default function JobCard(props) {
               <CardActions disableSpacing>
                 <IconButton
                   onClick={() => {
-                    btnAdd(user, elem.id);
+                    btnAdd(elem._id);
                   }}
                   aria-label="add to favorites"
                 >

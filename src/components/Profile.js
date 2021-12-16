@@ -9,30 +9,11 @@ import JobCard from "./JobCard";
 import {API_URL, SOCKET_URL} from '../config'
 import io from "socket.io-client";
 function Profile(props) {
+  let { user, jobs, btnAdd, username } = props;
+  console.log("user in profilejs", user);
 
-  let socket = io(`${SOCKET_URL}`);
-
-  let { user, jobs } = props;
-  const [accepted, setAccepted] = useState([]);
   if (!user) {
-    return <h1>Loading</h1>;
-  }
-
-
-  function handleAdd(user, jobs) {
-    let acceptedJob = {
-      image: user.image,
-      jobTitle: jobs.jobTitle,
-      name: user.name,
-      skills: jobs.skills,
-      deadline: jobs.deadline,
-      jobDescription: jobs.jobDescription,
-      price: jobs.price,
-      completed: false,
-      accpted: true,
-    };
-
-    setAccepted([acceptedJob, ...accepted]);
+    return <p>⌛</p>;
   }
   socket.on("hello", (arg) => {
     console.log(arg); // world
@@ -41,25 +22,25 @@ function Profile(props) {
     <div>
       <div class="centered">
         <div class="card-container-profile">
-          <span class="pro">
-            <Link to={`/EditProfile/${user._id}`}> EDIT</Link>
+          <span  class="pro" id="profile-btn">
+            <Link style={{textDecoration: "none", color: "#2e2c2c"}}  to={`/EditProfile/${user._id}`}> EDIT</Link>
           </span>
 
           <img class="dimProfile" src={user.image} alt="user" />
 
-          <h6>
+          <h4>
             {user.name} {user.lastName}{" "}
-          </h6>
+          </h4>
           <h3 class="smallEmail">{user.email} </h3>
-          <h1>
+          <h6>
             {user.location} <br />{" "}
-          </h1>
-          <h1>
+          </h6>
+          <h6>
             {user.aboutMe} <br /> <br />{" "}
-          </h1>
+          </h6>
 
-          <button class="primary-profile" id="buttons-profile">
-          <Link to={`/calendar`}> My calendar</Link>
+          <button class="primary-profile" id="profile-btn">
+          <Link style={{textDecoration: "none", color: "#2e2c2c"}} to={`/calendar`}> My calendar</Link>
           </button>
 
           <div class="skills-profile">
@@ -80,8 +61,7 @@ function Profile(props) {
         </div>
 
       </div>
-      <JobCard jobs={jobs} user={user} btnAdd={handleAdd} />
-      <Footer />
+      <JobCard jobs={jobs} user={user} btnAdd={btnAdd} username={username} />
     </div>
   );
 }
