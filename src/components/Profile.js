@@ -13,7 +13,7 @@ function Profile(props) {
   if (!user) {
     return <h1>Loading</h1>;
   }
-
+console.log("my profile", props)
   function handleAdd(user, jobs) {
     let acceptedJob = {
       image: user.image,
@@ -29,8 +29,7 @@ function Profile(props) {
 
     setAccepted([acceptedJob, ...accepted]);
   }
-  console.log("profile:jobs", jobs);
- 
+  console.log(user)
   return (
     <div>
       <div class="centered">
@@ -53,16 +52,18 @@ function Profile(props) {
           </h1>
 
           <button class="primary-profile" id="buttons-profile">
-            See my jobs!
+          <Link to={`/calendar`}> My calendar</Link>
           </button>
 
           <div class="skills-profile">
             <h6>Skills</h6>
             <ul>
+            
               {
               user.skills.map((elem) => {
                 return (
                   <>
+                  {console.log("inside my map", user.skills)}
                     <li>{elem}</li>
                   </>
                 );

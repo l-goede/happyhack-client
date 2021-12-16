@@ -24,6 +24,7 @@ import UserList from './components/UserList'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 function App() {
+
   const { user, setUser } = useContext(UserContext);
   const [users, setUsers] = useState([])
   const [fetchingUser, setFetchingUser] = useState(true);
@@ -33,23 +34,7 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const getUsers = async () => {
-      let response = await axios.get(`${API_URL}/api/users`, {withCredentials: true})
-      setUsers(response.data)
-
-      try{
-        let userResponse = await axios.get(`${API_URL}/api/user`, {withCredentials: true})
-        setUser(userResponse.data)
-        setLoading(false)
-      }
-      catch(err){
-        setLoading(false)
-      }
-    }
-    getUsers()
-}, [])
-
-  useEffect(() => {
+    fetchUsers();
     const getData = async () => {
       let response = await axios.get(`${API_URL}/jobs`);
       setJobs(response.data);
@@ -58,10 +43,16 @@ function App() {
     getData();
     handleProfile();
   }, []);
-
-  // useEffect(() => {
-  //   navigate("/profile");
-  // }, [jobs]);
+  const fetchUsers = () => {
+    axios
+      .get(`${API_URL}/users`, { withCredentials: true })
+      .then((response) => {
+        setUsers(response.data);
+      })
+      .catch((err) => {
+        console.log("user not logged in");
+      });
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -75,7 +66,7 @@ function App() {
       completed: false,
       accepted: false,
     };
-    console.log(newJob.skills);
+    console.log(newJob);
 
     let response = await axios.post(`${API_URL}/add-form`, newJob, {
       withCredentials: true,
@@ -87,46 +78,42 @@ function App() {
   const handleEdit = async (event, id) => {
     event.preventDefault();
     let editedAdvert = {
-      name: event.target.name.value,
-      username: event.target.username.value,
+      jobTitle: event.target.jobTitle.value,
+      jobDescription: event.target.jobDescription.value,
       skills: event.target.skills.value,
-      details: event.target.details.value,
-      date: event.target.date.value,
+      deadline: event.target.deadline.value,
       price: event.target.price.value,
-      contact: event.target.contact.value,
-      completed: false, //pergunte ao manish
+      completed: false,
+      accepted: false,
     };
     // Pass an object as a 2nd param in POST requests
-    let response = await axios.patch(`${API_URL}/jobs/${id}`, editedAdvert);
-    // Update our state 'jobs' with the edited todo so that the user see the upadted info without refrshing the page
+    let response = await axios.patch(`${API_URL}/jobs/${id}`, editedAdvert, {withCredentials: true});
+    setJobs(response.data)
 
-    console.log(response.data);
+   // let updatedJobs = jobs.map((elem) => {
+      // if (elem._id === id) {
+      //   elem.skills = response.data.skills;
+      //   elem.details = response.data.details;
+      //   elem.date = response.data.date;
+      //   elem.price = response.data.price;
+      //   elem.contact = response.data.contact;
+      // }
+    //  return elem;
+  // });
+  //  setJobs(updatedJobs);
 
-    let updatedJobs = jobs.map((elem) => {
-      if (elem._id === id) {
-        elem.name = response.data.name;
-        elem.username = response.data.username;
-        elem.skills = response.data.skills;
-        elem.details = response.data.details;
-        elem.date = response.data.date;
-        elem.price = response.data.price;
-        elem.contact = response.data.contact;
-      }
-      return elem;
-    });
-
-    setJobs(updatedJobs);
+   // console.log("updated jobs ", updatedJobs)
   };
 
   const handleDelete = async (id) => {
     // make a request to the server to delete it from the database
-    await axios.delete(`${API_URL}/api/jobs/${id}`);
+    await axios.delete(`${API_URL}/jobs/${id}`);
 
     // Update your state 'jobs' and remove the todo that was deleted
     let filteredAdvert = jobs.filter((elem) => {
       return elem._id !== id;
     });
-
+ 
     setJobs(filteredAdvert);
   };
 
@@ -186,9 +173,6 @@ function App() {
       aboutMe: event.target.aboutMe.value,
       skills: event.target.skills.value,
       image: imgResponse.data.image,
-      // event: event.target.event.value,
-      // skills: event.target.skills.value,
-      // jobs: event.target.jobs.value,
     };
     let response = await axios.patch(
       `${API_URL}/profile/${id}`,
@@ -199,70 +183,23 @@ function App() {
     setUser(response.data);
     navigate("/profile");
   };
-  console.log(users)
-  //end of fern work.
+    //end of fern work.
   return (
     <div>
     <ChatBot/>
       <MyNav user={user} onLogout={handleLogout} />
       <Routes>
         <Route path="/" element={<Home user={user} />} />
-        
-        {/*<Route path="/jobs-offer" element={<JobsList jobs={jobs} />} />*/}
-        {/* <Route
-          path="/jobs"
-          element={
-            <JobCard
-              btnDelete={handleDelete}
-              btnEditJob={handleEdit}
-              jobs={jobs}
-            />
-          }
-        /> */}
-
         <Route path="/signup" element={<SignUp />} />
-        <Route
-          path="/signin"
-          element={<SignIn myError={myError} onSignIn={handleSignIn} />}
-        />
-        <Route
-          path="/profile"
-          handleProfile={handleProfile}
-          element={<Profile user={user} jobs={jobs} />}
-        />
-        <Route
-          path="/EditProfile/:id"
-          element={
-            <EditProfile user={user} btnEditProfile={handleEditProfile} />
-          }
-        />
-        <Route
-          path="/add-form"
-          element={<CreateJob btnSubmit={handleSubmit} />}
-        />
-        <Route
-          path="/yourjobs"
-          element={
-            <YourJobs
-              btnDelete={handleDelete}
-              btnEditJob={handleEdit}
-              user={user}
-              jobs={jobs}
-            />
-          }
-        />
-
-        <Route
-          path="/editJob/:id"
-          element={<EditJob btnEditJob={handleEdit} btnDelete={handleDelete} />}
-        />
-
-        <Route path="/yourprofile" element={<ProfileForm user={user} />} />
-
+        <Route path="/signin" element={<SignIn myError={myError} onSignIn={handleSignIn} />}/>
+        <Route path="/profile" handleProfile={handleProfile} element={<Profile user={user} jobs={jobs} />}  />
+        <Route path="/EditProfile/:id" element={ <EditProfile user={user} btnEditProfile={handleEditProfile} /> } />
+        <Route path="/add-form"  element={<CreateJob btnSubmit={handleSubmit} />} />
+        <Route path="/yourjobs" element={ <YourJobs  btnDelete={handleDelete}  btnEditJob={handleEdit} user={user} jobs={jobs}  /> } />
+        {/* <Route path="/editJob/:id" element={<EditJob btnEditJob={handleEdit} btnDelete={handleDelete} />} /> */}
         <Route path="/chat/:chatId"  element={ <ChatPage user={user} />}/>
-        <Route path="/users"  element={ <UserList user={user} users={users} />}/>
-
-      </Routes>
+        <Route path="/userslist" element={<UserList users={users} user={user} />}/>
+        </Routes>
     </div>
   );
 }
