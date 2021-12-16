@@ -20,6 +20,9 @@ import YourJobs from "./components/YourJobs";
 import EditJob from "./components/EditAdvert";
 import JobCard from "./components/JobCard";
 import Chat from "./components/Chat";
+import MyCalendar from "./components/MyCalendar"
+
+
 
 function App() {
   const { user, setUser } = useContext(UserContext);
@@ -183,6 +186,7 @@ function App() {
   return (
     <div>
     <ChatBot/>
+    
       <MyNav user={user} onLogout={handleLogout} />
       <Routes>
         <Route path="/" element={<Home user={user} />} />
@@ -235,9 +239,10 @@ function App() {
           element={<EditJob btnEditJob={handleEdit} btnDelete={handleDelete} />}
         />
 
-        <Route path="/yourprofile" element={<ProfileForm user={user} />} />
+        {/* <Route path="/yourprofile" element={<ProfileForm user={user} />} /> */}
 
         <Route path="/chat" element={<Chat />} />
+        <Route path="/calendar" element={<MyCalendar/>} />
       </Routes>
     </div>
   );

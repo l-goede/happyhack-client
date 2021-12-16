@@ -139,5 +139,142 @@ button.primary-profile.ghost {
 .smallEmail {
   font-size: small
 }
+
+.calendar-centered {
+	display: flex;
+	justify-content: center;
+}
+
+
+.area-1 {
+	background:#DCDEE7;
+	color: #2e2c2c;
+	width: auto;
+	height: 350px;
+	font-size:xx-small;
+	
+}
+.square-text {
+
+	display: flex;
+	align-items: center;
+	justify-content: left;
+	flex-direction: column;
+	width: 230px;
+}
+.square-text-area-1 {
+	margin-top: 4%;
+	
+	/* display: flex;
+	align-items: center;
+	justify-content: right;
+	flex-direction: row; */
+	
+}
+
+
+.area-2 {
+	background: white;
+	color: #2e2c2c;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: row;
+	height: 250px;
+}
+.area-3-div {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+
+	/* display: inline-block; 
+	align-items: center;
+	justify-content: center;
+	flex-direction: row;  */
+} 
+
+.area-3-left {
+	background:#FCE2D3;
+	color:#2e2c2c;
+	min-width: auto;
+	max-width: auto;
+	width: 850px;
+	height: 350px;
+	min-height: auto;
+	max-height: auto;
+		/* flex: 0 0 65%;
+	height: 250px; */
+
+} 
+
+
+#codingirl {
+max-width: 150%;
+display: flex;
+justify-content: center;
+
+}
+
+.area-4-right {
+	background: #E7E7E7;
+	color:rgb(51, 51, 51);
+	min-width: auto;
+	max-width: auto;
+	width: 850px;
+	height: 350px;
+	min-height: auto;
+	max-height: auto;
+	display: flex;
+	flex-wrap: nowrap;
+	align-content: center;
+	justify-content: center;
+	align-items: center;
+	flex-direction: row;
+	/* flex: 1;
+	height: 250px; */
+
+}
+
+.area-5 {
+	background:#DCDEE7;
+	color:rgb(51, 51, 51);
+	height: 350px;
+}
+
+
+.area-5-left {
+	background: white;
+	color:rgb(51, 51, 51);
+	height: 250px;
+	min-width: auto;
+	max-width: auto;
+	width: 850px
+	/* flex: 0 0 65%;
+	height: 250px; */
+
+}
+
+.area-6-right {
+	background: #FCE2D3  ;
+	color:rgb(51, 51, 51);
+	height: 250px;
+	min-width: auto;
+	max-width: auto;
+	width: 850px
+	/* flex: 1;
+	height: 250px; */
+
+}
+
+.lottieGreen {
+	float: right;
+}
+.lottieGreenWrapper {
+	display: flex;
+justify-content: center;
+}	
+
+
 /* end of fern's work */
 
