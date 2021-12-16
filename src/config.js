@@ -1,4 +1,7 @@
 //const API_URL = "https://happyhack01.herokuapp.com/api";
-const API_URL = "http://localhost:5005/api";
+//const SOCKET_URL = "https://happyhack01.herokuapp.com";
 
-export { API_URL };
+const API_URL = "http://localhost:5005/api"
+const SOCKET_URL = "http://localhost:5005"
+
+export { API_URL, SOCKET_URL };

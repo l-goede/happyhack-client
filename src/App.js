@@ -18,23 +18,27 @@ import EditProfile from "./components/EditProfile";
 import ChatBot from "./components/ChatBot";
 import YourJobs from "./components/YourJobs";
 import EditJob from "./components/EditAdvert";
-import Chat from "./components/Chat";
 import YourEvents from "./components/YourEvents";
 import Events from "./components/Events";
 import Footer from "./components/Footer";
 import MyCalendar from "./components/MyCalendar";
 import NotFound from "./components/NotFound";
+import ChatPage from "./components/ChatPage";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   const { user, setUser } = useContext(UserContext);
+  const [users, setUsers] = useState([]);
   const [events, setEvents] = useState([]);
   const [fetchingUser, setFetchingUser] = useState(true);
   const [fetchingJobs, setFetchingJobs] = useState(true);
   const [myError, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [jobs, setJobs] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
+    fetchUsers();
     const getData = async () => {
       let response = await axios.get(`${API_URL}/jobs`);
       setJobs(response.data);
@@ -49,11 +53,16 @@ function App() {
     handleProfile();
   }, []);
 
-  console.log("the events", events);
-
-  // useEffect(() => {
-  //   navigate("/profile");
-  // }, [jobs]);
+  const fetchUsers = () => {
+    axios
+      .get(`${API_URL}/users`, { withCredentials: true })
+      .then((response) => {
+        setUsers(response.data);
+      })
+      .catch((err) => {
+        console.log("user not logged in");
+      });
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -67,52 +76,49 @@ function App() {
       completed: false,
       accepted: false,
     };
-    console.log(newJob.skills);
+    console.log(newJob);
 
     let response = await axios.post(`${API_URL}/add-form`, newJob, {
       withCredentials: true,
     });
+    let cloneUser = JSON.parse(JSON.stringify(user));
+    cloneUser.jobsCreated = [response.data._id, ...user.jobsCreated];
+    setUser(cloneUser);
     setJobs([response.data, ...jobs]);
     navigate(`/profile`);
   };
 
   const handleEdit = async (event, id) => {
     event.preventDefault();
+    console.log("hey yo");
     let editedAdvert = {
-      name: event.target.name.value,
-      username: event.target.username.value,
+      jobTitle: event.target.jobTitle.value,
+      jobDescription: event.target.jobDescription.value,
       skills: event.target.skills.value,
-      details: event.target.details.value,
-      date: event.target.date.value,
+      deadline: event.target.deadline.value,
       price: event.target.price.value,
-      contact: event.target.contact.value,
-      completed: false, //pergunte ao manish
+      completed: false,
+      accepted: false,
     };
     // Pass an object as a 2nd param in POST requests
-    let response = await axios.patch(`${API_URL}/jobs/${id}`, editedAdvert);
-    // Update our state 'jobs' with the edited todo so that the user see the upadted info without refrshing the page
-
-    console.log(response.data);
-
-    let updatedJobs = jobs.map((elem) => {
-      if (elem._id === id) {
-        elem.name = response.data.name;
-        elem.username = response.data.username;
-        elem.skills = response.data.skills;
-        elem.details = response.data.details;
-        elem.date = response.data.date;
-        elem.price = response.data.price;
-        elem.contact = response.data.contact;
+    let response = await axios.patch(`${API_URL}/jobs/${id}`, editedAdvert, {
+      withCredentials: true,
+    });
+    let cloneJobs = JSON.parse(JSON.stringify(jobs));
+    let updatedJobs = cloneJobs.map((elem) => {
+      if (elem._id === response.data._id) {
+        elem = response.data;
       }
       return elem;
     });
-
     setJobs(updatedJobs);
+
+    // console.log("updated jobs ", updatedJobs)
   };
 
   const handleDelete = async (id) => {
     // make a request to the server to delete it from the database
-    await axios.delete(`${API_URL}/api/jobs/${id}`);
+    await axios.delete(`${API_URL}/jobs/${id}`);
 
     // Update your state 'jobs' and remove the jobcard that was deleted
     let filteredAdvert = jobs.filter((elem) => {
@@ -147,6 +153,8 @@ function App() {
     let response = await axios.post(`${API_URL}/signin`, newUser, {
       withCredentials: true,
     });
+    // TODO: Merge ?
+    // setUsers([response.data, ...users])
     try {
       console.log(response.data);
       setUser(response.data);
@@ -195,9 +203,6 @@ function App() {
       aboutMe: event.target.aboutMe.value,
       skills: event.target.skills.value,
       image: imgResponse.data.image,
-      // event: event.target.event.value,
-      // skills: event.target.skills.value,
-      // jobs: event.target.jobs.value,
     };
     let response = await axios.patch(
       `${API_URL}/profile/${id}`,
@@ -219,7 +224,9 @@ function App() {
     let response = await axios.patch(`${API_URL}/yourjobs`, acceptedJob, {
       withCredentials: true,
     });
-    console.log(response.data);
+    let cloneUser = JSON.parse(JSON.stringify(user));
+    cloneUser.jobsAccepted = [response.data._id, ...user.jobsCreated];
+    setUser(cloneUser);
     let filteredJobs = jobs.map((job) => {
       if (job._id == response.data._id) {
         return response.data;
@@ -322,11 +329,11 @@ function App() {
 
         {/* <Route path="/yourprofile" element={<ProfileForm user={user} />} /> */}
 
-        <Route path="/chat" element={<Chat />} />
+        <Route path="/chat/:chatId" element={<ChatPage user={user} />} />
         <Route path="/calendar" element={<MyCalendar />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

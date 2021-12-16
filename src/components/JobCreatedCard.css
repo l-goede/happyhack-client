@@ -1,0 +1,22 @@
+.contanierFromJobs{
+    padding-left: 13px;
+    width: 310px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.toHaveSpace{
+    margin-top: 8px;
+}
+.popUpEditProfile{
+    margin-top: 88px;
+}
+.popUpEditProfile.MuiBox-root{
+    border-radius: 20px;
+    border-color: rgba(255, 255, 0, 0);
+    background-color: whitesmoke;
+          opacity: 0.7;
+}
+.MuiSelect-nativeInput.css-yf8vq0-MuiSelect-nativeInput.Mui-focusVisible{
+border-color: yellow;
+}
