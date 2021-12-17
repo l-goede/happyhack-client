@@ -69,7 +69,7 @@ const MyNav = (props) => {
   };
 
   return (
-    <AppBar className="text" position="static">
+    <AppBar style={{ backgroundColor: "#E7E7E7" }} position="static">
       <Container className="bar" maxWidth="xl">
         <Toolbar className="bar" disableGutters>
           <Typography
@@ -134,7 +134,10 @@ const MyNav = (props) => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
           >
-            <Link to={`/`}> HappyHack </Link>
+            <Link className="toggle-link" to={`/`}>
+              {" "}
+              HappyHack{" "}
+            </Link>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {!props.user ? (
@@ -168,10 +171,7 @@ const MyNav = (props) => {
               <>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar
-                      alt="Remy Sharp"
-                      src={user.image}
-                    />
+                    <Avatar alt="Remy Sharp" src={user.image} />
                   </IconButton>
                 </Tooltip>
 

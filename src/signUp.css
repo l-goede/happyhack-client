@@ -15,6 +15,10 @@
   color: #2e2c2c;
 }
 
+.linkToSignIn:hover {
+  color: #d69b7b;
+}
+
 .MuiOutlinedInput.Mui-selected {
   color: black;
 }

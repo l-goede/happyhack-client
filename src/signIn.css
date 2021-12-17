@@ -1,11 +1,15 @@
 .signInButton {
-  background: #2e2c2c;
+  background-color: #2e2c2c;
 }
 
 .linkToSignUp {
   color: #2e2c2c;
 }
 
-.css-1vhaqj4-MuiButtonBase-root-MuiButton-root {
+.linkToSignUp:hover {
+  color: #d69b7b;
+}
+
+.MuiButtonBase-root-MuiButton-root {
   background-color: #2e2c2c;
 }

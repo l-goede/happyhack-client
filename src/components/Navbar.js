@@ -8,23 +8,33 @@ export default function Navbar(props) {
   const { user } = useContext(UserContext);
   return (
     <div>
-      <Link style={{ marginLeft: "10px" }} to="/">
+      <Link className="toggle-link" style={{ marginLeft: "10px" }} to="/">
         Home
       </Link>
-      <Link style={{ marginLeft: "10px" }} to="/profile">
-            profile
-          </Link>
+      <Link
+        className="toggle-link"
+        style={{ marginLeft: "10px" }}
+        to="/profile"
+      >
+        profile
+      </Link>
       {user ? (
         <button onClick={props.onLogout}>Logout</button>
       ) : (
         <>
-
-
-        <Link style={{ marginLeft: "10px" }} to="/signin">
+          <Link
+            className="toggle-link"
+            style={{ marginLeft: "10px" }}
+            to="/signin"
+          >
             SignIn
-        </Link>
+          </Link>
 
-          <Link style={{ marginLeft: "10px" }} to="/signup">
+          <Link
+            className="toggle-link"
+            style={{ marginLeft: "10px" }}
+            to="/signup"
+          >
             SignUp
           </Link>
         </>

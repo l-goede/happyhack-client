@@ -47,7 +47,6 @@ export default function JobAcceptedCard(props) {
     // return elem.username._id === user._id;
   });
 
-  console.log(user, jobs, "the developer side", filteredJobs);
   return (
     <div>
       {!filteredJobs
@@ -55,10 +54,10 @@ export default function JobAcceptedCard(props) {
         : filteredJobs.map((elem) => {
             return (
               <div>
-                <Card sx={{ maxWidth: 345 }}>
+                <Card sx={{ maxWidth: 345, marginBottom: 5 }}>
                   <CardHeader
                     avatar={
-                      <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                      <Avatar sx={{ bgcolor: "#FCE2D3" }} aria-label="recipe">
                         {elem.username.image}
                       </Avatar>
                     }
@@ -81,6 +80,11 @@ export default function JobAcceptedCard(props) {
                       <FavoriteIcon />
                     </IconButton>
                     <Link
+                      style={{
+                        color: "#D69B7B",
+                        textDecoration: "none",
+                        fontSize: 18,
+                      }}
                       to={`/chat/${elem._id}`}
                       variant="contained"
                       size="small"
@@ -88,6 +92,7 @@ export default function JobAcceptedCard(props) {
                       Chat
                     </Link>
                     <Button
+                      style={{ backgroundColor: "#2E2C2C", margin: "1rem" }}
                       onClick={() => {
                         btnDelete(elem._id);
                       }}

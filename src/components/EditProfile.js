@@ -77,6 +77,8 @@ function EditProfile(props) {
 
   return (
     <form
+      className="contanierFromJobs"
+      style={{ marginTop: "2rem" }}
       onSubmit={(event) => {
         btnEditProfile(event, user._id);
       }}
@@ -91,11 +93,22 @@ function EditProfile(props) {
               name="myImage"
               accept="image/png, image/jpg"
             />
-            <span className="file-cta">
-              <span className="file-icon">
-                <i className="fas fa-upload"></i>
+            <span style={{ backgroundColor: "#D69B7B" }} className="file-cta">
+              <span
+                style={{ backgroundColor: "#D69B7B" }}
+                className="file-icon"
+              >
+                <i
+                  style={{ backgroundColor: "#D69B7B" }}
+                  className="fas fa-upload"
+                ></i>
               </span>
-              <span className="file-label">Upload profile image</span>
+              <span
+                className="file-label"
+                style={{ backgroundColor: "#D69B7B" }}
+              >
+                Upload profile image
+              </span>
             </span>
           </label>
         </div>
@@ -151,38 +164,51 @@ function EditProfile(props) {
           </div>
         </div>
         <div>
-          <InputLabel id="demo-multiple-chip-label"> Skills </InputLabel>
-          <Select
-            labelId="demo-multiple-chip-label"
-            id="demo-multiple-chip"
-            multiple
-            value={personName}
-            name="skills"
-            onChange={handleChange}
-            input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-            renderValue={(selected) => (
-              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                {selected.map((value) => (
-                  <Chip key={value} label={value} />
-                ))}
-              </Box>
-            )}
-            MenuProps={MenuProps}
-          >
-            {skills.map((skills) => (
-              <MenuItem
-                key={skills}
-                value={skills}
-                style={getStyles(skills, personName, theme)}
-              >
-                {skills}
-              </MenuItem>
-            ))}
-          </Select>
+          <FormControl sx={{ m: 1.5, width: 300 }}>
+            <InputLabel id="demo-multiple-chip-label"> Skills </InputLabel>
+            <Select
+              labelId="demo-multiple-chip-label"
+              id="demo-multiple-chip"
+              multiple
+              value={personName}
+              name="skills"
+              onChange={handleChange}
+              input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+              renderValue={(selected) => (
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    gap: 0.5,
+                    m: 1.5,
+                  }}
+                >
+                  {selected.map((value) => (
+                    <Chip key={value} label={value} />
+                  ))}
+                </Box>
+              )}
+              MenuProps={MenuProps}
+            >
+              {skills.map((skills) => (
+                <MenuItem
+                  key={skills}
+                  value={skills}
+                  style={getStyles(skills, personName, theme)}
+                >
+                  {skills}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </div>
         <div className="field is-grouped">
           <div className="control">
-            <button type="submit" className="button is-link">
+            <button
+              style={{ backgroundColor: "#2E2C2C" }}
+              type="submit"
+              className="button is-link"
+            >
               Save
             </button>
           </div>

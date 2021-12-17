@@ -31,9 +31,19 @@ function MyCalendar() {
                 end: "2021-12-26",
               },
               {
+                title: "FreeCodeCamp Lisbon",
+                start: "2021-12-27",
+                end: "2021-12-27",
+              },
+              {
                 title: "NYE party at Taka`s house @ malaga",
                 start: "2021-12-29", // a property!
                 end: "2022-01-03",
+              },
+              {
+                title: "Crazy Pokemon API party",
+                start: "2022-01-27",
+                end: "2022-01-27",
               },
             ]}
           />

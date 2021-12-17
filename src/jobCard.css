@@ -1,0 +1,8 @@
+.container-jobCard {
+  display: flex;
+  margin: 10rem;
+}
+
+.single-card {
+  margin: 2rem;
+}
