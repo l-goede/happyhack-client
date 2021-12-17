@@ -11,7 +11,7 @@ export default function EventCard(props) {
 
   return (
     <div>
-      <Card sx={{ maxWidth: 345, marginBottom: 5 }}>
+      <Card sx={{ maxWidth: 345, marginBottom: 5, marginRight: 5 }}>
         <CardMedia
           style={{ height: 100 }}
           component="img"

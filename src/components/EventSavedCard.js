@@ -4,6 +4,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import "../event.css";
 
 export default function EventSavedCard(props) {
   const { user, events, btnDeleteEvent } = props;
@@ -17,8 +18,9 @@ export default function EventSavedCard(props) {
       {user.events.map((elem) => {
         return (
           <div>
-            <Card sx={{ maxWidth: 345 }}>
+            <Card sx={{ maxWidth: 345, marginBottom: 5, marginRight: 5 }}>
               <CardMedia
+                style={{ height: 100 }}
                 component="img"
                 height="140"
                 image={elem.image}
@@ -34,6 +36,7 @@ export default function EventSavedCard(props) {
               </CardContent>
               <CardActions>
                 <Button
+                  style={{ color: "#D69B7B", fontSize: 15 }}
                   onClick={() => {
                     btnDeleteEvent(elem._id);
                   }}

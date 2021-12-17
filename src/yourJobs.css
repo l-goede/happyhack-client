@@ -32,8 +32,8 @@
 .second-h2 {
   margin-left: 10rem;
 }
-
 .created {
   display: flex;
   margin-bottom: 5rem;
+  flex-wrap: wrap;
 }

@@ -162,9 +162,12 @@ export default function JobCard(props) {
                   />
 
                   <CardContent>
-                    <Typography variant="body2" color="text.secondary">
-                      Skills needed:
-                      {elem.skills}
+                    <Typography
+                      style={{ marginRight: 2 }}
+                      variant="body2"
+                      color="text.secondary"
+                    >
+                      Skills needed: {elem.skills}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                       Finishing by: {elem.deadline}

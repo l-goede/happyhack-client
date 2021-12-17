@@ -1,0 +1,21 @@
+.headline-wrapper {
+  background-color: #dcdee7;
+  height: 20%;
+}
+
+.event-h2 {
+  text-align: center;
+  background-color: #dcdee7;
+  padding: 4rem;
+  margin-top: 7rem;
+  width: 80%;
+  font-weight: lighter;
+}
+
+.eventCards {
+  margin-top: 5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-left: 0;
+}
