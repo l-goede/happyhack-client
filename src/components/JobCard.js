@@ -16,6 +16,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import formatDate from "@bitty/format-date";
+import "../jobCard.css";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -51,11 +53,14 @@ export default function JobCard(props) {
     <div>
       {finalJobs.map((elem) => {
         return (
-          <div>
-            <Card sx={{ maxWidth: 345 }}>
+          <div className="container-jobCard">
+            <Card
+              className="single-card"
+              sx={{ maxWidth: 345, marginBottom: 5 }}
+            >
               <CardHeader
                 avatar={
-                  <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                  <Avatar sx={{ bgcolor: "#FCE2D3" }} aria-label="recipe">
                     {elem.username.image}
                   </Avatar>
                 }
@@ -70,7 +75,7 @@ export default function JobCard(props) {
                   {elem.skills}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Finishing by: {elem.deadline}
+                  Finishing by:{elem.deadline}
                 </Typography>
               </CardContent>
               <CardActions disableSpacing>
@@ -83,7 +88,11 @@ export default function JobCard(props) {
                 >
                   <FavoriteIcon />
                 </IconButton>
-                <Button variant="contained" size="small">
+                <Button
+                  style={{ backgroundColor: "#2E2C2C" }}
+                  variant="contained"
+                  size="small"
+                >
                   Chat
                 </Button>
                 <ExpandMore

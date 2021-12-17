@@ -6,7 +6,7 @@ function YourJobs(props) {
   const { user, events, btnDeleteEvent } = props;
   return (
     <div>
-      <h1>Your events</h1>
+      <h2>UPCOMING EVENTS</h2>
       <EventSavedCard
         user={user}
         events={events}

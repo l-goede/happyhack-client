@@ -73,7 +73,7 @@ function SignIn(props) {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 2, backgroundColor: "#2e2c2c" }}
             >
               Sign In
             </Button>

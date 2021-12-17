@@ -11,10 +11,11 @@ export default function EventCard(props) {
 
   return (
     <div>
-      <Card sx={{ maxWidth: 345 }}>
+      <Card sx={{ maxWidth: 345, marginBottom: 5 }}>
         <CardMedia
+          style={{ height: 100 }}
           component="img"
-          height="140"
+          height="100"
           image={event.image}
           alt="green iguana"
         />
@@ -34,9 +35,13 @@ export default function EventCard(props) {
         </CardContent>
         <CardActions>
           {isClicked ? (
-            <Button size="small"> Saved! </Button>
+            <Button style={{ color: "#D69B7B", fontSize: 15 }} size="small">
+              {" "}
+              Saved!{" "}
+            </Button>
           ) : (
             <Button
+              style={{ color: "#D69B7B", fontSize: 15 }}
               onClick={() => {
                 btnSave(event._id);
               }}

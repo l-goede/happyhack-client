@@ -17,6 +17,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import "../jobCard.css";
 //----------------------------------------------------------------------------------------
 //                Marcos changes for drop down
 //----------------------------------------------------------------------------------------
@@ -148,10 +149,10 @@ export default function JobCard(props) {
         : filteredJobs.map((elem) => {
             return (
               <div>
-                <Card sx={{ maxWidth: 345 }}>
+                <Card sx={{ maxWidth: 345, marginBottom: 5 }}>
                   <CardHeader
                     avatar={
-                      <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                      <Avatar sx={{ bgcolor: "#FCE2D3" }} aria-label="recipe">
                         {elem.image}
                       </Avatar>
                     }
@@ -174,7 +175,16 @@ export default function JobCard(props) {
                                MUI Modal
  ------------------------------------------------------------------------------ */}
                     <div>
-                      <Button onClick={handleOpen}>Edit</Button>
+                      <Button
+                        style={{
+                          marginTop: 8,
+                          color: "#D69B7B",
+                          fontSize: 15,
+                        }}
+                        onClick={handleOpen}
+                      >
+                        Edit
+                      </Button>
                       <Modal
                         aria-labelledby="transition-modal-title"
                         aria-describedby="transition-modal-description"
@@ -276,7 +286,11 @@ export default function JobCard(props) {
                                       <Button
                                         variant="contained"
                                         size="small"
-                                        style={{ marginTop: 8 }}
+                                        style={{
+                                          marginTop: 8,
+                                          backgroundColor: "#2E2C2C",
+                                          fontSize: 20,
+                                        }}
                                         type="submit"
                                       >
                                         Edit
@@ -293,6 +307,7 @@ export default function JobCard(props) {
                     {/* ------------------------------------------------------------------------------ */}
 
                     <Button
+                      style={{ backgroundColor: "#2E2C2C" }}
                       onClick={() => {
                         btnDelete(elem._id);
                       }}

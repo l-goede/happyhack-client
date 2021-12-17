@@ -10,6 +10,9 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import Chip from "@mui/material/Chip";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 import "../createJob.css";
 
 const ITEM_HEIGHT = 48;
@@ -76,128 +79,147 @@ function CreateJob(props) {
   const { btnSubmit } = props;
   return (
     <>
-      <form className="form" onSubmit={btnSubmit}>
-        <div className="field is-horizontal">
-          <div className="field-label is-normal">
-            <label className="label">Job title</label>
-          </div>
-          <div className="field-body">
-            <div className="field">
-              <p className="control is-expanded has-icons-left">
-                <input
-                  name="jobTitle"
-                  className="input "
-                  type="text"
-                  placeholder="Job title"
-                />
-                <span className="icon is-small is-left">
-                  <i className="fas fa-envelope"></i>
-                </span>
-                <span className="icon is-small is-right">
-                  <i className="fas fa-user"></i>
-                </span>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="field is-horizontal">
-          <div className="field-label is-normal">
-            <label className="label">Job Description</label>
-          </div>
-          <div className="field-body">
-            <div className="field">
-              <div className="control">
-                <textarea
-                  name="jobDescription"
-                  className="textarea"
-                  placeholder="Explain what your advert is about"
-                ></textarea>
+      <Grid
+        container
+        spacing={0}
+        direction="column"
+        alignItems="center"
+        justify="center"
+        style={{ minHeight: "100vh" }}
+      >
+        <Grid item xs={3}>
+          <form className="form" onSubmit={btnSubmit}>
+            <div className="field is-horizontal">
+              <div className="field-label is-normal">
+                <label className="label">Job title</label>
+              </div>
+              <div className="field-body">
+                <div className="field">
+                  <p className="control is-expanded ">
+                    <input
+                      name="jobTitle"
+                      className="input "
+                      type="text"
+                      placeholder="Job title"
+                    />
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
 
-        <div>
-          <InputLabel className="skills" id="demo-multiple-name-label">
-            Skills needed
-          </InputLabel>
-          <Select
-            className="form-select"
-            labelId="demo-multiple-name-label"
-            id="demo-multiple-name"
-            multiple
-            value={personName}
-            name="skills"
-            onChange={handleChange}
-            input={<OutlinedInput label="Name" />}
-            MenuProps={MenuProps}
-          >
-            {skills.map((name) => (
-              <MenuItem
-                selected
-                className="MenuItem"
-                key={name}
-                value={name}
-                style={getStyles(name, personName, theme)}
+            <div className="field is-horizontal">
+              <div className="field-label is-normal">
+                <label className="label">Job Description</label>
+              </div>
+              <div className="field-body">
+                <div className="field">
+                  <div className="control">
+                    <textarea
+                      name="jobDescription"
+                      className="textarea"
+                      placeholder="Explain what your advert is about"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="container-select">
+              <FormControl
+                className="select-skills"
+                sx={{ m: 1.5, width: 300 }}
               >
-                {name}
-              </MenuItem>
-            ))}
-          </Select>
-        </div>
-
-        <div className="field is-horizontal">
-          <div className="field-label is-normal">
-            <label className="label">Finished by</label>
-          </div>
-          <div className="field-body">
-            <div className="field">
-              <p className="control is-expanded has-icons-left">
-                <input
-                  name="deadline"
-                  className="input"
-                  type="date"
-                  placeholder="When should your project being finished"
-                />
-                <span className="icon is-small is-left">
-                  <i className="fas fa-user"></i>
-                </span>
-              </p>
+                <div className="field-label is-normal">
+                  <label className="label">Skills needed</label>
+                </div>
+                <InputLabel id="demo-multiple-chip-label"> </InputLabel>
+                <Select
+                  labelId="demo-multiple-chip-label"
+                  id="demo-multiple-chip"
+                  multiple
+                  value={personName}
+                  name="skills"
+                  onChange={handleChange}
+                  input={
+                    <OutlinedInput id="select-multiple-chip" label="Chip" />
+                  }
+                  renderValue={(selected) => (
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        gap: 0.5,
+                        m: 1.5,
+                      }}
+                    >
+                      {selected.map((value) => (
+                        <Chip key={value} label={value} />
+                      ))}
+                    </Box>
+                  )}
+                  MenuProps={MenuProps}
+                >
+                  {skills.map((skills) => (
+                    <MenuItem
+                      key={skills}
+                      value={skills}
+                      style={getStyles(skills, personName, theme)}
+                    >
+                      {skills}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             </div>
 
-            <div className="field">
-              <p className="control is-expanded has-icons-right">
-                <input
-                  name="price"
-                  className="input "
-                  type="number"
-                  placeholder="How much do you offer? "
-                />
-                <span className="icon is-small is-left">
-                  <i className="fas fa-envelope"></i>
-                </span>
-                <span className="icon is-small is-right">
-                  <i className="fas fa-user"></i>
-                </span>
-              </p>
-            </div>
-          </div>
-        </div>
+            <div className="field is-horizontal">
+              <div className="field-label is-normal">
+                <label className="label">Finished by</label>
+              </div>
+              <div className="field-body">
+                <div className="field">
+                  <p className="control is-expanded has-icons-left">
+                    <input
+                      name="deadline"
+                      className="input"
+                      type="date"
+                      placeholder="When should your project being finished"
+                    />
+                  </p>
+                </div>
 
-        <div className="field is-horizontal">
-          <div className="field-label"></div>
-          <div className="field-body">
-            <div className="field">
-              <div className="control">
-                <button type="submit" className="button is-primary">
-                  Create
-                </button>
+                <div className="field">
+                  <p className="control is-expanded has-icons-right">
+                    <input
+                      name="price"
+                      className="input "
+                      type="number"
+                      placeholder="How much do you offer? "
+                    />
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </form>
+
+            <div className="field is-horizontal">
+              <div className="field-label"></div>
+              <div className="field-body">
+                <div className="field">
+                  <div className="control">
+                    <button
+                      style={{ backgroundColor: "#2E2C2C" }}
+                      type="submit"
+                      className="button is-primary"
+                    >
+                      Create
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </Grid>
+      </Grid>
     </>
   );
 }

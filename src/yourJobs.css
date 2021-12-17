@@ -1,0 +1,39 @@
+.container-totalJobPage {
+  height: 100%;
+  padding: 0;
+  margin-top: 0.5rem;
+}
+
+.container-jobs {
+  display: flex;
+  flex-direction: column;
+}
+
+.container-jobsCreated {
+  display: flex;
+  background-color: #dcdee7;
+  padding: 10rem;
+  align-items: center;
+}
+
+.container-jobsAccepted {
+  display: flex;
+  flex-direction: row-reverse;
+  background-color: #fce2d3;
+  padding: 10rem;
+  margin-top: 0.3rem;
+  align-items: center;
+}
+
+.first-h2 {
+  margin-right: 10rem;
+}
+
+.second-h2 {
+  margin-left: 10rem;
+}
+
+.created {
+  display: flex;
+  margin-bottom: 5rem;
+}
