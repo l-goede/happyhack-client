@@ -74,15 +74,17 @@ function ChatPage(props) {
   if (loading) {
     <p>Loading all messages . . .</p>;
   }
-  /* if(!user){
-        navigate("/signin")
-    }*/
+  if (!user) {
+    navigate("/signin");
+  }
 
   return (
     <div className="container">
       <div className="chatContainer">
         <div className="messages">
           {messageList.map((val) => {
+            console.log(val.sender);
+            console.log(user);
             return (
               <div id="name">
                 <div

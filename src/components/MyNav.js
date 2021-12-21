@@ -43,6 +43,9 @@ const MyNav = (props) => {
     <Link className="toggle-link" to={"/yourevents"}>
       Your Events
     </Link>,
+    <Link className="toggle-link" to={"/userlist"}>
+      User List
+    </Link>,
     <Link
       className="toggle-link"
       onClick={() => {
