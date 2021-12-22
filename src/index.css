@@ -213,7 +213,7 @@ button.primary-profile.ghost {
   color: #2e2c2c;
   min-width: auto;
   max-width: auto;
-  width: 850px;
+  width: 50%;
   height: 400px;
   min-height: auto;
   max-height: auto;
@@ -230,7 +230,7 @@ button.primary-profile.ghost {
   color: rgb(51, 51, 51);
   min-width: auto;
   max-width: auto;
-  width: 850px;
+  width: 50%;
   height: 400px;
   min-height: auto;
   max-height: auto;

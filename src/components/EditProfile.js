@@ -12,6 +12,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Chip from "@mui/material/Chip";
+import Grid from "@mui/material/Grid";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -76,145 +77,161 @@ function EditProfile(props) {
   };
 
   return (
-    <form
-      className="contanierFromJobs"
-      style={{ marginTop: "2rem" }}
-      onSubmit={(event) => {
-        btnEditProfile(event, user._id);
-      }}
+    <Grid
+      container
+      spacing={0}
+      direction="column"
+      alignItems="center"
+      justify="center"
+      style={{ minHeight: "100vh" }}
     >
-      <div>
-        <div className="file is-primary">
-          <label className="file-label">
-            {/* cloudy below */}
-            <input
-              className="file-input"
-              type="file"
-              name="myImage"
-              accept="image/png, image/jpg"
-            />
-            <span style={{ backgroundColor: "#D69B7B" }} className="file-cta">
-              <span
-                style={{ backgroundColor: "#D69B7B" }}
-                className="file-icon"
-              >
-                <i
+      <Grid item xs={3}>
+        <form
+          className="contanierFromJobs"
+          style={{ marginTop: "2rem" }}
+          onSubmit={(event) => {
+            btnEditProfile(event, user._id);
+          }}
+        >
+          <div>
+            <div className="file is-primary">
+              <label className="file-label">
+                {/* cloudy below */}
+                <input
+                  className="file-input"
+                  type="file"
+                  name="myImage"
+                  accept="image/png, image/jpg"
+                />
+                <span
                   style={{ backgroundColor: "#D69B7B" }}
-                  className="fas fa-upload"
-                ></i>
-              </span>
-              <span
-                className="file-label"
-                style={{ backgroundColor: "#D69B7B" }}
-              >
-                Upload profile image
-              </span>
-            </span>
-          </label>
-        </div>
-      </div>
-
-      <div className="field">
-        <label className="label">Name</label>
-        <div className="control">
-          <input
-            className="input"
-            defaultValue={user.name}
-            name="name"
-            type="text"
-            placeholder="Enter your name"
-          />
-        </div>
-
-        <div className="field">
-          <label className="label">Last Name</label>
-          <div className="control">
-            <input
-              className="input"
-              defaultValue={user.lastName}
-              name="lastName"
-              type="text"
-              placeholder="Write your last name"
-            />
-          </div>
-        </div>
-
-        <div className="field">
-          <label className="label">Location</label>
-          <div className="control">
-            <input
-              className="input"
-              defaultValue={user.location}
-              name="location"
-              type="text"
-              placeholder="Enter your location"
-            />
-          </div>
-        </div>
-        <div className="field">
-          <label className="label">About me</label>
-          <div className="control">
-            <input
-              className="input"
-              defaultValue={user.aboutMe}
-              name="aboutMe"
-              type="text"
-              placeholder="Tell us about yourself"
-            />
-          </div>
-        </div>
-        <div>
-          <FormControl sx={{ m: 1.5, width: 300 }}>
-            <InputLabel id="demo-multiple-chip-label"> Skills </InputLabel>
-            <Select
-              labelId="demo-multiple-chip-label"
-              id="demo-multiple-chip"
-              multiple
-              value={personName}
-              name="skills"
-              onChange={handleChange}
-              input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-              renderValue={(selected) => (
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    gap: 0.5,
-                    m: 1.5,
-                  }}
+                  className="file-cta"
                 >
-                  {selected.map((value) => (
-                    <Chip key={value} label={value} />
+                  <span
+                    style={{ backgroundColor: "#D69B7B" }}
+                    className="file-icon"
+                  >
+                    <i
+                      style={{ backgroundColor: "#D69B7B" }}
+                      className="fas fa-upload"
+                    ></i>
+                  </span>
+                  <span
+                    className="file-label"
+                    style={{ backgroundColor: "#D69B7B" }}
+                  >
+                    Upload profile image
+                  </span>
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <div className="field">
+            <label className="label">Name</label>
+            <div className="control">
+              <input
+                className="input"
+                defaultValue={user.name}
+                name="name"
+                type="text"
+                placeholder="Enter your name"
+              />
+            </div>
+
+            <div className="field">
+              <label className="label">Last Name</label>
+              <div className="control">
+                <input
+                  className="input"
+                  defaultValue={user.lastName}
+                  name="lastName"
+                  type="text"
+                  placeholder="Write your last name"
+                />
+              </div>
+            </div>
+
+            <div className="field">
+              <label className="label">Location</label>
+              <div className="control">
+                <input
+                  className="input"
+                  defaultValue={user.location}
+                  name="location"
+                  type="text"
+                  placeholder="Enter your location"
+                />
+              </div>
+            </div>
+            <div className="field">
+              <label className="label">About me</label>
+              <div className="control">
+                <input
+                  className="input"
+                  defaultValue={user.aboutMe}
+                  name="aboutMe"
+                  type="text"
+                  placeholder="Tell us about yourself"
+                />
+              </div>
+            </div>
+            <div>
+              <FormControl sx={{ m: 1.5, width: 300 }}>
+                <InputLabel id="demo-multiple-chip-label"> Skills </InputLabel>
+                <Select
+                  labelId="demo-multiple-chip-label"
+                  id="demo-multiple-chip"
+                  multiple
+                  value={personName}
+                  name="skills"
+                  onChange={handleChange}
+                  input={
+                    <OutlinedInput id="select-multiple-chip" label="Chip" />
+                  }
+                  renderValue={(selected) => (
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        gap: 0.5,
+                        m: 1.5,
+                      }}
+                    >
+                      {selected.map((value) => (
+                        <Chip key={value} label={value} />
+                      ))}
+                    </Box>
+                  )}
+                  MenuProps={MenuProps}
+                >
+                  {skills.map((skills) => (
+                    <MenuItem
+                      key={skills}
+                      value={skills}
+                      style={getStyles(skills, personName, theme)}
+                    >
+                      {skills}
+                    </MenuItem>
                   ))}
-                </Box>
-              )}
-              MenuProps={MenuProps}
-            >
-              {skills.map((skills) => (
-                <MenuItem
-                  key={skills}
-                  value={skills}
-                  style={getStyles(skills, personName, theme)}
+                </Select>
+              </FormControl>
+            </div>
+            <div className="field is-grouped">
+              <div className="control">
+                <button
+                  style={{ backgroundColor: "#2E2C2C" }}
+                  type="submit"
+                  className="button is-link"
                 >
-                  {skills}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </div>
-        <div className="field is-grouped">
-          <div className="control">
-            <button
-              style={{ backgroundColor: "#2E2C2C" }}
-              type="submit"
-              className="button is-link"
-            >
-              Save
-            </button>
+                  Save
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </form>
+        </form>
+      </Grid>
+    </Grid>
   );
 }
 

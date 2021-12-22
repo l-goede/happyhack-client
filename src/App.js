@@ -25,7 +25,7 @@ import MyCalendar from "./components/MyCalendar";
 import NotFound from "./components/NotFound";
 import ChatPage from "./components/ChatPage";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import Userlist from "./components/UserList";
 function App() {
   const { user, setUser } = useContext(UserContext);
   const [users, setUsers] = useState([]);
@@ -270,7 +270,6 @@ function App() {
       <MyNav user={user} onLogout={handleLogout} />
       <Routes>
         <Route path="/" element={<Home user={user} />} />
-
         <Route path="/signup" element={<SignUp />} />
         <Route
           path="/signin"
@@ -304,7 +303,6 @@ function App() {
             />
           }
         />
-
         <Route
           path="/editJob/:id"
           element={<EditJob btnEditJob={handleEdit} btnDelete={handleDelete} />}
@@ -325,12 +323,14 @@ function App() {
             />
           }
         />
-
         {/* <Route path="/yourprofile" element={<ProfileForm user={user} />} /> */}
-
         <Route path="/chat/:chatId" element={<ChatPage user={user} />} />
         <Route path="/calendar" element={<MyCalendar />} />
         <Route path="*" element={<NotFound />} />
+        <Route
+          path="/userlist"
+          element={<Userlist user={user} users={users} />}
+        />
       </Routes>
       {/* <Footer /> */}
     </div>
